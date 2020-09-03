@@ -28,6 +28,7 @@ const FilterBar = ({ categories }) => {
         {categories.map((category, idx) => {
           return (
             <button
+              key={idx}
               onClick={() => setJobFilter(idx)}
               type="button"
               className={`${

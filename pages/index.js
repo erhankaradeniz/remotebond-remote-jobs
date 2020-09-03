@@ -4,22 +4,10 @@ import Header from "../components/Header"
 import FilterBar from "../components/FilterBar"
 
 // import url from "../helpers/url"
-
+import getAllCategories from "../lib/categories"
 export async function getStaticProps(ctx) {
-  const url = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : `http://localhost:3000`
-
-  const categories = await fetch(`${url}/api`, {
-    method: "GET",
-    headers: {
-      // update with your user-agent
-      "User-Agent":
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
-      Accept: "application/json; charset=UTF-8",
-    },
-  })
-  const data = await categories.json()
+  const categories = await getAllCategories()
+  const data = JSON.parse(categories)
   return {
     props: {
       categories: data,
@@ -28,6 +16,8 @@ export async function getStaticProps(ctx) {
 }
 
 const indexPage = ({ categories }) => {
+  const filterCategories = categories.data
+
   return (
     <div>
       <Header />
@@ -111,7 +101,7 @@ const indexPage = ({ categories }) => {
         </div>
       </div>
       {/* Filters  */}
-      <FilterBar categories={categories} />
+      <FilterBar categories={filterCategories} />
 
       {/* Posting group */}
       <div className="max-w-screen-xl mx-auto my-12">
