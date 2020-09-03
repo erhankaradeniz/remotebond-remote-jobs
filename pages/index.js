@@ -3,9 +3,13 @@ import React from "react"
 import Header from "../components/Header"
 import FilterBar from "../components/FilterBar"
 
-import url from "../helpers/url"
+// import url from "../helpers/url"
 
 export async function getStaticProps(ctx) {
+  const url = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : `http://localhost:3000`
+
   const categories = await fetch(`${url}/api`)
   const data = await categories.json()
   return {
