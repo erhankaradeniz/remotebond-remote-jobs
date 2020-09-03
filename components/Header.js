@@ -100,12 +100,12 @@ const Header = () => {
           <ul className="flex justify-center items-center h-full space-x-3">
             <li>
               <Link href={`/`}>
-                <a title="">Dev Jobs</a>
+                <a title="Remote companies on remotebond">Companies</a>
               </Link>
             </li>
             <li>
               <Link href={`/`}>
-                <a title="">Dev Jobs</a>
+                <a title="About remotebond">About</a>
               </Link>
             </li>
           </ul>
