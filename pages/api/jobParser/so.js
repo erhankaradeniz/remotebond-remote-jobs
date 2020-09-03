@@ -13,6 +13,11 @@ export default async (req, res) => {
   } else {
     // Handle any other HTTP method
     let feed = await parser.parseURL(feedSource)
-    console.log(feed)
+    for (let i = 0; i < 25; i++) {
+      console.log(feed.items[i].title + ":" + feed.items[i].link)
+    }
+    res.statusCode = 200
+    res.setHeader("Content-Type", "application/json")
+    res.end(JSON.stringify({ status: "OK" }))
   }
 }
