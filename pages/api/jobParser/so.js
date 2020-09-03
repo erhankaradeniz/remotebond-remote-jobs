@@ -23,6 +23,6 @@ export default async (req, res) => {
   } else {
     // Handle any other HTTP method
     res.setHeader("Allow", ["GET"])
-    res.status(405).end(`Not Allowed`)
+    res.status(405).end(JSON.stringify({ status: "Bye" }))
   }
 }
