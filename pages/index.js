@@ -1,8 +1,19 @@
 import React from "react"
 
 import Header from "../components/Header"
+import FilterBar from "../components/FilterBar"
 
-const indexPage = () => {
+export async function getStaticProps(ctx) {
+  const categories = await fetch("http://localhost:3000/api")
+  const data = await categories.json()
+  return {
+    props: {
+      categories: data,
+    },
+  }
+}
+
+const indexPage = ({ categories }) => {
   return (
     <div>
       <Header />
@@ -86,46 +97,7 @@ const indexPage = () => {
         </div>
       </div>
       {/* Filters  */}
-      <div className="max-w-screen-xl mx-auto flex justify-center">
-        <span className="relative z-0 inline-flex shadow-sm rounded-md">
-          <button
-            type="button"
-            className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            All
-          </button>
-          <button
-            type="button"
-            className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            Software development
-          </button>
-          <button
-            type="button"
-            className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            Customer support
-          </button>
-          <button
-            type="button"
-            className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            Marketing
-          </button>
-          <button
-            type="button"
-            className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            Design
-          </button>
-          <button
-            type="button"
-            className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            Non tech
-          </button>
-        </span>
-      </div>
+      <FilterBar categories={categories} />
 
       {/* Posting group */}
       <div className="max-w-screen-xl mx-auto my-12">
