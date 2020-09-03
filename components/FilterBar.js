@@ -4,7 +4,11 @@ const FilterBar = ({ categories }) => {
   const [activeIdx, setActiveIdx] = useState(-1)
 
   const setJobFilter = (idx) => {
-    setActiveIdx(idx)
+    if (idx === activeIdx) {
+      setActiveIdx(-1)
+    } else {
+      setActiveIdx(idx)
+    }
   }
 
   return (
@@ -28,8 +32,12 @@ const FilterBar = ({ categories }) => {
               type="button"
               className={`${
                 idx + 1 !== categories.length
-                  ? "-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 focus:text-white hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 active:bg-blue-500 focus:bg-blue-500 active:text-gray-700 transition ease-in-out duration-150"
-                  : "-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 focus:text-white hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 active:bg-blue-500 focus:bg-blue-500 active:text-gray-700 transition ease-in-out duration-150"
+                  ? "-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium  focus:z-10 focus:outline-none focus:border-blue-300 active:bg-blue-600 active:text-white transition ease-in-out duration-150"
+                  : "-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-blue-300 active:bg-blue-600 active:text-white transition ease-in-out duration-150"
+              } ${
+                activeIdx === idx
+                  ? "bg-blue-500 text-white hover:text-white active:text-white"
+                  : "bg-white text-gray-700 hover:text-gray-500 active:text-white"
               }`}
             >
               {category.data.title}
