@@ -9,12 +9,23 @@ const feedSource = "https://stackoverflow.com/jobs/feed?r=true"
 
 export default async (req, res) => {
   if (
-    req.method === "GET" &&
-    req.headers.authorization === "Basic YXV0aDo5VjhMcSpWcjBONVM="
+    req.method === "GET"
+    // && req.headers.authorization === "Basic YXV0aDo5VjhMcSpWcjBONVM="
   ) {
     let feed = await parser.parseURL(feedSource)
     for (let i = 0; i < 5; i++) {
-      console.log(feed.items[i].title + ":" + feed.items[i].link)
+      let itemTitle = feed.items[i].title
+
+      const regex = /\s[-]\s.*/gm
+      const regex2 = /\s(at)\s.*/gm
+      const regex3 = /\s?[,]\s.*/gm
+      let strippedTitle = itemTitle
+        .replace(regex, "")
+        .replace(regex2, "")
+        .replace(regex3, "")
+
+      console.log("Not Stripped Title: " + feed.items[i].title)
+      console.log("StrippedTitle " + strippedTitle)
     }
     // Everything is Okay
     res.statusCode = 200
