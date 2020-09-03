@@ -9,9 +9,9 @@ const feedSource = "https://stackoverflow.com/jobs/feed?r=true"
 
 export default async (req, res) => {
   if (req.method === "GET") {
-    console.log(req)
+    console.log(req.headers)
     let feed = await parser.parseURL(feedSource)
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 5; i++) {
       console.log(feed.items[i].title + ":" + feed.items[i].link)
     }
     // Everything is Okay
