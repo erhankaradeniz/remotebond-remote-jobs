@@ -1,4 +1,11 @@
 import Parser from "rss-parser"
+import faunadb from "faunadb"
+
+import Slugify from "../../../helpers/slugify"
+
+const secret = process.env.FAUNADB_SECRET
+const q = faunadb.query
+const client = new faunadb.Client({ secret })
 
 let parser = new Parser({
   customFields: {
@@ -12,21 +19,59 @@ export default async (req, res) => {
     req.method === "GET"
     // && req.headers.authorization === "Basic YXV0aDo5VjhMcSpWcjBONVM="
   ) {
-    let feed = await parser.parseURL(feedSource)
-    for (let i = 0; i < 5; i++) {
-      let itemTitle = feed.items[i].title
+    // Some regex to strip the weird titles on SO
+    const regex = /\s[-]\s.*/gm // everything after -
+    const regex2 = /\s(at)\s.*/gm // everything after "at"
+    const regex3 = /\s?[,]\s.*/gm // everything after a ,
+    const regex4 = /\s[^\w\s].*/gm // everything after a non alphanumeric character, hard check
 
-      const regex = /\s[-]\s.*/gm
-      const regex2 = /\s(at)\s.*/gm
-      const regex3 = /\s?[,]\s.*/gm
-      let strippedTitle = itemTitle
+    let feed = await parser.parseURL(feedSource)
+
+    for (let i = 0; i < feed.items.length; i++) {
+      const title = feed.items[i].title
         .replace(regex, "")
         .replace(regex2, "")
         .replace(regex3, "")
+        .replace(regex4, "")
+      const guid = feed.items[i].guid
+      const description = feed.items[i].content
+      const tags = feed.items[i].categories
+      const companyName = Object.values(feed.items[i].author)[0][0]
+      const pubDate = feed.items[i].isoDate
+      const location = feed.items[i].location
+      const applyUrl = feed.items[i].link
+      const slug = Slugify(`${title} at ${companyName}`)
+      const primaryCategory = "Software Development"
 
-      console.log("Not Stripped Title: " + feed.items[i].title)
-      console.log("StrippedTitle " + strippedTitle)
+      const isDuplicate = await client.query(
+        q.Paginate(q.Match(q.Index("all_guids"), guid))
+      )
+
+      // Write to db
+      if (!isDuplicate.data.length) {
+        await client.query(
+          q.Create(q.Collection("jobs"), {
+            data: {
+              title: title,
+              guid: guid,
+              description: description,
+              tags: tags,
+              company_name: companyName,
+              pub_date: pubDate,
+              location: location,
+              apply_url: applyUrl,
+              slug: slug,
+              primary_category: primaryCategory,
+            },
+          })
+        )
+        console.log(`!!ADDED!!: ${title} at ${companyName}`)
+      } else {
+        console.log(`!!SKIPPING!!: ${title} at ${companyName} is already in DB`)
+      }
     }
+
+    console.log("All done.")
     // Everything is Okay
     res.statusCode = 200
     res.setHeader("Content-Type", "application/json")

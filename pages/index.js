@@ -93,11 +93,13 @@ const indexPage = (props) => {
             Remote jobs
           </h4>
           <h2 className="font-black text-6xl leading-45 my-4">
-            Help shape the future by working remotely
+            Start working remotely and join the future of work
           </h2>
           <p className="text-xl text-gray-700 w-3/4 mx-auto">
-            RemoteBond helps streamline software projects, sprints, tasks, and
-            bug tracking. It's built for high-performance teams.
+            Do you want to access talent{" "}
+            <u className="text-blue-500">everywhere</u>, or just in specific
+            markets? If the answer is everywhere, look no further and let
+            Remotebond help you.
           </p>
         </div>
       </div>
