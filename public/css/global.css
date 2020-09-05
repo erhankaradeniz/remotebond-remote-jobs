@@ -1,5 +1,8 @@
 /* purgecss start ignore */
 @tailwind base;
+.jobDescription__container br {
+  display: none;
+}
 /* purgecss end ignore */
 
 @tailwind components;

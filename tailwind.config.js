@@ -58,5 +58,5 @@ module.exports = {
     gridTemplateColumns: ["responsive", "hover", "focus"],
     gap: ["responsive", "hover", "focus"],
   },
-  plugins: [require("@tailwindcss/ui")],
+  plugins: [require("@tailwindcss/ui"), require("@tailwindcss/typography")],
 }

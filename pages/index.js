@@ -6,19 +6,24 @@ import FilterBar from "../components/FilterBar"
 
 // import url from "../helpers/url"
 import getAllCategories from "../lib/categories"
+import getLatestSoftwareDevJobs from "../lib/softwareDevJobs"
+
 export async function getStaticProps(ctx) {
   const categories = await getAllCategories()
-  const data = JSON.parse(categories)
+  const softwareDevJobs = await getLatestSoftwareDevJobs()
+  const categoriesData = JSON.parse(categories)
+  const softwareDevJobsData = JSON.parse(softwareDevJobs)
   return {
     props: {
-      categories: data,
+      categories: categoriesData,
+      softwareDevJobs: softwareDevJobsData,
     },
   }
 }
 
 const indexPage = (props) => {
   const categories = props.categories.data
-
+  const softwareDevJobs = props.softwareDevJobs.data
   return (
     <div>
       <Header />
@@ -107,8 +112,12 @@ const indexPage = (props) => {
       <FilterBar categories={categories} />
 
       {/* Posting group */}
-      <JobsList title="Software Development" slug="remote-dev-jobs" />
-      <JobsList title="Customer Support" slug="remote-customer-support-jobs" />
+      <JobsList
+        title="Software Development"
+        slug="remote-dev-jobs"
+        jobs={softwareDevJobs}
+      />
+      {/* <JobsList title="Customer Support" slug="remote-customer-support-jobs" /> */}
     </div>
   )
 }
