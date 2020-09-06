@@ -91,7 +91,7 @@ const Header = () => {
                 </g>
               </svg>
             </span>
-            <span className="flex items-center text-gray-900 font-semibold tracking-tighter">
+            <span className="flex items-center text-xl text-gray-900 font-semibold tracking-tighter">
               RemoteBond
             </span>
           </a>

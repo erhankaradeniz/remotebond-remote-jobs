@@ -121,7 +121,60 @@ const Footer = () => {
       </div>
       <div className="bg-gray-700 text-white">
         <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
-          Test
+          <ul className="flex justify-between w-full text-white">
+            <li>
+              <Link href={`/`} as={`/`}>
+                <a className="text-white hover:underline">Remote Companies</a>
+              </Link>
+            </li>
+            <li>
+              <Link href={`/`} as={`/`}>
+                <a className="text-white hover:underline">Remote Community</a>
+              </Link>
+            </li>
+            <li>
+              <Link href={`/`} as={`/`}>
+                <a className="text-white hover:underline">About</a>
+              </Link>
+            </li>
+            <li>
+              <Link href={`/`} as={`/`}>
+                <a className="text-white hover:underline">FAQ</a>
+              </Link>
+            </li>
+            <li>
+              <Link href={`/`} as={`/`}>
+                <a className="text-white hover:underline">Blog</a>
+              </Link>
+            </li>
+            <li>
+              <Link href={`/`} as={`/`}>
+                <a className="text-white hover:underline">Stay notified</a>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="bg-white text-gray-700">
+        <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
+          <ul className="flex w-full text-gray-700 space-x-8 text-sm">
+            <li>Copyright © 2020</li>
+            <li>
+              <Link href={`/`} as={`/`}>
+                <a className="text-gray-700 hover:underline">Terms</a>
+              </Link>
+            </li>
+            <li>
+              <Link href={`/`} as={`/`}>
+                <a className="text-gray-700 hover:underline">Privacy</a>
+              </Link>
+            </li>
+            <li>
+              <Link href={`/`} as={`/`}>
+                <a className="text-gray-700 hover:underline">Guidelines</a>
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </>
