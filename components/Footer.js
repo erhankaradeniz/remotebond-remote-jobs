@@ -157,17 +157,22 @@ const Footer = () => {
       </div>
       <div className="bg-white text-gray-700">
         <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
-          <ul className="flex w-full text-gray-700 space-x-8 text-sm">
-            <li>Copyright © 2020</li>
+          <ul className="flex w-full text-gray-700 text-sm">
+            <li>
+              Copyright © 2020{" "}
+              <span className="inline-block mx-3 text-gray-400">-</span>
+            </li>
             <li>
               <Link href={`/`} as={`/`}>
                 <a className="text-gray-700 hover:underline">Terms</a>
               </Link>
+              <span className="inline-block mx-3 text-gray-400">-</span>
             </li>
             <li>
               <Link href={`/`} as={`/`}>
                 <a className="text-gray-700 hover:underline">Privacy</a>
               </Link>
+              <span className="inline-block mx-3 text-gray-400">-</span>
             </li>
             <li>
               <Link href={`/`} as={`/`}>
