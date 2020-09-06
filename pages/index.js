@@ -21,7 +21,7 @@ export async function getStaticProps(ctx) {
   }
 }
 
-const indexPage = (props) => {
+const IndexPage = (props) => {
   const categories = props.categories.data
   const softwareDevJobs = props.softwareDevJobs.data
   return (
@@ -29,7 +29,7 @@ const indexPage = (props) => {
       <Header />
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="max-w-screen-xl mx-auto text-center py-28">
+        <div className="max-w-screen-xl mx-auto text-center py-28 px-4 sm:px-6">
           <svg
             className="absolute top-full right-full transform translate-x-1/3 -translate-y-1/4 lg:translate-x-1/2 xl:-translate-y-1/2"
             width="404"
@@ -94,18 +94,18 @@ const indexPage = (props) => {
               fill="url(#svg-pattern-squares-1)"
             ></rect>
           </svg>
-          <h4 className="uppercase tracking-wider font-semibold text-blue-500">
+          <h3 className="uppercase tracking-wider font-semibold text-blue-500">
             Remote jobs
-          </h4>
-          <h2 className="font-black text-6xl leading-45 my-4">
+          </h3>
+          <h1 className="font-black text-6xl leading-45 my-4">
             Start working remotely and join the future of work
-          </h2>
-          <p className="text-xl text-gray-700 w-3/4 mx-auto">
+          </h1>
+          <h2 className="text-xl text-gray-700 w-3/4 mx-auto">
             Do you want to access talent{" "}
             <u className="text-blue-500">everywhere</u>, or just in specific
             markets? If the answer is everywhere, look no further and let
             Remotebond help you.
-          </p>
+          </h2>
         </div>
       </div>
       {/* Filters  */}
@@ -122,4 +122,4 @@ const indexPage = (props) => {
   )
 }
 
-export default indexPage
+export default IndexPage

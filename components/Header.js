@@ -4,7 +4,7 @@ import Link from "next/link"
 const Header = () => {
   return (
     <div className="bg-white">
-      <div className="max-w-screen-xl mx-auto flex py-4">
+      <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
         <Link href={`/`}>
           <a title="Return to RemoteBond homepage" className="flex">
             <span className="flex items-center text-blue-500 mr-2">

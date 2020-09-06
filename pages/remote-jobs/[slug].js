@@ -46,9 +46,9 @@ const JobsPage = ({ title, description, tags, companyName, applyUrl }) => {
     <div>
       <Header />
       <JobHeader title={title} />
-      <div className="max-w-screen-xl mx-auto py-4">
+      <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
         <div
-          className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl jobDescription__container"
+          className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl jobDescription__container py-6"
           dangerouslySetInnerHTML={{ __html: description }}
         ></div>
       </div>

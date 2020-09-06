@@ -12,8 +12,8 @@ const FilterBar = ({ categories }) => {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto flex justify-center">
-      <span className="relative z-0 inline-flex shadow-sm rounded-md">
+    <div className="max-w-screen-xl mx-auto flex justify-center px-4 sm:px-6 pt-6">
+      <span className="relative z-0 shadow-sm rounded-md hidden sm:inline-flex">
         <button
           onClick={() => setJobFilter(-1)}
           type="button"
@@ -46,6 +46,17 @@ const FilterBar = ({ categories }) => {
           )
         })}
       </span>
+      <div className="block sm:hidden w-full">
+        <select
+          id="category"
+          class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+        >
+          <option>All</option>
+          {categories.map((category, idx) => {
+            return <option key={idx}>{category.data.title}</option>
+          })}
+        </select>
+      </div>
     </div>
   )
 }
