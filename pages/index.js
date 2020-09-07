@@ -12,7 +12,7 @@ export async function getStaticProps(ctx) {
   const categories = await getAllCategories()
   const softwareDevJobs = await getLatestSoftwareDevJobs()
   const categoriesData = JSON.parse(categories)
-  const softwareDevJobsData = JSON.parse(softwareDevJobs)
+  let softwareDevJobsData = JSON.parse(softwareDevJobs)
   return {
     props: {
       categories: categoriesData,
@@ -29,8 +29,8 @@ const IndexPage = (props) => {
       <Header />
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="max-w-screen-xl mx-auto text-center py-28 px-4 sm:px-6">
-          <svg
+        <div className="max-w-screen-xl mx-auto text-center py-12 md:py-28 px-4 sm:px-6">
+          {/* <svg
             className="absolute top-full right-full transform translate-x-1/3 -translate-y-1/4 lg:translate-x-1/2 xl:-translate-y-1/2"
             width="404"
             height="404"
@@ -93,14 +93,14 @@ const IndexPage = (props) => {
               height="404"
               fill="url(#svg-pattern-squares-1)"
             ></rect>
-          </svg>
+          </svg> */}
           <h3 className="uppercase tracking-wider font-semibold text-blue-500">
             Remote jobs
           </h3>
-          <h1 className="font-black text-6xl leading-45 my-4">
+          <h1 className="font-black text-2xl md:text-6xl md:leading-45 my-4">
             Start working remotely and join the future of work
           </h1>
-          <h2 className="text-xl text-gray-700 w-3/4 mx-auto">
+          <h2 className="text-base md:text-xl text-gray-700 w-3/4 mx-auto">
             Do you want to access talent{" "}
             <u className="text-blue-500">everywhere</u>, or just in specific
             markets? If the answer is everywhere, look no further and let
