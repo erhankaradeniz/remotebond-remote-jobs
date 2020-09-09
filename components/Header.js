@@ -8,7 +8,7 @@ const Header = () => {
         <Link href={`/`}>
           <a
             title="Return to RemoteBond homepage"
-            className="flex w-32 sm:w-36"
+            className="flex h-10 w-32 sm:w-36"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
