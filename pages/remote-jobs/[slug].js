@@ -60,7 +60,7 @@ const JobsPage = ({
       />
       <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
         <div
-          className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl jobDescription__container py-6"
+          className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl jobDescription__container py-6 w-full md:w-3/4"
           dangerouslySetInnerHTML={{ __html: description }}
         ></div>
       </div>

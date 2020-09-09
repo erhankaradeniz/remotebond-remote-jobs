@@ -72,7 +72,7 @@ const JobHeader = ({ title, workingHours, company, applyUrl, location }) => {
             </div> */}
             </div>
           </div>
-          <div className="mt-5 flex lg:mt-0 lg:ml-4">
+          <div className="mt-5 flex lg:mt-0 lg:ml-4 pb-4">
             <span className="shadow-sm rounded-md">
               <a
                 href={`${applyUrl}&utm_source=remotebond.com&ref=remotebond.com`}

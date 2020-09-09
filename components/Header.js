@@ -6,7 +6,10 @@ const Header = () => {
     <div className="bg-white">
       <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
         <Link href={`/`}>
-          <a title="Return to RemoteBond homepage" className="flex w-36">
+          <a
+            title="Return to RemoteBond homepage"
+            className="flex w-32 sm:w-36"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-full"

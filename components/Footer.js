@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <>
       <div className="bg-black text-white py-10">
-        <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
-          <div className="w-4/3">
+        <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row py-4 px-4 sm:px-6">
+          <div className="w-full md:w-4/3">
             <Link href={`/`}>
               <a title="Return to RemoteBond homepage" className="flex">
                 <span className="flex items-center text-white mr-2 w-36">
@@ -31,11 +31,8 @@ const Footer = () => {
               We strongly encourage employers to embrace diversity, equity, and
               inclusion as fundamental values when hiring through Remotebond.
             </p>
-            <a href="" title="" className="text-blue-500 hover:underline">
-              Get in touch
-            </a>
           </div>
-          <div className="w-1/4 text-right">
+          <div className="w-full md:w-1/4 text-left mt-4 md:text-right">
             <span className="inline-flex rounded-md shadow-sm">
               <Link href={`/remote-jobs/new`} as={`/remote-jobs/new`}>
                 <a className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-4 font-bold rounded-md text-white bg-blue-600 hover:bg-blue-500 hover:text-white focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
@@ -48,7 +45,7 @@ const Footer = () => {
       </div>
       <div className="bg-rb-gray-8 text-white">
         <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
-          <ul className="flex justify-center space-x-6 w-full text-white divide-x divide-gray-400 divide-opacity-25">
+          <ul className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6 w-full text-white sm:divide-x divide-gray-400 divide-opacity-25">
             <li>
               <Link href={`/`} as={`/`}>
                 <a className="text-white hover:underline">Remote Companies</a>
@@ -56,29 +53,31 @@ const Footer = () => {
             </li>
             <li>
               <Link href={`/`} as={`/`}>
-                <a className="text-white hover:underline pl-6">
+                <a className="text-white hover:underline sm:pl-6">
                   Remote Community
                 </a>
               </Link>
             </li>
             <li>
               <Link href={`/`} as={`/`}>
-                <a className="text-white hover:underline pl-6">About</a>
+                <a className="text-white hover:underline sm:pl-6">About</a>
               </Link>
             </li>
             <li>
               <Link href={`/`} as={`/`}>
-                <a className="text-white hover:underline pl-6">FAQ</a>
+                <a className="text-white hover:underline sm:pl-6">FAQ</a>
               </Link>
             </li>
             <li>
               <Link href={`/`} as={`/`}>
-                <a className="text-white hover:underline pl-6">Blog</a>
+                <a className="text-white hover:underline sm:pl-6">Blog</a>
               </Link>
             </li>
             <li>
               <Link href={`/`} as={`/`}>
-                <a className="text-white hover:underline pl-6">Stay notified</a>
+                <a className="text-white hover:underline sm:pl-6">
+                  Stay notified
+                </a>
               </Link>
             </li>
           </ul>
@@ -86,21 +85,23 @@ const Footer = () => {
       </div>
       <div className="bg-white text-gray-700">
         <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
-          <ul className="flex w-full justify-center text-gray-700 text-sm space-x-6 divide-x divide-gray-400 divide-opacity-25">
+          <ul className="flex flex-col-reverse sm:flex-row w-full items-center justify-center text-gray-700 text-sm space-y-2 sm:space-x-6 sm:divide-x divide-gray-400 divide-opacity-25">
             <li>Copyright © 2020 </li>
             <li>
               <Link href={`/`} as={`/`}>
-                <a className="text-gray-700 hover:underline pl-6">Terms</a>
+                <a className="text-gray-700 hover:underline sm:pl-6">Terms</a>
               </Link>
             </li>
             <li>
               <Link href={`/`} as={`/`}>
-                <a className="text-gray-700 hover:underline pl-6">Privacy</a>
+                <a className="text-gray-700 hover:underline sm:pl-6">Privacy</a>
               </Link>
             </li>
             <li>
               <Link href={`/`} as={`/`}>
-                <a className="text-gray-700 hover:underline pl-6">Guidelines</a>
+                <a className="text-gray-700 hover:underline sm:pl-6">
+                  Guidelines
+                </a>
               </Link>
             </li>
           </ul>
