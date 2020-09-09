@@ -10,7 +10,7 @@ const JobsList = ({ title, slug, jobs }) => {
       <div className="bg-white shadow overflow-hidden sm:rounded-md mb-4">
         <ul>
           {jobs.map((job, idx) => {
-            const { title, location, company_name, slug } = job.data
+            const { title, location, company_name, slug, tags } = job.data
             return (
               <li key={idx}>
                 <Link as={`/remote-jobs/${slug}`} href={`/remote-jobs/${slug}`}>
@@ -32,51 +32,47 @@ const JobsList = ({ title, slug, jobs }) => {
                       </div>
                       <div className="mt-2 sm:flex sm:justify-between">
                         <div className="sm:flex">
-                          <div className="mr-6 flex items-center text-sm leading-5 text-gray-500">
+                          <div className="mr-6 flex items-center text-sm leading-5 text-rb-gray-5">
                             <svg
-                              className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                              className="flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4"
                               viewBox="0 0 20 20"
                               fill="currentColor"
                             >
                               <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                               />
                             </svg>
                             {company_name}
                           </div>
-                          <div className="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mt-0">
+                          <div className="mt-2 flex items-center text-sm leading-5 text-rb-gray-5 sm:mt-0">
                             <svg
-                              className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                              className="flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4"
                               viewBox="0 0 20 20"
                               fill="currentColor"
                             >
                               <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                               />
                             </svg>
                             {location ? location : "Remote"}
                           </div>
                         </div>
-                        <div className="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mt-0">
-                          <svg
-                            className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                              clip-rule="evenodd"
-                            />
-                          </svg>
-                          <span>
-                            Closing on
-                            <time datetime="2020-01-07">January 7, 2020</time>
-                          </span>
+                        <div className="mt-2 flex items-center text-sm leading-5 text-rb-gray-5 sm:mt-0">
+                          {tags.length && (
+                            <ul className="flex space-x-3">
+                              {tags.map((tag, idx) => {
+                                return (
+                                  <li className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-gray-100 text-rb-gray-5 hover:bg-rb-gray-8 hover:text-white">
+                                    {tag}
+                                  </li>
+                                )
+                              })}
+                            </ul>
+                          )}
                         </div>
                       </div>
                     </div>

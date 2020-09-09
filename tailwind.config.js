@@ -19,6 +19,13 @@ module.exports = {
         "nextjs-alert": "#FF0080",
         "nextjs-accent-1": "#FAFAFA",
         "nextjs-accent-2": "#EAEAEA",
+        "rb-gray-1": "#F2F2f2",
+        "rb-gray-2": "#E6E6E6",
+        "rb-gray-3": "#DADADA",
+        "rb-gray-4": "#999999",
+        "rb-gray-5": "#666666",
+        "rb-gray-8": "#333333",
+        "rb-gray-9": "#141414",
       },
       fontFamily: {
         sans: ['"Inter"', ...fontFamily.sans],

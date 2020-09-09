@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 import Header from "../components/Header"
 import JobsList from "../components/JobsList"
@@ -28,84 +29,27 @@ const IndexPage = (props) => {
     <div>
       <Header />
       {/* Hero Section */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-12 md:py-28 px-4 sm:px-6">
-          {/* <svg
-            className="absolute top-full right-full transform translate-x-1/3 -translate-y-1/4 lg:translate-x-1/2 xl:-translate-y-1/2"
-            width="404"
-            height="404"
-            fill="none"
-            viewBox="0 0 404 404"
-          >
-            <defs>
-              <pattern
-                id="svg-pattern-squares-1"
-                x="0"
-                y="0"
-                width="20"
-                height="20"
-                patternUnits="userSpaceOnUse"
-              >
-                <rect
-                  x="0"
-                  y="0"
-                  width="4"
-                  height="4"
-                  className="text-gray-200"
-                  fill="currentColor"
-                ></rect>
-              </pattern>
-            </defs>
-            <rect
-              width="404"
-              height="404"
-              fill="url(#svg-pattern-squares-1)"
-            ></rect>
-          </svg>
-          <svg
-            className="absolute top-0 right-0 transform translate-x-1/3 -translate-y-1/4 lg:translate-x-1/2 xl:-translate-y-1/2"
-            width="404"
-            height="404"
-            fill="none"
-            viewBox="0 0 404 404"
-          >
-            <defs>
-              <pattern
-                id="svg-pattern-squares-1"
-                x="0"
-                y="0"
-                width="20"
-                height="20"
-                patternUnits="userSpaceOnUse"
-              >
-                <rect
-                  x="0"
-                  y="0"
-                  width="4"
-                  height="4"
-                  className="text-gray-200"
-                  fill="currentColor"
-                ></rect>
-              </pattern>
-            </defs>
-            <rect
-              width="404"
-              height="404"
-              fill="url(#svg-pattern-squares-1)"
-            ></rect>
-          </svg> */}
           <h3 className="uppercase tracking-wider font-semibold text-blue-500">
             Remote jobs
           </h3>
-          <h1 className="font-black text-2xl md:text-6xl md:leading-45 my-4">
+          <h1 className="text-white font-black text-2xl md:text-6xl md:leading-45 my-4">
             Start working remotely and join the future of work
           </h1>
-          <h2 className="text-base md:text-xl text-gray-700 w-3/4 mx-auto">
+          <h2 className="text-base md:text-xl text-rb-gray-4 w-3/4 mx-auto">
             Do you want to access talent{" "}
             <u className="text-blue-500">everywhere</u>, or just in specific
             markets? If the answer is everywhere, look no further and let
             Remotebond help you.
           </h2>
+          <span class="inline-flex rounded-md shadow-sm mt-8">
+            <Link href={`/remote-jobs/new`} as={`/remote-jobs/new`}>
+              <a class="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 hover:text-white focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
+                Post a job for $25
+              </a>
+            </Link>
+          </span>
         </div>
       </div>
       {/* Filters  */}

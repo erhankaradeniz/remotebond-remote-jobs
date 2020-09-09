@@ -1,6 +1,6 @@
 import React from "react"
 
-const JobHeader = ({ title }) => {
+const JobHeader = ({ title, workingHours, company, applyUrl, location }) => {
   return (
     <div className="bg-black">
       <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
@@ -12,22 +12,38 @@ const JobHeader = ({ title }) => {
             <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
               <div className="mt-2 flex items-center text-sm leading-5 text-gray-400 sm:mr-6">
                 <svg
-                  className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-200"
+                  className="flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
                   <path
-                    fill-rule="evenodd"
-                    d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
+                    clipRule="evenodd"
                   />
-                  <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
                 </svg>
-                Full-time
+                {company}
               </div>
+              {workingHours && (
+                <div className="mt-2 flex items-center text-sm leading-5 text-gray-400 sm:mr-6">
+                  <svg
+                    className="flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                      clip-rule="evenodd"
+                    />
+                    <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                  </svg>
+                  Full-time
+                </div>
+              )}
               <div className="mt-2 flex items-center text-sm leading-5 text-gray-400 sm:mr-6">
                 <svg
-                  className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-200"
+                  className="flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -37,7 +53,7 @@ const JobHeader = ({ title }) => {
                     clip-rule="evenodd"
                   />
                 </svg>
-                Remote
+                {location ? location : "Remote"}
               </div>
               {/* <div className="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mr-6">
               <svg
@@ -54,27 +70,15 @@ const JobHeader = ({ title }) => {
               </svg>
               $120k &ndash; $140k
             </div> */}
-              <div className="mt-2 flex items-center text-sm leading-5 text-gray-400">
-                <svg
-                  className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-200"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                Closing on January 9, 2020
-              </div>
             </div>
           </div>
           <div className="mt-5 flex lg:mt-0 lg:ml-4">
             <span className="shadow-sm rounded-md">
-              <button
-                type="button"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-700 active:bg-blue-700 transition duration-150 ease-in-out"
+              <a
+                href={`${applyUrl}&utm_source=remotebond.com&ref=remotebond.com`}
+                rel="nofollow, noindex, noreferrer"
+                target="_blank"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-blue-700 active:bg-blue-700 transition duration-150 ease-in-out"
               >
                 <svg
                   className="-ml-1 mr-2 h-5 w-5"
@@ -88,7 +92,7 @@ const JobHeader = ({ title }) => {
                   />
                 </svg>
                 Apply now
-              </button>
+              </a>
             </span>
           </div>
         </div>

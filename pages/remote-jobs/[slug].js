@@ -29,6 +29,7 @@ export async function getStaticProps(ctx) {
     tags,
     company_name,
     apply_url,
+    location,
   } = jobData.data[0].data
   return {
     props: {
@@ -37,15 +38,28 @@ export async function getStaticProps(ctx) {
       tags: tags,
       companyName: company_name,
       applyUrl: apply_url,
+      location: location ? location : null,
     },
   }
 }
 
-const JobsPage = ({ title, description, tags, companyName, applyUrl }) => {
+const JobsPage = ({
+  title,
+  description,
+  tags,
+  companyName,
+  applyUrl,
+  location,
+}) => {
   return (
     <div>
       <Header />
-      <JobHeader title={title} />
+      <JobHeader
+        title={title}
+        company={companyName}
+        applyUrl={applyUrl}
+        location={location}
+      />
       <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
         <div
           className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl jobDescription__container py-6"

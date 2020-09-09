@@ -8,6 +8,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Colors
+AlmostBlack: #2A2A32
+DarkGray: #3C362A
+MediumGray: #5E5E66
+Green: #1FCC6D
+Orange: #FB6B2A
+Red: #F25A50
+Magenta: #E94C89
+Blue: #3C99F7
+Yellow: #FDDC2D
+LightGray: #C9CACE */
 
 @font-face {
   font-family: 'Inter';

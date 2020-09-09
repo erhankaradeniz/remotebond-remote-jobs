@@ -12,7 +12,7 @@ const FilterBar = ({ categories }) => {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto flex justify-center px-4 sm:px-6 pt-6">
+    <div className="max-w-screen-xl mx-auto flex justify-center px-4 sm:px-6">
       <span className="relative z-0 shadow-sm rounded-md hidden sm:inline-flex">
         <button
           onClick={() => setJobFilter(-1)}

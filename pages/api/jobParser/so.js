@@ -49,6 +49,8 @@ export default async (req, res) => {
         const applyUrl = feed.items[i].link
         const slug = Slugify(`${randomDigit} ${title} at ${companyName}`)
         const primaryCategory = "Software Development"
+        const workingHours = ""
+        const isExternalSource = true
 
         const isDuplicate = await client.query(
           q.Paginate(q.Match(q.Index("all_jobs_by_guid"), guid))
@@ -69,6 +71,8 @@ export default async (req, res) => {
                 apply_url: applyUrl,
                 slug: slug,
                 primary_category: primaryCategory,
+                workingHours: workingHours,
+                isExternalSource: isExternalSource,
               },
             })
           )
