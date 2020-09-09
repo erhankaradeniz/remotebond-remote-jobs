@@ -28,7 +28,7 @@ const Header = () => {
             <li>
               <span className="inline-flex rounded-md shadow-sm">
                 <Link href={`/remote-jobs/new`} as={`/remote-jobs/new`}>
-                  <a className="inline-flex items-center px-4 py-3 border border-transparent text-base leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 hover:text-white transition ease-in-out duration-150">
+                  <a className="inline-flex items-center px-4 py-3 border border-transparent text-base leading-4 font-bold rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 hover:text-white transition ease-in-out duration-150">
                     Post a job
                   </a>
                 </Link>

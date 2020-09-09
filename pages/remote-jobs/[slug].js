@@ -1,6 +1,5 @@
 import React from "react"
 
-import Header from "../../components/Header"
 import JobHeader from "../../components/JobHeader"
 
 import getAllJobs, { getJobBySlug } from "../../lib/jobs"
@@ -52,8 +51,7 @@ const JobsPage = ({
   location,
 }) => {
   return (
-    <div>
-      <Header />
+    <>
       <JobHeader
         title={title}
         company={companyName}
@@ -66,7 +64,7 @@ const JobsPage = ({
           dangerouslySetInnerHTML={{ __html: description }}
         ></div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -26,6 +26,7 @@ module.exports = {
         "rb-gray-5": "#666666",
         "rb-gray-8": "#333333",
         "rb-gray-9": "#141414",
+        "rb-green-5": "#1FCC6D",
       },
       fontFamily: {
         sans: ['"Inter"', ...fontFamily.sans],

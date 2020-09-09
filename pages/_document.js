@@ -1,7 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document"
 
-import Footer from "../components/Footer"
-
 class AppDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
@@ -15,7 +13,6 @@ class AppDocument extends Document {
         <body className="antialiased">
           <Main />
           <NextScript />
-          <Footer />
         </body>
       </Html>
     )

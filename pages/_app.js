@@ -7,6 +7,8 @@ import Head from "next/head"
 
 // import SEO from "../next-seo.config"
 
+import Layout from "../components/Layout"
+
 import "../public/css/global.css"
 
 const App = ({ Component, pageProps }) => {
@@ -16,7 +18,9 @@ const App = ({ Component, pageProps }) => {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   )
 }
