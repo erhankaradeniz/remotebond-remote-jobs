@@ -1,4 +1,6 @@
 import React from "react"
+import DefaultErrorPage from "next/error"
+import Head from "next/head"
 
 import JobHeader from "../../components/JobHeader"
 
@@ -50,6 +52,18 @@ const JobsPage = ({
   applyUrl,
   location,
 }) => {
+  // This includes setting the noindex header because static files always return a status 200 but the rendered not found page page should obviously not be indexed
+  if (!description) {
+    return (
+      <>
+        <Head>
+          <meta name="robots" content="noindex" />
+        </Head>
+        <DefaultErrorPage statusCode={404} />
+      </>
+    )
+  }
+
   return (
     <>
       <JobHeader
