@@ -43,7 +43,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="bg-rb-gray-8 text-white">
+      {/* <div className="bg-rb-gray-8 text-white">
         <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
           <ul className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6 w-full text-white sm:divide-x divide-gray-400 divide-opacity-25">
             <li>
@@ -106,7 +106,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

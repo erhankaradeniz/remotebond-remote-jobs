@@ -78,7 +78,7 @@ const JobHeader = ({ title, workingHours, company, applyUrl, location }) => {
                 href={`${applyUrl}&utm_source=remotebond.com&ref=remotebond.com`}
                 rel="nofollow, noindex, noreferrer"
                 target="_blank"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-5 font-bold rounded-md text-white bg-rb-green-5 hover:bg-blue-500 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-blue-700 active:bg-blue-700 transition duration-150 ease-in-out"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-5 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-rb-green-7 active:bg-rb-green-7 transition duration-150 ease-in-out"
               >
                 <svg
                   className="-ml-1 mr-2 h-5 w-5"
