@@ -11,6 +11,7 @@
     "next": "^9.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-tooltip": "^4.2.9",
     "rss-parser": "^3.9.0"
   },
   "devDependencies": {

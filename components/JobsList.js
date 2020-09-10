@@ -1,7 +1,12 @@
 import React from "react"
 import Link from "next/link"
+import ReactTooltip from "react-tooltip"
 
 const JobsList = ({ title, slug, jobs }) => {
+  const onTagClick = (event) => {
+    event.stopPropagation()
+  }
+
   return (
     <div className="max-w-screen-xl mx-auto my-12">
       <h2 className="text-xl font-black text-center mb-4 text-gray-700">
@@ -66,8 +71,16 @@ const JobsList = ({ title, slug, jobs }) => {
                             <ul className="flex space-x-3">
                               {tags.map((tag, idx) => {
                                 return (
-                                  <li className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-gray-100 text-rb-gray-5 hover:bg-rb-gray-8 hover:text-white">
-                                    {tag}
+                                  <li
+                                    key={idx}
+                                    className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-gray-100 text-rb-gray-5 hover:bg-rb-gray-8 hover:text-white"
+                                  >
+                                    <span
+                                      data-tip="React-tooltip"
+                                      onClick={() => onTagClick()}
+                                    >
+                                      {tag}
+                                    </span>
                                   </li>
                                 )
                               })}
@@ -86,6 +99,9 @@ const JobsList = ({ title, slug, jobs }) => {
       <Link as={slug} href={slug}>
         <a className="text-blue-500 hover:text-blue-600 text-right block hover:underline">{`More ${title} Jobs →`}</a>
       </Link>
+      <ReactTooltip place="top" type="dark" effect="solid">
+        <span>Filter by tag is not available at this moment.</span>
+      </ReactTooltip>
     </div>
   )
 }
