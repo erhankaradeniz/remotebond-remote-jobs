@@ -69,10 +69,10 @@ const JobsList = ({ title, slug, jobs }) => {
                         <div className="mt-2 flex items-center text-sm leading-5 text-rb-gray-5 sm:mt-0">
                           {tags.length && (
                             <ul className="flex space-x-3">
-                              {tags.map((tag, idx) => {
+                              {tags.map((tag, i) => {
                                 return (
                                   <li
-                                    key={idx}
+                                    key={i}
                                     className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-gray-100 text-rb-gray-5 hover:bg-rb-gray-8 hover:text-white"
                                   >
                                     <span
