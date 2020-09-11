@@ -45,7 +45,7 @@ const JobsPage = ({ job }) => {
     )
   }
 
-  // This includes setting the noindex header because static files always return a status 200 but the rendered not found page page should obviously not be indexed
+  // No match, we return a 404
   if (!job) {
     return (
       <>
@@ -61,8 +61,8 @@ const JobsPage = ({ job }) => {
     <>
       <JobHeader
         title={job.title}
-        company={job.companyName}
-        applyUrl={job.applyUrl}
+        company={job.company_name}
+        applyUrl={job.apply_url}
         location={job.location}
       />
       <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">

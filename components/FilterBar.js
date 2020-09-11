@@ -12,7 +12,6 @@ const FilterBar = ({ categories }) => {
   }
 
   const onDropdownChange = (event) => {
-    console.log(event.target.value)
     if (event.target.value === activeIdx) {
       setActiveIdx(-1)
     } else {
