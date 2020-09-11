@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export default async (req, res) => {
-  if (req.method === "GET") {
+  if (req.method === "POST") {
     console.log(`Posting to google index api`)
     console.log("All done.")
     // Everything is Okay
@@ -23,7 +23,7 @@ export default async (req, res) => {
   } else {
     console.log(`Method not allowed`)
     // Handle any other HTTP method
-    res.setHeader("Allow", ["GET"])
+    res.setHeader("Allow", ["POST"])
     res.status(405).end(JSON.stringify({ status: "Bye" }))
   }
 }

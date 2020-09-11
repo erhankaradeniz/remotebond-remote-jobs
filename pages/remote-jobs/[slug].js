@@ -1,4 +1,5 @@
 import React from "react"
+import { useRouter } from "next/router"
 import DefaultErrorPage from "next/error"
 import Head from "next/head"
 
@@ -22,38 +23,30 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(ctx) {
-  const job = await getJobBySlug(ctx.params.slug)
-  const jobData = JSON.parse(job)
-  const {
-    title,
-    description,
-    tags,
-    company_name,
-    apply_url,
-    location,
-  } = jobData.data[0].data
+  const jobFetch = await getJobBySlug(ctx.params.slug)
+  const jobData = JSON.parse(jobFetch)
+
+  const job = jobData.data.length ? jobData.data[0].data : false
   return {
     props: {
-      title: title,
-      description: description,
-      tags: tags,
-      companyName: company_name,
-      applyUrl: apply_url,
-      location: location ? location : null,
+      job,
     },
   }
 }
 
-const JobsPage = ({
-  title,
-  description,
-  tags,
-  companyName,
-  applyUrl,
-  location,
-}) => {
+const JobsPage = ({ job }) => {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return (
+      <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
+        <h1>Loading...</h1>
+      </div>
+    )
+  }
+
   // This includes setting the noindex header because static files always return a status 200 but the rendered not found page page should obviously not be indexed
-  if (!description) {
+  if (!job) {
     return (
       <>
         <Head>
@@ -67,22 +60,22 @@ const JobsPage = ({
   return (
     <>
       <JobHeader
-        title={title}
-        company={companyName}
-        applyUrl={applyUrl}
-        location={location}
+        title={job.title}
+        company={job.companyName}
+        applyUrl={job.applyUrl}
+        location={job.location}
       />
       <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
         <div className="w-full md:w-3/4">
           <div
             className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl jobDescription__container py-6"
-            dangerouslySetInnerHTML={{ __html: description }}
+            dangerouslySetInnerHTML={{ __html: job.description }}
           ></div>
 
           <div className="flex justify-center mb-8">
             <span className="inline-flex rounded-md shadow-sm">
               <a
-                href={`${applyUrl}&utm_source=remotebond.com&ref=remotebond.com`}
+                href={`${job.applyUrl}&utm_source=remotebond.com&ref=remotebond.com`}
                 target="_blank"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150"
               >
