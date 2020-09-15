@@ -1,6 +1,6 @@
 /* purgecss start ignore */
 @tailwind base;
-.jobDescription__container > br, .jobDescription__container ul > br {
+.jobDescription__container > br, .jobDescription__container ul > br, .jobDescription__container ul > li > br {
   display: none;
 }
 /* purgecss end ignore */

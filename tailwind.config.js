@@ -51,6 +51,7 @@ module.exports = {
     },
   },
   variants: {
+    animation: ["responsive", "hover", "focus"],
     opacity: ["responsive", "group-hover", "hover"],
     position: ["responsive", "group-hover", "hover"],
     backgroundColor: ["responsive", "hover", "focus", "active", "group-hover"],

@@ -9,9 +9,8 @@ import getAllJobs, { getJobBySlug } from "../../lib/jobs"
 
 export async function getStaticPaths() {
   const jobs = await getAllJobs()
-  const jobsData = JSON.parse(jobs)
   return {
-    paths: jobsData.data.map((job) => {
+    paths: jobs.map((job) => {
       return {
         params: {
           slug: job.data.slug,
@@ -23,13 +22,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(ctx) {
-  const jobFetch = await getJobBySlug(ctx.params.slug)
-  const jobData = JSON.parse(jobFetch)
-
-  const job = jobData.data.length ? jobData.data[0].data : false
+  const job = await getJobBySlug(ctx.params.slug)
+  const jobData = JSON.parse(job)
   return {
     props: {
-      job,
+      job: jobData.data,
     },
   }
 }
@@ -75,7 +72,7 @@ const JobsPage = ({ job }) => {
           <div className="flex justify-center mb-8">
             <span className="inline-flex rounded-md shadow-sm">
               <a
-                href={`${job.applyUrl}&utm_source=remotebond.com&ref=remotebond.com`}
+                href={`${job.apply_url}&utm_source=remotebond.com&ref=remotebond.com`}
                 target="_blank"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150"
               >
