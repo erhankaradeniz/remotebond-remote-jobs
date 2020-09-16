@@ -17,7 +17,7 @@ const JobsList = ({
     event.stopPropagation()
   }
   return (
-    <div className="max-w-screen-xl mx-auto my-12">
+    <div className="w-full max-w-screen-xl mx-auto my-12">
       {title && (
         <h2 className="text-xl font-black text-center mb-4 text-gray-700">
           {`${title} Jobs`}

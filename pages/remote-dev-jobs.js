@@ -6,6 +6,7 @@ import { getPaginatedSoftwareDevJobs } from "../lib/softwareDevJobs"
 import fetcher from "../lib/fetch"
 
 import JobsList from "../components/JobsList"
+import Loader from "../components/Loader"
 
 export async function getStaticProps(ctx) {
   const jobsCountFetch = await getJobsCountByCategory("Software Development")
@@ -53,7 +54,7 @@ const RemoteDevJobsPage = ({
   }
 
   const { data, mutate } = useSWR(!isLoading ? bla : null, fetcher)
-
+  // console.log(initialData)
   let date = new Date()
   let dateOptions = {
     year: "numeric",
@@ -103,7 +104,7 @@ const RemoteDevJobsPage = ({
           </h2>
         </div>
       </div>
-      {data && data.data && !isLoading ? (
+      {cursor.page !== 0 && data && data.data && !isLoading ? (
         <JobsList
           slug="remote-dev-jobs"
           jobs={data.data}
@@ -113,8 +114,21 @@ const RemoteDevJobsPage = ({
           isPaginated
           hasPrevPage={cursor.before}
         />
-      ) : (
-        "Loading..."
+      ) : cursor.page !== 0 ? (
+        <Loader />
+      ) : null}
+
+      {/* Weird hack to have pre-rendered content, useSWR is acting weird with initialData */}
+      {cursor.page === 0 && (
+        <JobsList
+          slug="remote-dev-jobs"
+          jobs={initialData.data}
+          loadMoreJobs={loadMoreJobs}
+          loadPrevPage={loadPrevPage}
+          isLoadingJobs={isLoading}
+          isPaginated
+          hasPrevPage={cursor.before}
+        />
       )}
     </>
   )

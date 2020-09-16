@@ -3,6 +3,7 @@
 .jobDescription__container > br, .jobDescription__container ul > br, .jobDescription__container ul > li > br {
   display: none;
 }
+@import "./loader.css";
 /* purgecss end ignore */
 
 @tailwind components;
@@ -122,6 +123,9 @@ LightGray: #C9CACE */
 
 body {
   @apply text-nextjs-body;
+}
+#__next {
+  @apply flex flex-col min-h-screen;
 }
 
 a {
