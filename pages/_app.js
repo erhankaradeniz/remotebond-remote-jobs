@@ -1,5 +1,7 @@
 import React from "react"
 import Head from "next/head"
+import NextNprogress from "nextjs-progressbar"
+
 // import Router from "next/router"
 // import withGA from "next-ga"
 
@@ -20,6 +22,7 @@ const App = ({ Component, pageProps }) => {
       </Head>
       <Layout>
         <Component {...pageProps} />
+        <NextNprogress color="#1c64f2" options={{ showSpinner: false }} />
       </Layout>
     </>
   )
