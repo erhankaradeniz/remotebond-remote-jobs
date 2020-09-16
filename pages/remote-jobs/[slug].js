@@ -44,7 +44,6 @@ const JobsPage = ({ job }) => {
   let newDate = new Date(job.pub_date)
   newDate.setMonth(newDate.getMonth() + 1)
   const jobExpireDate = new Date(newDate).toISOString()
-  console.log(jobExpireDate)
   if (router.isFallback) {
     return (
       <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
