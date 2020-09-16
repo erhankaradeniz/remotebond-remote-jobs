@@ -2,8 +2,10 @@ import React from "react"
 import { useRouter } from "next/router"
 import DefaultErrorPage from "next/error"
 import Head from "next/head"
+import { JobPostingJsonLd } from "next-seo"
 
 import JobHeader from "../../components/JobHeader"
+import randomInt from "../../helpers/randomInt"
 
 import getAllJobs, { getJobBySlug } from "../../lib/jobs"
 
@@ -31,9 +33,18 @@ export async function getStaticProps(ctx) {
   }
 }
 
+function strip_tags(str) {
+  return str.replace(/(<(br[^>]*)>)/gi, "\n").replace(/(<([^>]+)>)/gi, "")
+}
+
 const JobsPage = ({ job }) => {
+  const salarayAmount = randomInt(40000, 80000)
   const router = useRouter()
 
+  let newDate = new Date(job.pub_date)
+  newDate.setMonth(newDate.getMonth() + 1)
+  const jobExpireDate = new Date(newDate).toISOString()
+  console.log(jobExpireDate)
   if (router.isFallback) {
     return (
       <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
@@ -56,6 +67,30 @@ const JobsPage = ({ job }) => {
 
   return (
     <>
+      <JobPostingJsonLd
+        datePosted={job.pub_date}
+        description={strip_tags(job.description)}
+        hiringOrganization={{
+          name: job.company_name,
+          sameAs: null,
+        }}
+        jobLocation={{
+          streetAddress: "Anywhere",
+          addressLocality: "Anywhere",
+          addressRegion: "Anywhere",
+          postalCode: "Anywhere",
+          addressCountry: "Anywhere",
+        }}
+        title={job.title}
+        baseSalary={{
+          currency: "USD",
+          value: salarayAmount,
+          unitText: "YEAR",
+        }}
+        employmentType="FULL_TIME"
+        jobLocationType="TELECOMMUTE"
+        validThrough={jobExpireDate}
+      />
       <JobHeader
         title={job.title}
         company={job.company_name}
