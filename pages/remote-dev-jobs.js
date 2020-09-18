@@ -16,8 +16,9 @@ export async function getStaticProps(ctx) {
   const paginatedJobsFetch = await getPaginatedSoftwareDevJobs("null")
   const paginatedJobs = JSON.parse(paginatedJobsFetch)
   const latestRefId = paginatedJobs.after[2]["@ref"].id
-  const initialPubDate = paginatedJobs.data.slice(-1)[0].data.pub_date
+  const initialPubDate = paginatedJobs.after[0]
   const firstPubDate = paginatedJobs.data[0].data.pub_date
+
   return {
     props: {
       jobsCount: job,
@@ -41,20 +42,26 @@ const RemoteDevJobsPage = ({
     date: firstPubDate,
     page: 0,
     before: null,
+    isPrevClicked: false,
+    isNextClicked: false,
   })
   const [isLoading, setIsLoading] = useState(false)
   const [firstRender, setFirstRender] = useState(true)
 
-  const bla = () => {
-    if (!cursor.date) {
+  const newJobs = () => {
+    if (cursor.isPrevClicked) {
+      return `/api/jobs/prev?key=${cursor.before}&d=${cursor.prevDate}`
+    }
+
+    if (!cursor.date && !cursor.isPrevClicked) {
       return `/api/jobs/next`
     } else {
       return `/api/jobs/next?key=${cursor.key}&d=${cursor.date}`
     }
   }
 
-  const { data, mutate } = useSWR(!isLoading ? bla : null, fetcher)
-  // console.log(initialData)
+  const { data, mutate } = useSWR(!isLoading ? newJobs : null, fetcher)
+
   let date = new Date()
   let dateOptions = {
     year: "numeric",
@@ -63,20 +70,45 @@ const RemoteDevJobsPage = ({
 
   const loadMoreJobs = () => {
     setCursor({
-      key: data.after[2]["@ref"].id,
-      date: data.data.slice(-1)[0].data.pub_date,
+      key: data.after[2]
+        ? data.after[2]["@ref"].id
+        : data.after[1]
+        ? data.after[1]["@ref"].id
+        : null,
+      prevDate: data.before[0], //data.data[0].data.pub_date,
+      date: data.after[0], //data.data.slice(-1)[0].data.pub_date,
       page: cursor.page + 1,
-      before: data && data.before ? data.before[1]["@ref"].id : null,
+      before:
+        data && data.before && data.before[2]
+          ? data.before[2]["@ref"].id
+          : data.before[1]
+          ? data.before[1]["@ref"].id
+          : null,
+      isPrevClicked: false,
+      isNextClicked: true,
     })
     setIsLoading(true)
   }
 
   const loadPrevPage = () => {
     setCursor({
-      key: data.before ? data.before[1]["@ref"].id : null,
-      date: data.data[0].data.pub_date,
-      page: cursor.page + 1,
-      before: data.before ? data.before[1]["@ref"].id : null,
+      key:
+        data.after && data.after[2]
+          ? data.after[2]["@ref"].id
+          : data.after && data.after[1]
+          ? data.after[1]["@ref"].id
+          : null,
+      prevDate: data.before[0], //data.data[0].data.pub_date,
+      date: data.after ? data.after[0] : null, //data.data.slice(-1)[0].data.pub_date,
+      page: cursor.page - 1,
+      before:
+        data.before && data.before[2]
+          ? data.before[2]["@ref"].id
+          : data.before[1]
+          ? data.before[1]["@ref"].id
+          : null,
+      isPrevClicked: true,
+      isNextClicked: false,
     })
   }
 
@@ -92,7 +124,6 @@ const RemoteDevJobsPage = ({
 
   return (
     <>
-      {/* {`After Key: ${data.data.slice(-1)[0].ref["@ref"].id}`} */}
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">
           <h1 className="text-white font-black text-2xl md:text-4xl my-4">
@@ -128,7 +159,7 @@ const RemoteDevJobsPage = ({
           loadPrevPage={loadPrevPage}
           isLoadingJobs={isLoading}
           isPaginated
-          hasPrevPage={cursor.before}
+          hasPrevPage={null}
           hasMoreJobs={initialData.after}
         />
       )}

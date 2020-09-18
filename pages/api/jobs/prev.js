@@ -1,18 +1,18 @@
 import { getPaginatedSoftwareDevJobs } from "../../../lib/softwareDevJobs"
 
 export default async (req, res) => {
-  let nextPage, pubDate
+  let prevPage, pubDate
   if (req.query) {
-    nextPage = req.query.key
+    prevPage = req.query.key
     pubDate = req.query.d
   }
   if (req.method === "GET") {
     let paginatedJobsFetch
-    if (nextPage && pubDate) {
+    if (prevPage && pubDate) {
       paginatedJobsFetch = await getPaginatedSoftwareDevJobs(
-        nextPage,
+        prevPage,
         pubDate,
-        false
+        true
       )
     } else {
       paginatedJobsFetch = await getPaginatedSoftwareDevJobs()

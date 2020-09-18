@@ -13,7 +13,6 @@ const JobsList = ({
   hasPrevPage,
   hasMoreJobs,
 }) => {
-  console.log(hasMoreJobs)
   const onTagClick = (event) => {
     event.stopPropagation()
   }
@@ -28,6 +27,7 @@ const JobsList = ({
         <ul>
           {jobs.map((job, idx) => {
             const { title, location, company_name, slug, tags } = job.data
+            const id = job.ref["@ref"].id
             return (
               <li key={idx}>
                 <Link as={`/remote-jobs/${slug}`} href={`/remote-jobs/${slug}`}>
@@ -40,7 +40,7 @@ const JobsList = ({
                     <div className="px-4 py-4 sm:px-6">
                       <div className="flex items-center justify-between">
                         <div className="text-sm leading-5 font-medium text-blue-600 truncate">
-                          {title}
+                          {title} - <span className="text-red-500">{id}</span>
                         </div>
                         <div className="ml-2 flex-shrink-0 flex">
                           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -116,13 +116,13 @@ const JobsList = ({
       ) : (
         <div className="flex justify-between">
           <button
+            disabled={isLoadingJobs || !hasPrevPage}
             onClick={loadPrevPage}
             type="button"
-            disabled={!!hasPrevPage}
             className={`inline-flex px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md ${
               !!hasPrevPage
                 ? "text-blue-700 bg-white hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150"
-                : "bg-rb-gray-1 text-rb-gray-4 cursor-not-allowed"
+                : "bg-tranparent text-rb-gray-4 cursor-not-allowed"
             }`}
           >
             {!isLoadingJobs ? (
@@ -160,7 +160,7 @@ const JobsList = ({
             className={`inline-flex px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md ${
               !isLoadingJobs && hasMoreJobs !== undefined
                 ? "text-blue-700 bg-blue-100 hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150"
-                : "bg-rb-gray-1 text-rb-gray-4 cursor-not-allowed"
+                : "bg-transparent text-rb-gray-4 cursor-not-allowed"
             }`}
           >
             {!isLoadingJobs ? (
