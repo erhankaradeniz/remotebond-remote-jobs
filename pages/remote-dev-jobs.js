@@ -113,6 +113,7 @@ const RemoteDevJobsPage = ({
           isLoadingJobs={isLoading}
           isPaginated
           hasPrevPage={cursor.before}
+          hasMoreJobs={data.after}
         />
       ) : cursor.page !== 0 ? (
         <Loader />
@@ -128,6 +129,7 @@ const RemoteDevJobsPage = ({
           isLoadingJobs={isLoading}
           isPaginated
           hasPrevPage={cursor.before}
+          hasMoreJobs={initialData.after}
         />
       )}
     </>

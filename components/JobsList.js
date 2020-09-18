@@ -11,8 +11,9 @@ const JobsList = ({
   loadMoreJobs,
   loadPrevPage,
   hasPrevPage,
+  hasMoreJobs,
 }) => {
-  // console.log(jobs)
+  console.log(hasMoreJobs)
   const onTagClick = (event) => {
     event.stopPropagation()
   }
@@ -155,9 +156,9 @@ const JobsList = ({
           <button
             onClick={loadMoreJobs}
             type="button"
-            disabled={isLoadingJobs}
+            disabled={isLoadingJobs || hasMoreJobs === undefined}
             className={`inline-flex px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md ${
-              !isLoadingJobs
+              !isLoadingJobs && hasMoreJobs !== undefined
                 ? "text-blue-700 bg-blue-100 hover:bg-blue-50 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150"
                 : "bg-rb-gray-1 text-rb-gray-4 cursor-not-allowed"
             }`}
