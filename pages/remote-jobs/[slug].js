@@ -2,7 +2,7 @@ import React from "react"
 import { useRouter } from "next/router"
 import DefaultErrorPage from "next/error"
 import Head from "next/head"
-import { JobPostingJsonLd } from "next-seo"
+import { NextSeo, JobPostingJsonLd } from "next-seo"
 
 import JobHeader from "../../components/JobHeader"
 import randomInt from "../../helpers/randomInt"
@@ -65,6 +65,10 @@ const JobsPage = ({ job }) => {
     const jobExpireDate = new Date(newDate).toISOString()
     return (
       <>
+        <NextSeo
+          title={`Remote ${job.title} job at ${job.company_name}`}
+          description="Looking for a remote job? Remote Bond has 5,000+ remote jobs as a Developer, Designer, Copywriter, Customer Support Rep, Sales Professional, Project Manager and more! Find a career where you can work remotely from anywhere."
+        />
         <JobPostingJsonLd
           datePosted={job.pub_date}
           description={strip_tags(job.description)}

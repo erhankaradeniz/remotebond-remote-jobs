@@ -15,7 +15,7 @@ const Hero = () => {
           Do you want to access talent{" "}
           <strong className="text-white">everywhere</strong>, or just in
           specific markets? If the answer is everywhere, look no further and let
-          Remotebond help you.
+          Remote Bond help you.
         </h2>
         <span className="inline-flex rounded-md shadow-sm mt-8">
           <Link href={`/remote-jobs/new`} as={`/remote-jobs/new`}>
