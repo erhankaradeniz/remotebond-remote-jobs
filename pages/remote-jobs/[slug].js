@@ -20,7 +20,6 @@ export async function getStaticPaths() {
       }
     }),
     fallback: true,
-    revalidate: 1,
   }
 }
 
@@ -31,6 +30,7 @@ export async function getStaticProps(ctx) {
     props: {
       job: jobData.data,
     },
+    revalidate: 1,
   }
 }
 

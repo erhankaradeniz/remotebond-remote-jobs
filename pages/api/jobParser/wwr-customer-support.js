@@ -40,7 +40,7 @@ export default async (req, res) => {
       //   // Check for pubDate, don't include listings older than a week.
       if (!!isWithinWeek) {
         const randomDigit = Math.floor(100000 + Math.random() * 900000)
-
+        const pub_date = new Date(feed.items[i].pubDate)
         const title = feed.items[i].title
           .replace(regex, "")
           // .replace(regex2, "")
@@ -52,7 +52,7 @@ export default async (req, res) => {
         const description = feed.items[i].content
         const tags = feed.items[i].categories
         const companyName = feed.items[i].title.replace(regex7, "")
-        const pubDate = feed.items[i].pubDate
+        const pubDate = pub_date.toISOString()
         const location = ""
         const applyUrl = feed.items[i].link
         const slug = Slugify(`${randomDigit} ${title} at ${companyName}`)
