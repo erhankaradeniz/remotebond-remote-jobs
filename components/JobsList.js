@@ -121,7 +121,7 @@ const JobsList = ({
       </div>
       {!isPaginated ? (
         <Link as={slug} href={slug}>
-          <a className="text-blue-500 hover:text-blue-600 text-right block hover:underline">{`More ${title} Jobs →`}</a>
+          <a className="text-blue-500 hover:text-blue-600 text-right block hover:underline pr-6">{`More ${title} Jobs →`}</a>
         </Link>
       ) : (
         <div className="flex justify-between">

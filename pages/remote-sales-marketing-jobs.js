@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import useSWR from "swr"
 
 import { getJobsCountByCategory } from "../lib/jobs"
-import { getPaginatedCustomerSupportJobs } from "../lib/customerSupportJobs"
+import { getPaginatedSalesMarketingJobs } from "../lib/salesMarketingJobs"
 import fetcher from "../lib/fetch"
 import getAllCategories from "../lib/categories"
 
@@ -17,7 +17,7 @@ export async function getStaticProps(ctx) {
   const job = jobsCount.data ? jobsCount.data : false
   const categoriesData = JSON.parse(categories)
 
-  const paginatedJobsFetch = await getPaginatedCustomerSupportJobs("null")
+  const paginatedJobsFetch = await getPaginatedSalesMarketingJobs("null")
   const paginatedJobs = JSON.parse(paginatedJobsFetch)
 
   const latestRefId = paginatedJobs.after
@@ -39,7 +39,7 @@ export async function getStaticProps(ctx) {
   }
 }
 
-const RemoteCustomerSupportPage = ({
+const RemoteSalesMarketingPage = ({
   jobsCount,
   initialData,
   initialAfter,
@@ -137,10 +137,10 @@ const RemoteCustomerSupportPage = ({
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">
           <h1 className="text-white font-black text-2xl md:text-4xl my-4">
-            Remote Customer Support Jobs
+            Remote Sales &amp; Marketing Jobs
           </h1>
           <h2 className="text-base md:text-xl text-rb-gray-4 w-3/4 mx-auto">
-            Browse {jobsCount} Remote Customer Support jobs in{" "}
+            Browse {jobsCount} Remote Sales &amp; Marketing jobs in{" "}
             {date.toLocaleDateString("en-EN", dateOptions)}
           </h2>
         </div>
@@ -151,7 +151,7 @@ const RemoteCustomerSupportPage = ({
 
       {cursor.page !== 0 && data && data.data && !isLoading ? (
         <JobsList
-          slug="remote-customer-support-jobs"
+          slug="remote-sales-marketing-jobs"
           jobs={data.data}
           loadMoreJobs={loadMoreJobs}
           loadPrevPage={loadPrevPage}
@@ -167,7 +167,7 @@ const RemoteCustomerSupportPage = ({
       {/* Weird hack to have pre-rendered content, useSWR is acting weird with initialData */}
       {cursor.page === 0 && (
         <JobsList
-          slug="remote-customer-support-jobs"
+          slug="remote-sales-marketing-jobs"
           jobs={initialData.data}
           loadMoreJobs={loadMoreJobs}
           loadPrevPage={loadPrevPage}
@@ -181,4 +181,4 @@ const RemoteCustomerSupportPage = ({
   )
 }
 
-export default RemoteCustomerSupportPage
+export default RemoteSalesMarketingPage
