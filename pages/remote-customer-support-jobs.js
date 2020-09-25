@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react"
 import useSWR from "swr"
 
 import { getJobsCountByCategory } from "../lib/jobs"
-import { getPaginatedSoftwareDevJobs } from "../lib/softwareDevJobs"
+import { getPaginatedCustomerSupportJobs } from "../lib/customerSupportJobs"
 import fetcher from "../lib/fetch"
 
 import JobsList from "../components/JobsList"
 import Loader from "../components/Loader"
 
 export async function getStaticProps(ctx) {
-  const jobsCountFetch = await getJobsCountByCategory("Software Development")
+  const jobsCountFetch = await getJobsCountByCategory("Customer Support")
   const jobsCount = JSON.parse(jobsCountFetch)
   const job = jobsCount.data ? jobsCount.data : false
 
-  const paginatedJobsFetch = await getPaginatedSoftwareDevJobs("null")
+  const paginatedJobsFetch = await getPaginatedCustomerSupportJobs("null")
   const paginatedJobs = JSON.parse(paginatedJobsFetch)
+  console.log(paginatedJobs)
   const latestRefId = paginatedJobs.after
     ? paginatedJobs.after[2]["@ref"].id
     : null
@@ -129,10 +130,10 @@ const RemoteDevJobsPage = ({
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">
           <h1 className="text-white font-black text-2xl md:text-4xl my-4">
-            Remote Software Developer Jobs
+            Remote Customer Support Jobs
           </h1>
           <h2 className="text-base md:text-xl text-rb-gray-4 w-3/4 mx-auto">
-            Browse {jobsCount} Remote Software Development jobs in{" "}
+            Browse {jobsCount} Remote Customer Support jobs in{" "}
             {date.toLocaleDateString("en-EN", dateOptions)}
           </h2>
         </div>
