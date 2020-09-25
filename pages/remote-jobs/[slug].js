@@ -20,6 +20,7 @@ export async function getStaticPaths() {
       }
     }),
     fallback: true,
+    revalidate: 1,
   }
 }
 

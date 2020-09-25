@@ -35,6 +35,7 @@ export async function getStaticProps(ctx) {
       initialPubDate,
       firstPubDate,
     },
+    revalidate: 1,
   }
 }
 
