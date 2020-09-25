@@ -5,6 +5,8 @@ import Head from "next/head"
 import { NextSeo, JobPostingJsonLd } from "next-seo"
 
 import JobHeader from "../../components/JobHeader"
+import Breadcrumbs from "../../components/Breadcrumbs"
+
 import randomInt from "../../helpers/randomInt"
 
 import getAllJobs, { getJobBySlug } from "../../lib/jobs"
@@ -100,6 +102,9 @@ const JobsPage = ({ job }) => {
           applyUrl={job.apply_url}
           location={job.location}
         />
+
+        <Breadcrumbs jobTitle={job.title} />
+
         <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
           <div className="w-full md:w-3/4">
             <div
