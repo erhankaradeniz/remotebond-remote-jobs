@@ -4,18 +4,22 @@ import useSWR from "swr"
 import { getJobsCountByCategory } from "../lib/jobs"
 import { getPaginatedCustomerSupportJobs } from "../lib/customerSupportJobs"
 import fetcher from "../lib/fetch"
+import getAllCategories from "../lib/categories"
 
 import JobsList from "../components/JobsList"
 import Loader from "../components/Loader"
+import FilterBar from "../components/FilterBar"
 
 export async function getStaticProps(ctx) {
+  const categories = await getAllCategories()
   const jobsCountFetch = await getJobsCountByCategory("Customer Support")
   const jobsCount = JSON.parse(jobsCountFetch)
   const job = jobsCount.data ? jobsCount.data : false
+  const categoriesData = JSON.parse(categories)
 
   const paginatedJobsFetch = await getPaginatedCustomerSupportJobs("null")
   const paginatedJobs = JSON.parse(paginatedJobsFetch)
-  console.log(paginatedJobs)
+
   const latestRefId = paginatedJobs.after
     ? paginatedJobs.after[2]["@ref"].id
     : null
@@ -24,6 +28,7 @@ export async function getStaticProps(ctx) {
 
   return {
     props: {
+      categories: categoriesData,
       jobsCount: job,
       initialData: paginatedJobs,
       initialAfter: latestRefId,
@@ -38,6 +43,7 @@ const RemoteDevJobsPage = ({
   initialData,
   initialAfter,
   firstPubDate,
+  categories,
   initialPubDate,
 }) => {
   const [cursor, setCursor] = useState({
@@ -138,6 +144,10 @@ const RemoteDevJobsPage = ({
           </h2>
         </div>
       </div>
+
+      {/* Filters  */}
+      <FilterBar categories={categories.data} />
+
       {cursor.page !== 0 && data && data.data && !isLoading ? (
         <JobsList
           slug="remote-dev-jobs"

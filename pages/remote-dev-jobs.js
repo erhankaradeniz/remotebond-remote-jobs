@@ -3,14 +3,18 @@ import useSWR from "swr"
 
 import { getJobsCountByCategory } from "../lib/jobs"
 import { getPaginatedSoftwareDevJobs } from "../lib/softwareDevJobs"
+import getAllCategories from "../lib/categories"
 import fetcher from "../lib/fetch"
+import FilterBar from "../components/FilterBar"
 
 import JobsList from "../components/JobsList"
 import Loader from "../components/Loader"
 
 export async function getStaticProps(ctx) {
+  const categories = await getAllCategories()
   const jobsCountFetch = await getJobsCountByCategory("Software Development")
   const jobsCount = JSON.parse(jobsCountFetch)
+  const categoriesData = JSON.parse(categories)
   const job = jobsCount.data ? jobsCount.data : false
 
   const paginatedJobsFetch = await getPaginatedSoftwareDevJobs("null")
@@ -23,6 +27,7 @@ export async function getStaticProps(ctx) {
 
   return {
     props: {
+      categories: categoriesData,
       jobsCount: job,
       initialData: paginatedJobs,
       initialAfter: latestRefId,
@@ -37,6 +42,7 @@ const RemoteDevJobsPage = ({
   initialData,
   initialAfter,
   firstPubDate,
+  categories,
   initialPubDate,
 }) => {
   const [cursor, setCursor] = useState({
@@ -137,6 +143,10 @@ const RemoteDevJobsPage = ({
           </h2>
         </div>
       </div>
+
+      {/* Filters  */}
+      <FilterBar categories={categories.data} />
+
       {cursor.page !== 0 && data && data.data && !isLoading ? (
         <JobsList
           slug="remote-dev-jobs"

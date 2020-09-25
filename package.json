@@ -18,7 +18,8 @@
     "react-tooltip": "^4.2.9",
     "request": "^2.88.2",
     "rss-parser": "^3.9.0",
-    "swr": "^0.3.2"
+    "swr": "^0.3.2",
+    "three": "^0.120.1"
   },
   "devDependencies": {
     "@babel/core": "^7.11.5",
