@@ -30,12 +30,12 @@ const createSitemap = (jobs) => `<?xml version="1.0" encoding="UTF-8"?>
         ${jobs
           .map((job) => {
             return `
-                    <item>
+                    <url>
                         <loc>${`https://remotebond.com/remote-jobs/${job.data.slug}`}</loc>
                         <changefreq>hourly</changefreq>
                         <priority>0.9</priority>
                         <lastmod>${new Date().toISOString()}</lastmod>
-                    </item>
+                    </url>
                 `
           })
           .join("")}

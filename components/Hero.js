@@ -1,5 +1,5 @@
-import React, { useEffect } from "react"
-import * as THREE from "three"
+import React from "react"
+// import * as THREE from "three"
 import Link from "next/link"
 
 // import cities from "../lib/cityGeo"
