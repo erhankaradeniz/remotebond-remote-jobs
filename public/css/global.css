@@ -4,6 +4,7 @@
   display: none;
 }
 @import "./loader.css";
+@import "./quill.css";
 /* purgecss end ignore */
 
 @tailwind components;
