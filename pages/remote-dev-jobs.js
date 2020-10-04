@@ -144,7 +144,7 @@ const RemoteDevJobsPage = ({
             {date.toLocaleDateString("en-EN", dateOptions)}
           </h2>
           <span className="inline-flex rounded-md shadow-sm mt-8">
-            <Link href={`/remote-jobs/new`} as={`/remote-jobs/new`}>
+            <Link href={`/hire-remotely`} as={`/hire-remotely`}>
               <a className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
                 Post a job for $25
               </a>
