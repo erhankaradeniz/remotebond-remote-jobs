@@ -6,9 +6,14 @@ import WysiwygEditor from "../components/form/WysiwygEditor"
 import Alert from "../components/dialog/Alert"
 
 const NewJobPage = () => {
+  let tempTags = []
+
   const { handleSubmit, register, errors, watch } = useForm()
   const onSubmit = (values) => console.log(values)
   console.log(errors)
+  tempTags = !watch("tags")
+    ? ["Add tag", "Add tag", "Add tag"]
+    : watch("tags").split(",")
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -178,7 +183,7 @@ const NewJobPage = () => {
                           ref={register({
                             required: "Tags are required",
                             pattern: {
-                              value: /^[a-zA-Z,]*$/i,
+                              value: /([a-zA-Z]*[ ]*,[ ]*)*[a-zA-Z]*/gm,
                               message: "Please use comma to seperate tags",
                             },
                           })}
@@ -519,13 +524,20 @@ const NewJobPage = () => {
               </div>
             </div>
           </div>
-          <div className="sticky bottom-0 bg-white py-4">
-            <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+          <div className="sticky bottom-0 bg-white">
+            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4">
               <div className="flex justify-between">
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <div className="text-sm leading-5 font-medium text-blue-600 truncate">
-                      {!watch("position") ? "Position" : watch("position")}
+                      {!watch("position")
+                        ? "Add a job position"
+                        : watch("position")}
+                    </div>
+                    <div className="ml-2 flex-shrink-0 flex">
+                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                        Preview
+                      </span>
                     </div>
                   </div>
                   <div className="mt-2 sm:flex sm:justify-between">
@@ -561,10 +573,10 @@ const NewJobPage = () => {
                         {!watch("location") ? "Remote" : watch("location")}
                       </div>
                     </div>
-                    {/* <div className="mt-2 flex items-center text-sm leading-5 text-rb-gray-5 sm:mt-0">
-                      {tags.length && (
+                    <div className="mt-2 flex items-center text-sm leading-5 text-rb-gray-5 sm:mt-0">
+                      {tempTags.length && (
                         <ul className="flex space-x-3">
-                          {tags.map((tag, i) => {
+                          {tempTags.map((tag, i) => {
                             if (i > 2) return
                             return (
                               <li
@@ -582,20 +594,17 @@ const NewJobPage = () => {
                           })}
                         </ul>
                       )}
-                    </div> */}
+                    </div>
                   </div>
                 </div>
-                <div></div>
-                <span class="inline-flex rounded-md shadow-sm">
-                  <button
-                    type="submit"
-                    class="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 focus:outline-none focus:border-rb-green-7 focus:shadow-outline-green active:bg-rb-green-7 transition ease-in-out duration-150"
-                  >
-                    Post your job $25
-                  </button>
-                </span>
               </div>
             </div>
+            <button
+              type="submit"
+              class="flex w-full items-center justify-center px-6 py-3 border border-transparent text-xl leading-6 font-bold text-white bg-rb-green-6 hover:bg-rb-green-5 focus:outline-none focus:border-rb-green-7 focus:shadow-outline-green active:bg-rb-green-7 transition ease-in-out duration-150"
+            >
+              Post your job - $25
+            </button>
           </div>
         </div>
       </form>
