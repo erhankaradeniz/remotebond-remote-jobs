@@ -5174,6 +5174,11 @@ react-dom@^16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-hook-form@^6.9.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.9.0.tgz#e3fb510970cdf1fbab4e1095cc7e6e2a97935643"
+  integrity sha512-QLRUYI+vZfoFu4mF2CaKeq5tHgLvTe+H2ks3iVKaG07D9nnbV/pemWkg93ODb0l4kFsRb28Ti3s/1K1DHi8Z0g==
+
 react-is@16.13.1, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -5203,6 +5208,13 @@ react-tooltip@^4.2.9:
   dependencies:
     prop-types "^15.7.2"
     uuid "^7.0.3"
+
+react-trix@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-trix/-/react-trix-0.7.0.tgz#f320b0bfda2aad650f7e12e09654ef8ef6d07c0a"
+  integrity sha512-0GkzZkHry7tuA4h+BYe0k57iw1EwnDZo7+haV3hp3r5M0AKlMRAWSw1DvX8KKhUubXMqHwS8Z0zBUcuG2mv07g==
+  dependencies:
+    trix "^1.2.2"
 
 react@^16.13.1:
   version "16.13.1"
@@ -6015,6 +6027,11 @@ traverse@0.6.6, traverse@^0.6.6:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"
   integrity sha1-y99WD9e5r2MlAv7UD5GMFX6pcTc=
+
+trix@^1.2.2:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/trix/-/trix-1.3.0.tgz#8683b573b49828ffbf1f9aaa289283b37edde85f"
+  integrity sha512-kXdNyWZdZkLlKSJ71gL6C9qXedNHbF5SXk4ngPvGhT9J1WCwCq5bnXe/9WvVwX3BMVnPmyRqJMKCIXxr7M4vDA==
 
 ts-pnp@^1.1.6:
   version "1.2.0"

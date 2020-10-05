@@ -1,12 +1,31 @@
-import React from "react"
+import React, { useState } from "react"
+import { useForm } from "react-hook-form"
+
+// Page components
 import WysiwygEditor from "../components/form/WysiwygEditor"
+import Alert from "../components/dialog/Alert"
 
 const NewJobPage = () => {
+  const { handleSubmit, register, errors } = useForm()
+  const onSubmit = (values) => console.log(values)
+  console.log(errors)
   return (
     <>
-      <form action="#" method="POST">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-rb-gray-1">
           <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
+            {Object.keys(errors).length !== 0 && (
+              <Alert
+                title={`There ${
+                  Object.keys(errors).length > 1 ? "are" : "is"
+                } ${Object.keys(errors).length} ${
+                  Object.keys(errors).length > 1 ? "errors" : "error"
+                } with your submission`}
+                message={`Please fix the marked ${
+                  Object.keys(errors).length > 1 ? "fields" : "field"
+                } and try resubmutting your job post`}
+              />
+            )}
             <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1">
@@ -21,15 +40,47 @@ const NewJobPage = () => {
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-6">
                       <label
-                        for="job_position"
-                        className="block text-sm font-medium leading-5 text-gray-700"
+                        htmlFor="position"
+                        className={`flex justify-between text-sm font-medium leading-5 ${
+                          !errors.position ? "text-gray-700" : "text-red-500"
+                        }`}
                       >
-                        * Position
+                        * Position{" "}
+                        {errors.job_position && (
+                          <span className="inline-block text-right">
+                            {errors.position.message}
+                          </span>
+                        )}
                       </label>
-                      <input
-                        id="job_position"
-                        className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                      />
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <input
+                          id="position"
+                          name="position"
+                          ref={register({
+                            required: "Job position is required",
+                          })}
+                          className={`${
+                            !errors.position
+                              ? "mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                              : "form-input block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red sm:text-sm sm:leading-5"
+                          }`}
+                        />
+                        {errors.position && (
+                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg
+                              class="h-5 w-5 text-red-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                       <p className="mt-2 text-xs text-gray-400">
                         Please specify as single job position like "Marketing
                         Manager" or "Node JS Developer", not a sentence like
@@ -43,24 +94,60 @@ const NewJobPage = () => {
                     <div className="col-span-6 sm:col-span-4">
                       <label
                         for="company_name"
-                        className="block text-sm font-medium leading-5 text-gray-700"
+                        className={`flex justify-between text-sm font-medium leading-5 ${
+                          !errors.company_name
+                            ? "text-gray-700"
+                            : "text-red-500"
+                        }`}
                       >
-                        * Company name
+                        * Company{" "}
+                        {errors.company_name && (
+                          <span className="inline-block text-right">
+                            {errors.company_name.message}
+                          </span>
+                        )}
                       </label>
-                      <input
-                        id="company_name"
-                        className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                      />
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <input
+                          id="company_name"
+                          name="company_name"
+                          ref={register({
+                            required: "Company name is required",
+                          })}
+                          className={`${
+                            !errors.company_name
+                              ? "mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                              : "form-input block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red sm:text-sm sm:leading-5"
+                          }`}
+                        />
+                        {errors.company_name && (
+                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg
+                              class="h-5 w-5 text-red-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        for="job_category"
+                        htmlFor="category"
                         className="block text-sm font-medium leading-5 text-gray-700"
                       >
-                        Category
+                        * Category
                       </label>
                       <select
-                        id="job_category"
+                        id="category"
+                        name="category"
+                        ref={register}
                         className="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       >
                         <option>Software Development</option>
@@ -72,14 +159,33 @@ const NewJobPage = () => {
                     </div>
                     <div className="col-span-6 sm:col-span-6">
                       <label
-                        for="job_tags"
-                        className="block text-sm font-medium leading-5 text-gray-700"
+                        htmlFor="tags"
+                        className={`flex justify-between text-sm font-medium leading-5 ${
+                          !errors.tags ? "text-gray-700" : "text-red-500"
+                        }`}
                       >
                         * Tags (Comma seperated)
+                        {errors.tags && (
+                          <span className="inline-block text-right">
+                            {errors.tags.message}
+                          </span>
+                        )}
                       </label>
                       <input
-                        id="job_tags"
-                        className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        id="tags"
+                        name="tags"
+                        ref={register({
+                          required: "Tags are required",
+                          pattern: {
+                            value: /^[a-zA-Z,]*$/i,
+                            message: "Please use comma to seperate tags",
+                          },
+                        })}
+                        className={`${
+                          !errors.tags
+                            ? "mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            : "form-input block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red sm:text-sm sm:leading-5"
+                        }`}
                         placeholder="Design, Marketing, Javascript, React"
                       />
                       <p className="mt-2 text-xs text-gray-400">
@@ -365,6 +471,7 @@ const NewJobPage = () => {
             </div>
           </div>
         </div>
+        <button type="submit">Submit</button>
       </form>
     </>
   )

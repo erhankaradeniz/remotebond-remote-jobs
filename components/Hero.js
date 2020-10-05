@@ -76,8 +76,8 @@ const Hero = () => {
         <h3 className="uppercase text-lg tracking-widest font-bold text-rb-gray-5">
           Remote jobs
         </h3>
-        <h1 className="text-white font-black text-2xl md:text-6xl md:leading-45 my-4">
-          Start working remotely and join the future of work
+        <h1 className="text-white font-black text-2xl md:text-5xl md:leading-45 my-4">
+          Start working and hiring remotely and join the future of work
         </h1>
         <h2 className="text-base md:text-xl text-rb-gray-4 w-3/4 mx-auto">
           Do you want to access talent{" "}

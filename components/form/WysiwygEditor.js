@@ -8,8 +8,7 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
 })
 const modules = {
   toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
+    [{ header: "1" }, { header: "2" }],
     ["bold", "italic", "underline", "strike", "blockquote"],
     [{ list: "ordered" }, { list: "bullet" }],
     ["link"],
@@ -26,8 +25,6 @@ const modules = {
  */
 const formats = [
   "header",
-  "font",
-  "size",
   "bold",
   "italic",
   "underline",
@@ -39,9 +36,17 @@ const formats = [
   "link",
 ]
 
-const WysiwygEditor = () => {
+const WysiwygEditor = (props) => {
   const [value, setValue] = useState("")
-  return <QuillNoSSRWrapper modules={modules} formats={formats} theme="snow" />
+  return (
+    <QuillNoSSRWrapper
+      modules={modules}
+      value={value}
+      onChange={setValue}
+      formats={formats}
+      theme="snow"
+    />
+  )
 }
 
 export default WysiwygEditor
