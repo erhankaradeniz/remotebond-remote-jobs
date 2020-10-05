@@ -6,7 +6,7 @@ import WysiwygEditor from "../components/form/WysiwygEditor"
 import Alert from "../components/dialog/Alert"
 
 const NewJobPage = () => {
-  const { handleSubmit, register, errors } = useForm()
+  const { handleSubmit, register, errors, watch } = useForm()
   const onSubmit = (values) => console.log(values)
   console.log(errors)
   return (
@@ -23,7 +23,7 @@ const NewJobPage = () => {
                 } with your submission`}
                 message={`Please fix the marked ${
                   Object.keys(errors).length > 1 ? "fields" : "field"
-                } and try resubmutting your job post`}
+                } and try submitting your job post again`}
               />
             )}
             <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -93,7 +93,7 @@ const NewJobPage = () => {
                     </div>
                     <div className="col-span-6 sm:col-span-4">
                       <label
-                        for="company_name"
+                        htmlFor="company_name"
                         className={`flex justify-between text-sm font-medium leading-5 ${
                           !errors.company_name
                             ? "text-gray-700"
@@ -171,23 +171,40 @@ const NewJobPage = () => {
                           </span>
                         )}
                       </label>
-                      <input
-                        id="tags"
-                        name="tags"
-                        ref={register({
-                          required: "Tags are required",
-                          pattern: {
-                            value: /^[a-zA-Z,]*$/i,
-                            message: "Please use comma to seperate tags",
-                          },
-                        })}
-                        className={`${
-                          !errors.tags
-                            ? "mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                            : "form-input block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red sm:text-sm sm:leading-5"
-                        }`}
-                        placeholder="Design, Marketing, Javascript, React"
-                      />
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <input
+                          id="tags"
+                          name="tags"
+                          ref={register({
+                            required: "Tags are required",
+                            pattern: {
+                              value: /^[a-zA-Z,]*$/i,
+                              message: "Please use comma to seperate tags",
+                            },
+                          })}
+                          className={`${
+                            !errors.tags
+                              ? "mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                              : "form-input block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red sm:text-sm sm:leading-5"
+                          }`}
+                          placeholder="Design, Marketing, Javascript, React"
+                        />
+                        {errors.tags && (
+                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg
+                              class="h-5 w-5 text-red-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                       <p className="mt-2 text-xs text-gray-400">
                         Use tags like industry and tech stack, and separate
                         multiple tags by comma. Short words are preferred. The
@@ -199,16 +216,48 @@ const NewJobPage = () => {
                     </div>
                     <div className="col-span-6 sm:col-span-6">
                       <label
-                        for="job_tags"
-                        className="block text-sm font-medium leading-5 text-gray-700"
+                        htmlFor="location"
+                        className={`flex justify-between text-sm font-medium leading-5 ${
+                          !errors.location ? "text-gray-700" : "text-red-500"
+                        }`}
                       >
                         * Location
+                        {errors.location && (
+                          <span className="inline-block text-right">
+                            {errors.location.message}
+                          </span>
+                        )}
                       </label>
-                      <input
-                        id="job_location"
-                        className="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        defaultValue="Remote"
-                      />
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <input
+                          id="location"
+                          name="location"
+                          className={`${
+                            !errors.location
+                              ? "mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                              : "form-input block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red sm:text-sm sm:leading-5"
+                          }`}
+                          defaultValue="Remote"
+                          ref={register({
+                            required: "Job location is required",
+                          })}
+                        />
+                        {errors.location && (
+                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg
+                              class="h-5 w-5 text-red-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                       <p className="mt-2 text-xs text-gray-400">
                         Location or timezone this remote job is restricted to
                         (e.g. Europe, United States or CET Timezone). If not
@@ -470,8 +519,85 @@ const NewJobPage = () => {
               </div>
             </div>
           </div>
+          <div className="sticky bottom-0 bg-white py-4">
+            <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+              <div className="flex justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm leading-5 font-medium text-blue-600 truncate">
+                      {!watch("position") ? "Position" : watch("position")}
+                    </div>
+                  </div>
+                  <div className="mt-2 sm:flex sm:justify-between">
+                    <div className="sm:flex">
+                      <div className="mr-6 flex items-center text-sm leading-5 text-rb-gray-5">
+                        <svg
+                          className="flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        {!watch("company_name")
+                          ? "Company name"
+                          : watch("company_name")}
+                      </div>
+                      <div className="mt-2 flex items-center text-sm leading-5 text-rb-gray-5 sm:mt-0">
+                        <svg
+                          className="flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        {!watch("location") ? "Remote" : watch("location")}
+                      </div>
+                    </div>
+                    {/* <div className="mt-2 flex items-center text-sm leading-5 text-rb-gray-5 sm:mt-0">
+                      {tags.length && (
+                        <ul className="flex space-x-3">
+                          {tags.map((tag, i) => {
+                            if (i > 2) return
+                            return (
+                              <li
+                                key={i}
+                                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-gray-100 text-rb-gray-5 hover:bg-rb-gray-8 hover:text-white"
+                              >
+                                <span
+                                  data-tip="React-tooltip"
+                                  onClick={() => onTagClick()}
+                                >
+                                  {tag}
+                                </span>
+                              </li>
+                            )
+                          })}
+                        </ul>
+                      )}
+                    </div> */}
+                  </div>
+                </div>
+                <div></div>
+                <span class="inline-flex rounded-md shadow-sm">
+                  <button
+                    type="submit"
+                    class="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 focus:outline-none focus:border-rb-green-7 focus:shadow-outline-green active:bg-rb-green-7 transition ease-in-out duration-150"
+                  >
+                    Post your job $25
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-        <button type="submit">Submit</button>
       </form>
     </>
   )
