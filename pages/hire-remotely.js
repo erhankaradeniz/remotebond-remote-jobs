@@ -18,6 +18,7 @@ const defaultValues = {
   company_name: "",
   company_email: "",
   company_website: "",
+  company_twitter: "",
   company_logo: "",
   company_is_highlighted: false,
   show_company_logo: false,
