@@ -6,9 +6,9 @@ const JobHeader = ({ title, workingHours, company, applyUrl, location }) => {
       <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
         <div className="lg:flex lg:items-center lg:justify-between">
           <div className="flex-1 min-w-0 py-4 md:py-6">
-            <h2 className="text-2xl font-bold leading-7 text-white sm:text-3xl sm:leading-9 sm:truncate">
+            <h1 className="text-2xl font-bold leading-7 text-white sm:text-3xl sm:leading-9 sm:truncate">
               {title}
-            </h2>
+            </h1>
             <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
               <div className="mt-2 flex items-center text-sm leading-5 text-gray-400 sm:mr-6">
                 <svg
@@ -75,7 +75,7 @@ const JobHeader = ({ title, workingHours, company, applyUrl, location }) => {
           <div className="mt-5 flex lg:mt-0 lg:ml-4 pb-4">
             <span className="shadow-sm rounded-md">
               <a
-                href={`${applyUrl}&utm_source=remotebond.com&ref=remotebond.com`}
+                href={`${applyUrl}?utm_source=remotebond.com&ref=remotebond.com`}
                 rel="nofollow, noindex, noreferrer"
                 target="_blank"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-5 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-rb-green-7 active:bg-rb-green-7 transition duration-150 ease-in-out"

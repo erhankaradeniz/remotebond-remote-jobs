@@ -4,18 +4,75 @@ import { useForm } from "react-hook-form"
 // Page components
 import WysiwygEditor from "../components/form/WysiwygEditor"
 import Alert from "../components/dialog/Alert"
+import Banner from "../components/Banner"
+
+const defaultValues = {
+  position: "",
+  category: "Software Development",
+  company_name: "",
+  company_logo: "",
+  company_is_highlighted: false,
+  show_company_logo: false,
+  tags: "",
+  location: "Remote",
+  description: "",
+  minSalary: null,
+  maxSalary: null,
+  applyLink: "",
+}
 
 const NewJobPage = () => {
   let tempTags = []
+  const [logoImage, setLogoImage] = useState()
+  const [jobPrice, setJobPrice] = useState(25)
 
-  const { handleSubmit, register, errors, watch } = useForm()
+  const { handleSubmit, register, errors, watch, control, setValue } = useForm({
+    defaultValues,
+  })
+
   const onSubmit = (values) => console.log(values)
+
+  const handleFileInputChange = (event) => {
+    setLogoImage(URL.createObjectURL(event.target.files[0]))
+    setValue("show_company_logo", true)
+    handleShowCompanyLogoChange()
+  }
+
+  const handleShowCompanyLogoChange = (event) => {
+    const isChecked = event?.target?.checked
+    if (isChecked || watch("show_company_logo")) {
+      setJobPrice((prevPrice) => {
+        if (prevPrice === 25 || prevPrice === 125) {
+          return prevPrice + 25
+        } else {
+          return prevPrice
+        }
+      })
+    } else {
+      setJobPrice((prevPrice) => prevPrice - 25)
+      setLogoImage(null)
+      setValue("company_logo", "")
+    }
+  }
+
+  const handleHighlightPostChange = (event) => {
+    const isChecked = event?.target?.checked
+    if (isChecked) {
+      setJobPrice((prevPrice) => prevPrice + 100)
+    } else {
+      setJobPrice((prevPrice) => prevPrice - 100)
+    }
+  }
+
   console.log(errors)
+  // Dirty hack to set tags in preview box
   tempTags = !watch("tags")
     ? ["Add tag", "Add tag", "Add tag"]
     : watch("tags").split(",")
+
   return (
     <>
+      <Banner message={`Launch deal! Base job ad is now priced at $25`} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-rb-gray-1">
           <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
@@ -73,7 +130,7 @@ const NewJobPage = () => {
                         {errors.position && (
                           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <svg
-                              class="h-5 w-5 text-red-500"
+                              className="h-5 w-5 text-red-500"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -89,7 +146,7 @@ const NewJobPage = () => {
                       <p className="mt-2 text-xs text-gray-400">
                         Please specify as single job position like "Marketing
                         Manager" or "Node JS Developer", not a sentence like
-                        "Looking for PM / Biz Dev / Manager". If posting
+                        "Looking htmlFor PM / Biz Dev / Manager". If posting
                         multiple roles, please create multiple job posts. A job
                         post is limited to a single job. We only allow real
                         jobs, absolutely no MLM-type courses "learn how to work
@@ -128,7 +185,7 @@ const NewJobPage = () => {
                         {errors.company_name && (
                           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <svg
-                              class="h-5 w-5 text-red-500"
+                              className="h-5 w-5 text-red-500"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -197,7 +254,7 @@ const NewJobPage = () => {
                         {errors.tags && (
                           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <svg
-                              class="h-5 w-5 text-red-500"
+                              className="h-5 w-5 text-red-500"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -250,7 +307,7 @@ const NewJobPage = () => {
                         {errors.location && (
                           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <svg
-                              class="h-5 w-5 text-red-500"
+                              className="h-5 w-5 text-red-500"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -279,6 +336,90 @@ const NewJobPage = () => {
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
+                    <span className="text-blue-500">
+                      <strong>Help your job stand out</strong>
+                    </span>
+                  </h3>
+                  <p className="mt-1 text-sm leading-5 text-gray-500">
+                    Choose a package to get more attention for you job post.
+                  </p>
+                </div>
+                <div className="mt-5 md:mt-0 md:col-span-2">
+                  <div className="mt-4">
+                    <div className="flex items-start">
+                      <div className="flex items-center h-5">
+                        <input
+                          id="showCompanyLogo"
+                          type="checkbox"
+                          name="show_company_logo"
+                          ref={register}
+                          onChange={handleShowCompanyLogoChange}
+                          className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                        />
+                      </div>
+                      <div className="ml-3 text-sm leading-5">
+                        <label
+                          htmlFor="showCompanyLogo"
+                          className="font-medium text-gray-700"
+                        >
+                          Company logo (+$25)
+                        </label>
+                        <p className="text-gray-500 flex flex-col md:flex-row">
+                          <span className="mr-3 mb-1 md:mb-0">
+                            Show your company logo beside your post.
+                          </span>
+                          <div>
+                            <span className="inline-flex mr-3 flex-grow-0 items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-yellow-100 text-yellow-800">
+                              More views
+                            </span>
+                            <span className="inline-flex flex-grow-0 items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-red-100 text-red-800">
+                              Recommended
+                            </span>
+                          </div>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <div className="flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            id="highlightPost"
+                            name="company_is_highlighted"
+                            ref={register}
+                            type="checkbox"
+                            onChange={handleHighlightPostChange}
+                            className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm leading-5">
+                          <label
+                            htmlFor="highlightPost"
+                            className="font-medium text-gray-700"
+                          >
+                            Highlight post (+$100)
+                          </label>
+                          <p className="text-gray-500 flex flex-col md:flex-row">
+                            <span className="mr-3 mb-1 md:mb-0">
+                              Highlight your post in yellow for more attention.
+                            </span>
+                            <div>
+                              <span className="inline-flex flex-grow-0 items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-yellow-100 text-yellow-800">
+                                More views
+                              </span>
+                            </div>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+              <div className="md:grid md:grid-cols-3 md:gap-6">
+                <div className="md:col-span-1">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">
                     Job details
                   </h3>
                   <p className="mt-1 text-sm leading-5 text-gray-500">
@@ -288,54 +429,67 @@ const NewJobPage = () => {
                 <div className="mt-5 md:mt-0 md:col-span-2">
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
-                      <label className="block text-sm leading-5 font-medium text-gray-700">
-                        Company logo
+                      <label
+                        htmlFor="company_logo"
+                        className="block text-sm leading-5 font-medium text-gray-700"
+                      >
+                        Company logo (.JPG or .PNG)
                       </label>
                       <div className="mt-2 flex items-center">
-                        <span className="inline-block h-24 w-24 rounded-sm overflow-hidden bg-gray-100">
-                          <svg
-                            className="h-full w-full text-gray-300"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                          </svg>
-                        </span>
-                        <span className="ml-5 rounded-md shadow-sm">
-                          <button
-                            type="button"
-                            className="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
-                          >
-                            Upload
-                          </button>
-                        </span>
+                        <div className="inline-block h-24 w-24 rounded-sm overflow-hidden bg-gray-100 relative">
+                          {logoImage && (
+                            <img
+                              className="absolute inset-0 object-cover h-full w-full"
+                              src={logoImage}
+                              alt="Company logo"
+                            />
+                          )}
+                          {!logoImage && (
+                            <div className="flex justify-center items-center h-full">
+                              <p className="px-2 py-1 text-sm bg-blue-500 text-center rounded-sm text-white hover:bg-blue-100 hover:text-blue-400">
+                                Upload
+                              </p>
+                            </div>
+                          )}
+                          <input
+                            type="file"
+                            ref={register}
+                            id="company_logo"
+                            name="company_logo"
+                            accept="image/png, image/jpeg"
+                            className="absolute inset-0 appearance-none h-full w-full opacity-0 cursor-pointer z-10"
+                            onChange={handleFileInputChange}
+                          />
+                        </div>
                       </div>
                     </div>
 
                     <div className="col-span-6 sm:col-span-6">
                       <label
-                        for="email_address"
+                        htmlFor="job_salary_min"
                         className="block text-sm font-medium leading-5 text-gray-700"
                       >
                         Annual salary
                       </label>
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-2">
-                          <div class="mt-1 relative rounded-md shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                              <span class="text-gray-500 sm:text-sm sm:leading-5">
+                          <div className="mt-1 relative rounded-md shadow-sm">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                              <span className="text-gray-500 sm:text-sm sm:leading-5">
                                 $
                               </span>
                             </div>
                             <input
-                              id="job_salary_low"
-                              class="form-input block w-full pl-7 pr-12 sm:text-sm sm:leading-5"
-                              placeholder="0.00"
+                              id="job_salary_min"
+                              name="minSalary"
+                              ref={register}
+                              className="form-input block w-full pl-7 pr-12 sm:text-sm sm:leading-5"
+                              placeholder="Min per year"
                               aria-describedby="currency"
                             />
-                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                               <span
-                                class="text-gray-500 sm:text-sm sm:leading-5"
+                                className="text-gray-500 sm:text-sm sm:leading-5"
                                 id="currency"
                               >
                                 USD
@@ -347,21 +501,23 @@ const NewJobPage = () => {
                           -
                         </div>
                         <div className="col-span-6 sm:col-span-2">
-                          <div class="mt-1 relative rounded-md shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                              <span class="text-gray-500 sm:text-sm sm:leading-5">
+                          <div className="mt-1 relative rounded-md shadow-sm">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                              <span className="text-gray-500 sm:text-sm sm:leading-5">
                                 $
                               </span>
                             </div>
                             <input
-                              id="job_salary_high"
-                              class="form-input block w-full pl-7 pr-12 sm:text-sm sm:leading-5"
-                              placeholder="0.00"
+                              id="job_salary_max"
+                              name="maxSalary"
+                              ref={register}
+                              className="form-input block w-full pl-7 pr-12 sm:text-sm sm:leading-5"
+                              placeholder="Max per year"
                               aria-describedby="currency"
                             />
-                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                               <span
-                                class="text-gray-500 sm:text-sm sm:leading-5"
+                                className="text-gray-500 sm:text-sm sm:leading-5"
                                 id="currency"
                               >
                                 USD
@@ -378,7 +534,69 @@ const NewJobPage = () => {
                     </div>
 
                     <div className="col-span-6">
-                      <WysiwygEditor />
+                      <label
+                        htmlFor="email_address"
+                        className={`flex justify-between text-sm font-medium leading-5 ${
+                          !errors.description ? "text-gray-700" : "text-red-500"
+                        }`}
+                      >
+                        * Description
+                        {errors.description && (
+                          <span className="inline-block text-right">
+                            {errors.description.message}
+                          </span>
+                        )}
+                      </label>
+                      <WysiwygEditor control={control} inputError={errors} />
+                    </div>
+
+                    <div className="col-span-6 sm:col-span-6">
+                      <label
+                        htmlFor="applyLink"
+                        className={`flex justify-between text-sm font-medium leading-5 ${
+                          !errors.applyLink ? "text-gray-700" : "text-red-500"
+                        }`}
+                      >
+                        * Apply link or email
+                        {errors.applyLink && (
+                          <span className="inline-block text-right">
+                            {errors.applyLink.message}
+                          </span>
+                        )}
+                      </label>
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <input
+                          id="applyLink"
+                          name="applyLink"
+                          className={`${
+                            !errors.applyLink
+                              ? "mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                              : "form-input block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red sm:text-sm sm:leading-5"
+                          }`}
+                          ref={register({
+                            required: "Apply link / email is required",
+                          })}
+                        />
+                        {errors.applyLink && (
+                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg
+                              className="h-5 w-5 text-red-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                      <p className="mt-2 text-xs text-gray-400">
+                        Provide a link or email for applicants. If you provide
+                        an email, this email will public.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -396,130 +614,129 @@ const NewJobPage = () => {
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
-                  <form action="#" method="POST">
-                    <fieldset>
-                      <legend className="text-base leading-6 font-medium text-gray-900">
-                        By Email
-                      </legend>
+                  <fieldset>
+                    <legend className="text-base leading-6 font-medium text-gray-900">
+                      By Email
+                    </legend>
+                    <div className="mt-4">
+                      <div className="flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            id="comments"
+                            type="checkbox"
+                            className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm leading-5">
+                          <label
+                            htmlFor="comments"
+                            className="font-medium text-gray-700"
+                          >
+                            Comments
+                          </label>
+                          <p className="text-gray-500">
+                            Get notified when someones posts a comment on a
+                            posting.
+                          </p>
+                        </div>
+                      </div>
                       <div className="mt-4">
                         <div className="flex items-start">
                           <div className="flex items-center h-5">
                             <input
-                              id="comments"
+                              id="candidates"
                               type="checkbox"
                               className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
                             />
                           </div>
                           <div className="ml-3 text-sm leading-5">
                             <label
-                              for="comments"
+                              htmlFor="candidates"
                               className="font-medium text-gray-700"
                             >
-                              Comments
+                              Candidates
                             </label>
                             <p className="text-gray-500">
-                              Get notified when someones posts a comment on a
-                              posting.
+                              Get notified when a candidate applies htmlFor a
+                              job.
                             </p>
                           </div>
                         </div>
-                        <div className="mt-4">
-                          <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                              <input
-                                id="candidates"
-                                type="checkbox"
-                                className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                              />
-                            </div>
-                            <div className="ml-3 text-sm leading-5">
-                              <label
-                                for="candidates"
-                                className="font-medium text-gray-700"
-                              >
-                                Candidates
-                              </label>
-                              <p className="text-gray-500">
-                                Get notified when a candidate applies for a job.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-4">
-                          <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                              <input
-                                id="offers"
-                                type="checkbox"
-                                className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                              />
-                            </div>
-                            <div className="ml-3 text-sm leading-5">
-                              <label
-                                for="offers"
-                                className="font-medium text-gray-700"
-                              >
-                                Offers
-                              </label>
-                              <p className="text-gray-500">
-                                Get notified when a candidate accepts or rejects
-                                an offer.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
                       </div>
-                    </fieldset>
-                    <fieldset className="mt-6">
-                      <legend className="text-base leading-6 font-medium text-gray-900">
-                        Push Notifications
-                      </legend>
-                      <p className="text-sm leading-5 text-gray-500">
-                        These are delivered via SMS to your mobile phone.
-                      </p>
                       <div className="mt-4">
-                        <div className="flex items-center">
-                          <input
-                            id="push_everything"
-                            name="push_notifications"
-                            type="radio"
-                            className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                          />
-                          <label for="push_everything" className="ml-3">
-                            <span className="block text-sm leading-5 font-medium text-gray-700">
-                              Everything
-                            </span>
-                          </label>
-                        </div>
-                        <div className="mt-4 flex items-center">
-                          <input
-                            id="push_email"
-                            name="push_notifications"
-                            type="radio"
-                            className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                          />
-                          <label for="push_email" className="ml-3">
-                            <span className="block text-sm leading-5 font-medium text-gray-700">
-                              Same as email
-                            </span>
-                          </label>
-                        </div>
-                        <div className="mt-4 flex items-center">
-                          <input
-                            id="push_nothing"
-                            name="push_notifications"
-                            type="radio"
-                            className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                          />
-                          <label for="push_nothing" className="ml-3">
-                            <span className="block text-sm leading-5 font-medium text-gray-700">
-                              No push notifications
-                            </span>
-                          </label>
+                        <div className="flex items-start">
+                          <div className="flex items-center h-5">
+                            <input
+                              id="offers"
+                              type="checkbox"
+                              className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                            />
+                          </div>
+                          <div className="ml-3 text-sm leading-5">
+                            <label
+                              htmlFor="offers"
+                              className="font-medium text-gray-700"
+                            >
+                              Offers
+                            </label>
+                            <p className="text-gray-500">
+                              Get notified when a candidate accepts or rejects
+                              an offer.
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </fieldset>
-                  </form>
+                    </div>
+                  </fieldset>
+                  <fieldset className="mt-6">
+                    <legend className="text-base leading-6 font-medium text-gray-900">
+                      Push Notifications
+                    </legend>
+                    <p className="text-sm leading-5 text-gray-500">
+                      These are delivered via SMS to your mobile phone.
+                    </p>
+                    <div className="mt-4">
+                      <div className="flex items-center">
+                        <input
+                          id="push_everything"
+                          name="push_notifications"
+                          type="radio"
+                          className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                        />
+                        <label htmlFor="push_everything" className="ml-3">
+                          <span className="block text-sm leading-5 font-medium text-gray-700">
+                            Everything
+                          </span>
+                        </label>
+                      </div>
+                      <div className="mt-4 flex items-center">
+                        <input
+                          id="push_email"
+                          name="push_notifications"
+                          type="radio"
+                          className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                        />
+                        <label htmlFor="push_email" className="ml-3">
+                          <span className="block text-sm leading-5 font-medium text-gray-700">
+                            Same as email
+                          </span>
+                        </label>
+                      </div>
+                      <div className="mt-4 flex items-center">
+                        <input
+                          id="push_nothing"
+                          name="push_notifications"
+                          type="radio"
+                          className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                        />
+                        <label htmlFor="push_nothing" className="ml-3">
+                          <span className="block text-sm leading-5 font-medium text-gray-700">
+                            No push notifications
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
                 </div>
               </div>
             </div>
@@ -527,6 +744,23 @@ const NewJobPage = () => {
           <div className="sticky bottom-0 bg-white">
             <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4">
               <div className="flex justify-between">
+                <div>
+                  <div className="bg-gray-100 text-gray-500 h-12 md:h-full w-12 rounded-sm text-center font-extrabold mr-4 pt-3 relative overflow-hidden">
+                    {!logoImage ? (
+                      <span className="uppercase">
+                        {!watch("company_name")
+                          ? "RB"
+                          : watch("company_name").charAt(0)}
+                      </span>
+                    ) : (
+                      <img
+                        className="absolute inset-0 object-cover h-full w-full"
+                        src={logoImage}
+                        alt="Company logo"
+                      />
+                    )}
+                  </div>
+                </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <div className="text-sm leading-5 font-medium text-blue-600 truncate">
@@ -601,9 +835,9 @@ const NewJobPage = () => {
             </div>
             <button
               type="submit"
-              class="flex w-full items-center justify-center px-6 py-3 border border-transparent text-xl leading-6 font-bold text-white bg-rb-green-6 hover:bg-rb-green-5 focus:outline-none focus:border-rb-green-7 focus:shadow-outline-green active:bg-rb-green-7 transition ease-in-out duration-150"
+              className="flex w-full items-center justify-center px-6 py-3 border border-transparent text-xl leading-6 font-bold text-white bg-rb-green-6 hover:bg-rb-green-5 focus:outline-none focus:border-rb-green-7 focus:shadow-outline-green active:bg-rb-green-7 transition ease-in-out duration-150"
             >
-              Post your job - $25
+              Post your job - ${jobPrice}
             </button>
           </div>
         </div>

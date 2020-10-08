@@ -1,11 +1,12 @@
-import React, { useState } from "react"
+import React from "react"
 import dynamic from "next/dynamic"
-import classNames from "classnames"
+import { Controller } from "react-hook-form"
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
 })
+
 const modules = {
   toolbar: [
     [{ header: "1" }, { header: "2" }],
@@ -36,15 +37,29 @@ const formats = [
   "link",
 ]
 
-const WysiwygEditor = (props) => {
-  const [value, setValue] = useState("")
+const WysiwygEditor = ({ control, inputError }) => {
+  console.log(inputError)
   return (
-    <QuillNoSSRWrapper
-      modules={modules}
-      value={value}
-      onChange={setValue}
-      formats={formats}
-      theme="snow"
+    <Controller
+      name="description"
+      control={control}
+      rules={{ required: "Description is required" }}
+      render={(props) => {
+        return (
+          <QuillNoSSRWrapper
+            modules={modules}
+            value={props.value}
+            onChange={props.onChange}
+            formats={formats}
+            theme="snow"
+            className={`mt-1 form-input border ${
+              !inputError.description
+                ? "border-gray-300 focus:border-blue-300"
+                : "border-red-300 focus:border-red-300"
+            }  rounded-md shadow-sm`}
+          />
+        )
+      }}
     />
   )
 }

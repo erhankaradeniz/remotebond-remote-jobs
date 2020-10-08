@@ -74,7 +74,9 @@ const Hero = () => {
       <div id="bucket" className="absolute inset-0 z-0"></div>
       <div className="max-w-screen-xl relative mx-auto text-center py-12 md:py-28 px-4 sm:px-6 z-10">
         <h3 className="uppercase text-lg tracking-widest font-bold text-rb-gray-5">
-          Remote jobs
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
+            Remote jobs
+          </span>
         </h3>
         <h1 className="text-white font-black text-2xl md:text-5xl md:leading-45 my-4">
           Start working and hiring remotely and join the future of work
