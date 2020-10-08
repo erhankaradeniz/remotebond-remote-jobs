@@ -9,16 +9,18 @@ import Banner from "../components/Banner"
 const defaultValues = {
   position: "",
   category: "Software Development",
-  company_name: "",
-  company_logo: "",
-  company_is_highlighted: false,
-  show_company_logo: false,
   tags: "",
   location: "Remote",
   description: "",
   minSalary: null,
   maxSalary: null,
   applyLink: "",
+  company_name: "",
+  company_email: "",
+  company_website: "",
+  company_logo: "",
+  company_is_highlighted: false,
+  show_company_logo: false,
 }
 
 const NewJobPage = () => {
@@ -108,7 +110,7 @@ const NewJobPage = () => {
                         }`}
                       >
                         * Position{" "}
-                        {errors.job_position && (
+                        {errors.position && (
                           <span className="inline-block text-right">
                             {errors.position.message}
                           </span>
@@ -607,136 +609,103 @@ const NewJobPage = () => {
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
-                    Notifications
+                    Company information
                   </h3>
                   <p className="mt-1 text-sm leading-5 text-gray-500">
-                    Decide which communications you'd like to receive and how.
+                    The information here will be used for billing, invoice and
+                    your company profile.
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
-                  <fieldset>
-                    <legend className="text-base leading-6 font-medium text-gray-900">
-                      By Email
-                    </legend>
-                    <div className="mt-4">
-                      <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                          <input
-                            id="comments"
-                            type="checkbox"
-                            className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                          />
-                        </div>
-                        <div className="ml-3 text-sm leading-5">
-                          <label
-                            htmlFor="comments"
-                            className="font-medium text-gray-700"
-                          >
-                            Comments
-                          </label>
-                          <p className="text-gray-500">
-                            Get notified when someones posts a comment on a
-                            posting.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <div className="flex items-start">
-                          <div className="flex items-center h-5">
-                            <input
-                              id="candidates"
-                              type="checkbox"
-                              className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                            />
-                          </div>
-                          <div className="ml-3 text-sm leading-5">
-                            <label
-                              htmlFor="candidates"
-                              className="font-medium text-gray-700"
+                  <div className="grid grid-cols-6 gap-6">
+                    <div className="col-span-6 sm:col-span-6">
+                      <label
+                        htmlFor="company_email"
+                        className={`flex justify-between text-sm font-medium leading-5 ${
+                          !errors.company_email
+                            ? "text-gray-700"
+                            : "text-red-500"
+                        }`}
+                      >
+                        * Company email{" "}
+                        {errors.company_email && (
+                          <span className="inline-block text-right">
+                            {errors.company_email.message}
+                          </span>
+                        )}
+                      </label>
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <input
+                          id="company_email"
+                          name="company_email"
+                          ref={register({
+                            required: "Company email is required",
+                          })}
+                          className={`${
+                            !errors.company_email
+                              ? "mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                              : "form-input block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red sm:text-sm sm:leading-5"
+                          }`}
+                        />
+                        {errors.company_email && (
+                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg
+                              className="h-5 w-5 text-red-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
                             >
-                              Candidates
-                            </label>
-                            <p className="text-gray-500">
-                              Get notified when a candidate applies htmlFor a
-                              job.
-                            </p>
+                              <path
+                                fillRule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
                           </div>
-                        </div>
+                        )}
                       </div>
-                      <div className="mt-4">
-                        <div className="flex items-start">
-                          <div className="flex items-center h-5">
-                            <input
-                              id="offers"
-                              type="checkbox"
-                              className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                            />
-                          </div>
-                          <div className="ml-3 text-sm leading-5">
-                            <label
-                              htmlFor="offers"
-                              className="font-medium text-gray-700"
-                            >
-                              Offers
-                            </label>
-                            <p className="text-gray-500">
-                              Get notified when a candidate accepts or rejects
-                              an offer.
-                            </p>
-                          </div>
-                        </div>
+                      <p className="mt-2 text-xs text-gray-400">
+                        This email stays private and is used for billing + edit
+                        link. Make sure it's accessible by you.
+                      </p>
+                    </div>
+
+                    <div className="col-span-6 sm:col-span-3">
+                      <label
+                        htmlFor="company_website"
+                        className={`flex justify-between text-sm font-medium leading-5 text-gray-700`}
+                      >
+                        Company website{" "}
+                      </label>
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <input
+                          id="company_website"
+                          name="company_website"
+                          ref={register}
+                          className={`${"mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"}`}
+                        />
                       </div>
                     </div>
-                  </fieldset>
-                  <fieldset className="mt-6">
-                    <legend className="text-base leading-6 font-medium text-gray-900">
-                      Push Notifications
-                    </legend>
-                    <p className="text-sm leading-5 text-gray-500">
-                      These are delivered via SMS to your mobile phone.
-                    </p>
-                    <div className="mt-4">
-                      <div className="flex items-center">
+
+                    <div className="col-span-6 sm:col-span-3">
+                      <label
+                        htmlFor="company_twitter"
+                        className={`flex justify-between text-sm font-medium leading-5 text-gray-700`}
+                      >
+                        Company Twitter
+                      </label>
+                      <div className="mt-1 relative rounded-md shadow-sm">
                         <input
-                          id="push_everything"
-                          name="push_notifications"
-                          type="radio"
-                          className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                          id="company_twitter"
+                          name="company_twitter"
+                          ref={register}
+                          className={`mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5`}
                         />
-                        <label htmlFor="push_everything" className="ml-3">
-                          <span className="block text-sm leading-5 font-medium text-gray-700">
-                            Everything
-                          </span>
-                        </label>
                       </div>
-                      <div className="mt-4 flex items-center">
-                        <input
-                          id="push_email"
-                          name="push_notifications"
-                          type="radio"
-                          className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                        />
-                        <label htmlFor="push_email" className="ml-3">
-                          <span className="block text-sm leading-5 font-medium text-gray-700">
-                            Same as email
-                          </span>
-                        </label>
-                      </div>
-                      <div className="mt-4 flex items-center">
-                        <input
-                          id="push_nothing"
-                          name="push_notifications"
-                          type="radio"
-                          className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                        />
-                        <label htmlFor="push_nothing" className="ml-3">
-                          <span className="block text-sm leading-5 font-medium text-gray-700">
-                            No push notifications
-                          </span>
-                        </label>
-                      </div>
+                      <p className="mt-2 text-xs text-gray-400">
+                        Used for mentioning you when we tweet your job
+                      </p>
                     </div>
-                  </fieldset>
+                  </div>
                 </div>
               </div>
             </div>
