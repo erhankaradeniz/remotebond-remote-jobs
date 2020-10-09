@@ -2,13 +2,13 @@ import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { destroyCookie } from "nookies"
+import Link from "next/link"
 
 // Local Components
 import WysiwygEditor from "../../components/form/WysiwygEditor"
 import Alert from "../../components/dialog/Alert"
 
 const JobPostForm = ({ paymentIntentSSR }) => {
-  console.log(paymentIntentSSR)
   const defaultValues = {
     position: "",
     category: "Software Development",
@@ -144,7 +144,42 @@ const JobPostForm = ({ paymentIntentSSR }) => {
     ? ["Add tag", "Add tag", "Add tag"]
     : watch("tags").split(",")
 
-  if (checkoutSuccess) return <p>Payment successful!</p>
+  if (checkoutSuccess)
+    return (
+      <div className="bg-rb-gray-1 flex flex-1 justify-center items-center">
+        <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
+          <div className="text-white bg-rb-green-6 rounded-full w-20 h-20 mx-auto sm:w-32 sm:h-32">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <div className="w-full text-center py-6">
+            <h2 className="text-rb-green-6 text-2xl font-bold mb-2 sm:text-4xl">
+              Job posted
+            </h2>
+            <p className="mb-2">
+              Your job has been posted and will be available soon.
+            </p>
+            <p>Please check your provided email for further information.</p>
+            <Link href={`/`} as={`/`}>
+              <a className="mt-8 inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
+                Return to homepage
+              </a>
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
