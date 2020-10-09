@@ -8,7 +8,7 @@ import WysiwygEditor from "../../components/form/WysiwygEditor"
 import Alert from "../../components/dialog/Alert"
 
 const JobPostForm = ({ paymentIntentSSR }) => {
-  console.log(paymentIntentSSR.amount)
+  console.log(paymentIntentSSR)
   const defaultValues = {
     position: "",
     category: "Software Development",
@@ -50,6 +50,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
   const onSubmit = async (values, e) => {
     e.preventDefault()
     setPayment({ status: "processing" })
+    console.log(values)
     try {
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         paymentIntentSSR.client_secret,
@@ -67,6 +68,17 @@ const JobPostForm = ({ paymentIntentSSR }) => {
 
       if (paymentIntent.status === "succeeded") {
         setPayment({ status: "succeeded" })
+        const newJobResponse = await fetch(
+          "http://localhost:3000/api/jobs/new",
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+              "rb-stripe-id": paymentIntentSSR.id,
+            },
+            body: JSON.stringify(values),
+          }
+        )
         setCheckoutSuccess(true)
         destroyCookie(null, "paymentIntentId")
       }

@@ -71,7 +71,7 @@ const JobsList = ({
                                 : "text-blue-600"
                             }`}
                           >
-                            {title}
+                            {`${title} - ${id}`}
                           </div>
                           <div className="ml-2 flex-shrink-0 flex">
                             {isHighlighted && (
