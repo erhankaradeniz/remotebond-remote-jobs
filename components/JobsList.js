@@ -26,20 +26,37 @@ const JobsList = ({
       <div className="bg-white shadow overflow-hidden sm:rounded-md mb-4">
         <ul>
           {jobs.map((job, idx) => {
-            const { title, location, company_name, slug, tags } = job.data
+            const {
+              title,
+              location,
+              company_name,
+              slug,
+              tags,
+              isHighlighted,
+            } = job.data
             const id = job.ref["@ref"].id
             return (
               <li key={idx}>
                 <Link as={`/remote-jobs/${slug}`} href={`/remote-jobs/${slug}`}>
                   <a
                     title={`Remote ${title} job at ${company_name}`}
-                    className={`block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out ${
+                    className={`block focus:outline-none  transition duration-150 ease-in-out ${
                       idx !== 0 ? "border-t border-gray-200" : ""
+                    } ${
+                      isHighlighted
+                        ? "bg-yellow-100 hover:bg-yellow-50 focus:bg-yellow-50"
+                        : "hover:bg-gray-50 focus:bg-gray-50"
                     }`}
                   >
                     <div className="px-4 py-4 sm:px-6 flex">
                       <div>
-                        <div className="bg-gray-100 text-gray-500 h-12 md:h-full w-12 rounded-sm text-center font-extrabold mr-4 pt-3">
+                        <div
+                          className={`h-12 md:h-full w-12 rounded-sm text-center font-extrabold mr-4 pt-3 ${
+                            isHighlighted
+                              ? "bg-yellow-400 text-white"
+                              : "bg-gray-100 text-gray-500"
+                          }`}
+                        >
                           <span className="uppercase">
                             {company_name.charAt(0)}
                           </span>
@@ -47,10 +64,21 @@ const JobsList = ({
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <div className="text-sm leading-5 font-medium text-blue-600 truncate">
+                          <div
+                            className={`text-sm leading-5 font-medium truncate ${
+                              isHighlighted
+                                ? "text-yellow-800"
+                                : "text-blue-600"
+                            }`}
+                          >
                             {title}
                           </div>
                           <div className="ml-2 flex-shrink-0 flex">
+                            {isHighlighted && (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-red-100 text-red-800 mr-2">
+                                Featured
+                              </span>
+                            )}
                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                               Allows remote
                             </span>
@@ -58,9 +86,19 @@ const JobsList = ({
                         </div>
                         <div className="mt-2 sm:flex sm:justify-between">
                           <div className="sm:flex">
-                            <div className="mr-6 flex items-center text-sm leading-5 text-rb-gray-5">
+                            <div
+                              className={`mr-6 flex items-center text-sm leading-5 ${
+                                isHighlighted
+                                  ? "text-yellow-500"
+                                  : "text-rb-gray-5"
+                              }`}
+                            >
                               <svg
-                                className="flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4"
+                                className={`flex-shrink-0 mr-1.5 h-5 w-5 ${
+                                  isHighlighted
+                                    ? "text-yellow-400"
+                                    : "text-rb-gray-4"
+                                }`}
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                               >
@@ -72,9 +110,19 @@ const JobsList = ({
                               </svg>
                               {company_name}
                             </div>
-                            <div className="mt-2 flex items-center text-sm leading-5 text-rb-gray-5 sm:mt-0">
+                            <div
+                              className={`mr-6 flex items-center text-sm leading-5 ${
+                                isHighlighted
+                                  ? "text-yellow-500"
+                                  : "text-rb-gray-5"
+                              }`}
+                            >
                               <svg
-                                className="flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4"
+                                className={`flex-shrink-0 mr-1.5 h-5 w-5 ${
+                                  isHighlighted
+                                    ? "text-yellow-400"
+                                    : "text-rb-gray-4"
+                                }`}
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                               >
@@ -95,7 +143,11 @@ const JobsList = ({
                                   return (
                                     <li
                                       key={i}
-                                      className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-gray-100 text-rb-gray-5 hover:bg-rb-gray-8 hover:text-white"
+                                      className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 ${
+                                        isHighlighted
+                                          ? "bg-yellow-400 text-white hover:bg-yellow-300"
+                                          : "bg-gray-100 text-rb-gray-5 hover:bg-rb-gray-8 hover:text-white"
+                                      }`}
                                     >
                                       <span
                                         data-tip="React-tooltip"

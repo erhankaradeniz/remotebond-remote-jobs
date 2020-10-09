@@ -38,7 +38,6 @@ const formats = [
 ]
 
 const WysiwygEditor = ({ control, inputError }) => {
-  console.log(inputError)
   return (
     <Controller
       name="description"

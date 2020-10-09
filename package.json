@@ -15,6 +15,7 @@
     "next": "^9.5.2",
     "next-seo": "^4.7.3",
     "nextjs-progressbar": "^0.0.6",
+    "nookies": "^2.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.9.0",
@@ -23,6 +24,7 @@
     "react-trix": "^0.7.0",
     "request": "^2.88.2",
     "rss-parser": "^3.9.0",
+    "stripe": "^8.107.0",
     "swr": "^0.3.2",
     "three": "^0.120.1"
   },
