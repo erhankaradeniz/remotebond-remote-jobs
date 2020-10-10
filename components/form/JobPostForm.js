@@ -10,16 +10,16 @@ import Alert from "../../components/dialog/Alert"
 
 const JobPostForm = ({ paymentIntentSSR }) => {
   const defaultValues = {
-    position: "",
+    position: "wwww",
     category: "Software Development",
-    tags: "",
+    tags: "hallo, test, tags",
     location: "Remote",
-    description: "",
+    description: "<p>Dit is een test.</p>",
     minSalary: null,
     maxSalary: null,
-    applyLink: "",
-    company_name: "",
-    company_email: "",
+    applyLink: "https://www.erhankaradeniz.com",
+    company_name: "Facebook",
+    company_email: "erhan@forvae.org",
     company_website: "",
     company_twitter: "",
     company_logo: "",
@@ -40,6 +40,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
   const [checkoutError, setCheckoutError] = useState()
   const [checkoutSuccess, setCheckoutSuccess] = useState()
   const [logoImage, setLogoImage] = useState()
+  const [formLogoFile, setFormLogoFile] = useState()
   const [jobPrice, setJobPrice] = useState(paymentIntentSSR?.amount)
   const { handleSubmit, register, errors, watch, control, setValue } = useForm({
     defaultValues,
@@ -68,19 +69,35 @@ const JobPostForm = ({ paymentIntentSSR }) => {
 
       if (paymentIntent.status === "succeeded") {
         setPayment({ status: "succeeded" })
+        destroyCookie(null, "paymentIntentId")
+        // Build formdata object
+        let formData = new FormData()
+        formData.append("position", values.position)
+        formData.append("company_name", values.company_name)
+        formData.append("category", values.category)
+        formData.append("tags", values.tags)
+        formData.append("location", values.location)
+        formData.append("show_company_logo", values.show_company_logo)
+        formData.append("company_is_highlighted", values.company_is_highlighted)
+        formData.append("minSalary", values.minSalary)
+        formData.append("maxSalary", values.maxSalary)
+        formData.append("applyLink", values.applyLink)
+        formData.append("company_email", values.company_email)
+        formData.append("company_logo", formLogoFile)
+        formData.append("company_website", values.company_website)
+        formData.append("company_twitter", values.company_twitter)
+        formData.append("description", values.description)
         const newJobResponse = await fetch(
           "http://localhost:3000/api/jobs/new",
           {
             method: "post",
             headers: {
-              "Content-Type": "application/json",
               "rb-stripe-id": paymentIntentSSR.id,
             },
-            body: JSON.stringify(values),
+            body: formData,
           }
         )
         setCheckoutSuccess(true)
-        destroyCookie(null, "paymentIntentId")
       }
     } catch (err) {
       setPayment({ status: "error" })
@@ -90,6 +107,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
 
   const handleFileInputChange = (event) => {
     setLogoImage(URL.createObjectURL(event.target.files[0]))
+    setFormLogoFile(event.target.files[0])
     setValue("show_company_logo", true)
     handleShowCompanyLogoChange()
   }
@@ -117,6 +135,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
       intentResponse.status === 200 &&
         setJobPrice((prevPrice) => prevPrice - 2500)
       setLogoImage(null)
+      setFormLogoFile(null)
       setValue("company_logo", "")
     }
   }
