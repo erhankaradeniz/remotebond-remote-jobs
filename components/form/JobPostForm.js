@@ -165,9 +165,9 @@ const JobPostForm = ({ paymentIntentSSR }) => {
 
   if (checkoutSuccess)
     return (
-      <div className="bg-rb-gray-1 flex flex-1 justify-center items-center">
+      <div className="bg-white flex flex-1 justify-center items-center">
         <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
-          <div className="text-white bg-rb-green-6 rounded-full w-20 h-20 mx-auto sm:w-32 sm:h-32">
+          <div className="text-white bg-rb-green-6 rounded-full w-20 h-20 mx-auto sm:w-24 sm:h-24">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

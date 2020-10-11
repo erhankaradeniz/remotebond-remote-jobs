@@ -87,13 +87,25 @@ const Hero = () => {
           specific markets? If the answer is everywhere, look no further and let
           Remote Bond help you.
         </h2>
-        <span className="inline-flex rounded-md shadow-sm mt-8">
-          <Link href={`/hire-remotely`} as={`/hire-remotely`}>
-            <a className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
-              Post a job for $25
-            </a>
-          </Link>
-        </span>
+        <div className="flex justify-center items-center mt-8 space-y-4 sm:space-y-0 sm:space-x-4 flex-col sm:flex-row">
+          <span className="inline-flex rounded-md shadow-sm">
+            <Link href={`/hire-remotely`} as={`/hire-remotely`}>
+              <a className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
+                Post a job for $25
+              </a>
+            </Link>
+          </span>
+          <span class="inline-flex rounded-md">
+            <Link href={`/register`} as={`/register`}>
+              <button
+                type="button"
+                class="inline-flex items-center border-rb-gray-8 px-6 py-3 border border-transparent font-bold text-base leading-6 rounded-md text-rb-gray-3 hover:text-rb-gray-8 hover:bg-white hover:border-white focus:outline-none active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+              >
+                Register account
+              </button>
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   )

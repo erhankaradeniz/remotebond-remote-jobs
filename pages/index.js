@@ -26,6 +26,7 @@ export async function getStaticProps(ctx) {
       customerSupportJobs: customerSupportJobsData,
       salesMarketingJobs: salesMarketingJobsData,
     },
+    revalidate: 1,
   }
 }
 

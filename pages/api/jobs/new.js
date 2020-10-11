@@ -65,7 +65,8 @@ export default async (req, res) => {
     //     },
     //   })
     // )
-    console.log(`!!ADDED!!: ${position} at ${company_name}`)
+    // console.log(`!!ADDED!!: ${position} at ${company_name}`)
+    console.log("done")
 
     // Everything is Okay
     res.statusCode = 200
