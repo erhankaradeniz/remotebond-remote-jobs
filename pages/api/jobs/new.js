@@ -31,33 +31,47 @@ export default async (req, res) => {
         resolve({ fields, files })
       })
     })
-    console.log(data.files.company_logo.path)
-    const imagePath = data.files.company_logo.path
-    const image = await cloudinary.uploader.upload(imagePath, {
-      width: 512,
-      height: 512,
-      crop: "fill",
-    })
+    let imagePath = null
+    // No image upload needed
+    if (
+      Object.keys(data.files).length === 0 &&
+      data.files.constructor === Object &&
+      data.fields.show_company_logo === "false"
+    ) {
+      console.log("test")
+    } else {
+      // Image flag is set, we need to upload an image
+      imagePath = data.files.company_logo.path
+      // Upload actual image
+      const image = await cloudinary.uploader.upload(imagePath, {
+        width: 512,
+        height: 512,
+        crop: "fill",
+      })
+      console.log("test #2")
+    }
+
     console.log("dit is data")
     console.log(data)
+    console.log(data.files)
     // TODO : company_logo moet nog gedaan worden
-    // const {
-    //   position,
-    //   company_name,
-    //   category,
-    //   tags,
-    //   location,
-    //   show_company_logo,
-    //   company_is_highlighted,
-    //   minSalary,
-    //   maxSalary,
-    //   applyLink,
-    //   company_email,
-    //   company_logo,
-    //   company_website,
-    //   company_twitter,
-    //   description,
-    // } = req.body
+    const {
+      position,
+      company_name,
+      category,
+      tags,
+      location,
+      show_company_logo,
+      company_is_highlighted,
+      minSalary,
+      maxSalary,
+      applyLink,
+      company_email,
+      company_website,
+      company_twitter,
+      description,
+    } = data.fields
+
     // const randomDigit = Math.floor(100000 + Math.random() * 900000)
     // const slug = Slugify(`${randomDigit} ${position} at ${company_name}`)
 
