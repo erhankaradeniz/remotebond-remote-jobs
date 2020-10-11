@@ -11,9 +11,7 @@ const RegisterPage = () => {
         </div>
       </div>
       <div className="max-w-screen-xl mx-auto pt-4 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="mt-6">
-          <h1></h1>
-        </div>
+        <div className="mt-6">&nbsp;</div>
       </div>
     </>
   )
