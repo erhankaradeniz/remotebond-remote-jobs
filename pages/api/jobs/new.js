@@ -1,5 +1,6 @@
 import faunadb from "faunadb"
 import formidable from "formidable-serverless"
+import { v2 as cloudinary } from "cloudinary"
 
 // Helpers
 import Slugify from "../../../helpers/slugify"
@@ -8,6 +9,12 @@ import generateUUID from "../../../helpers/uuid"
 const secret = process.env.FAUNADB_SECRET
 const q = faunadb.query
 const client = new faunadb.Client({ secret })
+
+cloudinary.config({
+  cloud_name: process.env.CL_CLOUD_NAME,
+  api_key: process.env.CL_API_KEY,
+  api_secret: process.env.CL_SECRET_KEY,
+})
 
 export const config = {
   api: {
@@ -23,6 +30,13 @@ export default async (req, res) => {
         if (err) return reject(err)
         resolve({ fields, files })
       })
+    })
+    console.log(data.files.company_logo.path)
+    const imagePath = data.files.company_logo.path
+    const image = await cloudinary.uploader.upload(imagePath, {
+      width: 512,
+      height: 512,
+      crop: "fill",
     })
     console.log("dit is data")
     console.log(data)
