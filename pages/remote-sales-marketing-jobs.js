@@ -14,7 +14,7 @@ import FilterBar from "../components/FilterBar"
 
 export async function getStaticProps(ctx) {
   const categories = await getAllCategories()
-  const jobsCountFetch = await getJobsCountByCategory("Customer Support")
+  const jobsCountFetch = await getJobsCountByCategory("Sales Marketing")
   const jobsCount = JSON.parse(jobsCountFetch)
   const job = jobsCount.data ? jobsCount.data : false
   const categoriesData = JSON.parse(categories)
@@ -137,25 +137,6 @@ const RemoteSalesMarketingPage = ({
       setIsLoading(false)
     }
   }, [cursor])
-
-  !data?.data && (
-    <>
-      <div className="relative overflow-hidden bg-black mb-12">
-        <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">
-          <h1 className="text-white font-black text-2xl md:text-4xl my-4">
-            Remote Customer Support Jobs
-          </h1>
-          <span className="inline-flex rounded-md shadow-sm mt-8">
-            <Link href={`/hire-remotely`} as={`/hire-remotely`}>
-              <a className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
-                Post a job for $25
-              </a>
-            </Link>
-          </span>
-        </div>
-      </div>
-    </>
-  )
 
   return (
     <>
