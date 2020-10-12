@@ -13,15 +13,21 @@ import getAllJobs, { getJobBySlug } from "../../lib/jobs"
 
 export async function getStaticPaths() {
   const jobs = await getAllJobs()
-  return {
-    paths: jobs.map((job) => {
-      return {
-        params: {
-          slug: job.data.slug,
-        },
-      }
-    }),
-    fallback: true,
+  if (jobs.length) {
+    return {
+      paths: jobs.map((job) => {
+        return {
+          params: {
+            slug: job.data.slug,
+          },
+        }
+      }),
+      fallback: true,
+    }
+  } else {
+    return {
+      paths: [],
+    }
   }
 }
 
