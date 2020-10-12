@@ -139,6 +139,7 @@ const RemoteCustomerSupportPage = ({
       setIsLoading(false)
     }
   }, [cursor])
+
   !data?.data && (
     <>
       <div className="relative overflow-hidden bg-black mb-12">
