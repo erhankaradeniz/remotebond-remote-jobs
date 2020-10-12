@@ -95,11 +95,11 @@ const Hero = () => {
               </a>
             </Link>
           </span>
-          <span class="inline-flex rounded-md">
+          <span className="inline-flex rounded-md">
             <Link href={`/register`} as={`/register`}>
               <button
                 type="button"
-                class="inline-flex items-center border-rb-gray-8 px-6 py-3 border border-transparent font-bold text-base leading-6 rounded-md text-rb-gray-3 hover:text-rb-gray-8 hover:bg-white hover:border-white focus:outline-none active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+                className="inline-flex items-center border-rb-gray-8 px-6 py-3 border border-transparent font-bold text-base leading-6 rounded-md text-rb-gray-3 hover:text-rb-gray-8 hover:bg-white hover:border-white focus:outline-none active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
               >
                 Register account
               </button>
