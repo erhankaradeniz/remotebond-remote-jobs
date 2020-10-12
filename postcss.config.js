@@ -10,12 +10,13 @@ module.exports = {
               "./pages/**/*.{js,jsx,ts,tsx}",
               "./components/**/*.{js,jsx,ts,tsx}",
             ],
-            defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
-            whitelist: [
-              "html",
-              "body",
-              "__next",
-            ],
+            defaultExtractor: (content) =>
+              content.match(/[\w-/:]+(?<!:)/g) || [],
+            safelist: {
+              standard: ["html", "body", "__next"],
+              deep: [/^ql-/],
+              greedy: [/^ql-/],
+            },
           },
         ]
       : undefined,

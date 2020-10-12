@@ -1,6 +1,7 @@
 const { colors, fontFamily } = require("tailwindcss/defaultTheme")
 
 module.exports = {
+  purge: ["./pages/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   theme: {
     screens: {
       sm: "640px",
@@ -51,6 +52,7 @@ module.exports = {
     },
   },
   variants: {
+    animation: ["responsive", "hover", "focus"],
     opacity: ["responsive", "group-hover", "hover"],
     position: ["responsive", "group-hover", "hover"],
     backgroundColor: ["responsive", "hover", "focus", "active", "group-hover"],
