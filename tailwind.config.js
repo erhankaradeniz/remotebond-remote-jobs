@@ -1,7 +1,14 @@
 const { colors, fontFamily } = require("tailwindcss/defaultTheme")
 
 module.exports = {
-  purge: ["./pages/**/*.js", "./components/**/*.js"],
+  purge: {
+    content: ["./pages/**/*.js", "./components/**/*.js"],
+    options: {
+      safelist: {
+        greedy: [/ql-$/],
+      },
+    },
+  },
   theme: {
     screens: {
       sm: "640px",

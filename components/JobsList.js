@@ -63,7 +63,7 @@ const JobsList = ({
                             <img
                               className="absolute inset-0 object-cover h-full w-full"
                               src={company_logo_url}
-                              alt="Company logo"
+                              alt={`Remote ${title} job at ${company_name}`}
                             />
                           ) : (
                             <span className="uppercase">
