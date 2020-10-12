@@ -32,7 +32,9 @@ const JobsList = ({
               company_name,
               slug,
               tags,
-              isHighlighted,
+              company_is_highlighted,
+              show_company_logo,
+              company_logo_url,
             } = job.data
             const id = job.ref["@ref"].id
             return (
@@ -43,7 +45,7 @@ const JobsList = ({
                     className={`block focus:outline-none  transition duration-150 ease-in-out ${
                       idx !== 0 ? "border-t border-gray-200" : ""
                     } ${
-                      isHighlighted
+                      company_is_highlighted
                         ? "bg-yellow-100 hover:bg-yellow-50 focus:bg-yellow-50"
                         : "hover:bg-gray-50 focus:bg-gray-50"
                     }`}
@@ -51,22 +53,30 @@ const JobsList = ({
                     <div className="px-4 py-4 sm:px-6 flex">
                       <div>
                         <div
-                          className={`h-12 md:h-full w-12 rounded-sm text-center font-extrabold mr-4 pt-3 ${
-                            isHighlighted
+                          className={`h-12 md:h-full w-12 rounded-sm text-center font-extrabold mr-4 pt-3 relative overflow-hidden ${
+                            company_is_highlighted
                               ? "bg-yellow-400 text-white"
                               : "bg-gray-100 text-gray-500"
                           }`}
                         >
-                          <span className="uppercase">
-                            {company_name.charAt(0)}
-                          </span>
+                          {show_company_logo ? (
+                            <img
+                              className="absolute inset-0 object-cover h-full w-full"
+                              src={company_logo_url}
+                              alt="Company logo"
+                            />
+                          ) : (
+                            <span className="uppercase">
+                              {company_name.charAt(0)}
+                            </span>
+                          )}
                         </div>
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
                           <div
                             className={`text-sm leading-5 font-medium truncate ${
-                              isHighlighted
+                              company_is_highlighted
                                 ? "text-yellow-800"
                                 : "text-blue-600"
                             }`}
@@ -74,7 +84,7 @@ const JobsList = ({
                             {`${title} - ${id}`}
                           </div>
                           <div className="ml-2 flex-shrink-0 flex">
-                            {isHighlighted && (
+                            {company_is_highlighted && (
                               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-red-100 text-red-800 mr-2">
                                 Featured
                               </span>
@@ -88,14 +98,14 @@ const JobsList = ({
                           <div className="sm:flex">
                             <div
                               className={`mr-6 flex items-center text-sm leading-5 ${
-                                isHighlighted
+                                company_is_highlighted
                                   ? "text-yellow-500"
                                   : "text-rb-gray-5"
                               }`}
                             >
                               <svg
                                 className={`flex-shrink-0 mr-1.5 h-5 w-5 ${
-                                  isHighlighted
+                                  company_is_highlighted
                                     ? "text-yellow-400"
                                     : "text-rb-gray-4"
                                 }`}
@@ -112,14 +122,14 @@ const JobsList = ({
                             </div>
                             <div
                               className={`mr-6 flex items-center text-sm leading-5 ${
-                                isHighlighted
+                                company_is_highlighted
                                   ? "text-yellow-500"
                                   : "text-rb-gray-5"
                               }`}
                             >
                               <svg
                                 className={`flex-shrink-0 mr-1.5 h-5 w-5 ${
-                                  isHighlighted
+                                  company_is_highlighted
                                     ? "text-yellow-400"
                                     : "text-rb-gray-4"
                                 }`}
@@ -144,7 +154,7 @@ const JobsList = ({
                                     <li
                                       key={i}
                                       className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 ${
-                                        isHighlighted
+                                        company_is_highlighted
                                           ? "bg-yellow-400 text-white hover:bg-yellow-300"
                                           : "bg-gray-100 text-rb-gray-5 hover:bg-rb-gray-8 hover:text-white"
                                       }`}
@@ -172,7 +182,7 @@ const JobsList = ({
         </ul>
       </div>
       {!isPaginated ? (
-        <div className="flex justify-end px-2 sm:px-0">
+        <div className="flex justify-center sm:justify-end px-2 sm:px-0">
           <Link as={slug} href={slug}>
             <a className="inline-flex px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-50 hover:text-blue-700 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150">{`More ${title} Jobs →`}</a>
           </Link>

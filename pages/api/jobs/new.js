@@ -32,74 +32,116 @@ export default async (req, res) => {
       })
     })
     let imagePath = null
+    const { position, company_name } = data.fields
+    const randomDigit = Math.floor(100000 + Math.random() * 900000)
+    const slug = Slugify(`${randomDigit} ${position} at ${company_name}`)
+
     // No image upload needed
     if (
       Object.keys(data.files).length === 0 &&
       data.files.constructor === Object &&
       data.fields.show_company_logo === "false"
     ) {
-      console.log("test")
+      const {
+        category,
+        tags,
+        location,
+        show_company_logo,
+        company_is_highlighted,
+        minSalary,
+        maxSalary,
+        applyLink,
+        company_email,
+        company_website,
+        company_twitter,
+        description,
+      } = data.fields
+      await client.query(
+        q.Create(q.Collection("jobs"), {
+          data: {
+            title: position,
+            guid: generateUUID(),
+            description: description,
+            tags: tags.split(","),
+            pub_date: new Date().toISOString(),
+            location: location,
+            apply_url: applyLink,
+            slug: slug,
+            primary_category: category,
+            working_hours: "",
+            min_salary: minSalary,
+            max_salary: maxSalary,
+            company_name: company_name,
+            company_logo_url: "",
+            company_email: company_email,
+            company_website: company_website,
+            company_twitter: company_twitter,
+            show_company_logo: show_company_logo === "true" ? true : false,
+            company_is_highlighted:
+              company_is_highlighted === "true" ? true : false,
+            isExternalSource: false,
+          },
+        })
+      )
+      console.log(`!!ADDED!!: ${position} at ${company_name}`)
     } else {
       // Image flag is set, we need to upload an image
       imagePath = data.files.company_logo.path
+      const {
+        category,
+        tags,
+        location,
+        show_company_logo,
+        company_is_highlighted,
+        minSalary,
+        maxSalary,
+        applyLink,
+        company_email,
+        company_website,
+        company_twitter,
+        description,
+      } = data.fields
       // Upload actual image
       const image = await cloudinary.uploader.upload(imagePath, {
         width: 512,
         height: 512,
         crop: "fill",
       })
-      console.log("test #2")
+
+      await client.query(
+        q.Create(q.Collection("jobs"), {
+          data: {
+            title: position,
+            guid: generateUUID(),
+            description: description,
+            tags: tags.split(","),
+            pub_date: new Date().toISOString(),
+            location: location,
+            apply_url: applyLink,
+            slug: slug,
+            primary_category: category,
+            working_hours: "",
+            min_salary: minSalary,
+            max_salary: maxSalary,
+            company_name: company_name,
+            company_logo_url: image.secure_url,
+            company_email: company_email,
+            company_website: company_website,
+            company_twitter: company_twitter,
+            show_company_logo: show_company_logo === "true" ? true : false,
+            company_is_highlighted:
+              company_is_highlighted === "true" ? true : false,
+            isExternalSource: false,
+          },
+        })
+      )
+      console.log(`!!ADDED with Logo!!: ${position} at ${company_name}`)
     }
-
-    console.log("dit is data")
-    console.log(data)
-    console.log(data.files)
-    // TODO : company_logo moet nog gedaan worden
-    const {
-      position,
-      company_name,
-      category,
-      tags,
-      location,
-      show_company_logo,
-      company_is_highlighted,
-      minSalary,
-      maxSalary,
-      applyLink,
-      company_email,
-      company_website,
-      company_twitter,
-      description,
-    } = data.fields
-
-    // const randomDigit = Math.floor(100000 + Math.random() * 900000)
-    // const slug = Slugify(`${randomDigit} ${position} at ${company_name}`)
-
-    // await client.query(
-    //   q.Create(q.Collection("jobs"), {
-    //     data: {
-    //       title: position,
-    //       guid: generateUUID(),
-    //       description: description,
-    //       tags: tags.split(","),
-    //       company_name: company_name,
-    //       pub_date: new Date().toISOString(),
-    //       location: location,
-    //       apply_url: applyLink,
-    //       slug: slug,
-    //       primary_category: category,
-    //       workingHours: "",
-    //       isExternalSource: false,
-    //     },
-    //   })
-    // )
-    // console.log(`!!ADDED!!: ${position} at ${company_name}`)
-    console.log("done")
 
     // Everything is Okay
     res.statusCode = 200
     res.setHeader("Content-Type", "application/json")
-    res.json({ Erhan: "Success" })
+    res.json({ status: "Success" })
   } else {
     // Handle any other HTTP method
     res.setHeader("Allow", ["POST"])

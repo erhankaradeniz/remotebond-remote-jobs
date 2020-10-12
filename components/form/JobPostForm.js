@@ -9,8 +9,6 @@ import WysiwygEditor from "../../components/form/WysiwygEditor"
 import Alert from "../../components/dialog/Alert"
 import originUrl from "../../helpers/url"
 
-const origin = originUrl
-
 const JobPostForm = ({ paymentIntentSSR }) => {
   const defaultValues = {
     position: "wwww",
@@ -91,13 +89,16 @@ const JobPostForm = ({ paymentIntentSSR }) => {
         formData.append("company_website", values.company_website)
         formData.append("company_twitter", values.company_twitter)
         formData.append("description", values.description)
-        const newJobResponse = await fetch(`${origin}/api/jobs/new`, {
-          method: "post",
-          headers: {
-            "rb-stripe-id": paymentIntentSSR.id,
-          },
-          body: formData,
-        })
+        const newJobResponse = await fetch(
+          `${window.location.origin}/api/jobs/new`,
+          {
+            method: "post",
+            headers: {
+              "rb-stripe-id": paymentIntentSSR.id,
+            },
+            body: formData,
+          }
+        )
         setCheckoutSuccess(true)
       }
     } catch (err) {
@@ -117,7 +118,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
     const isChecked = event?.target?.checked
     if (isChecked || watch("show_company_logo")) {
       const intentResponse = await fetch(
-        `${origin}/api/stripe/intents?package=logo_add`
+        `${window.location.origin}/api/stripe/intents?package=logo_add`
       )
       // Intent is OK, continue
       intentResponse.status === 200 &&
@@ -130,7 +131,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
         })
     } else {
       const intentResponse = await fetch(
-        `${origin}/api/stripe/intents?package=logo_remove`
+        `${window.location.origin}/api/stripe/intents?package=logo_remove`
       )
       // Intent is OK, continue
       intentResponse.status === 200 &&
@@ -145,13 +146,13 @@ const JobPostForm = ({ paymentIntentSSR }) => {
     const isChecked = event?.target?.checked
     if (isChecked || watch("company_is_highlighted")) {
       const intentResponse = await fetch(
-        `${origin}/api/stripe/intents?package=highlight_add`
+        `${window.location.origin}/api/stripe/intents?package=highlight_add`
       )
       intentResponse.status === 200 &&
         setJobPrice((prevPrice) => prevPrice + 10000)
     } else {
       const intentResponse = await fetch(
-        `${origin}/api/stripe/intents?package=highlight_remove`
+        `${window.location.origin}/api/stripe/intents?package=highlight_remove`
       )
       intentResponse.status === 200 &&
         setJobPrice((prevPrice) => prevPrice - 10000)

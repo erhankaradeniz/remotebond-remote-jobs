@@ -79,7 +79,7 @@ export default async (req, res) => {
                 apply_url: applyUrl,
                 slug: slug,
                 primary_category: primaryCategory,
-                workingHours: workingHours,
+                working_hours: workingHours,
                 isExternalSource: isExternalSource,
               },
             })
