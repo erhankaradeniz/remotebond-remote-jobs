@@ -6,10 +6,6 @@ const FilterBar = ({ categories }) => {
   const router = useRouter()
   const currentPath = router.pathname
 
-  const setJobFilter = (route) => {
-    router.push(route)
-  }
-
   const onDropdownChange = (event) => {
     router.push(event.target.value)
   }

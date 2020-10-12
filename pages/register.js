@@ -5,7 +5,7 @@ const RegisterPage = () => {
   return (
     <>
       <NextSeo
-        title={`Register for a Remotebond profile and join the future of work.`}
+        title={`Register for a Remotebond remote profile and join the future of work.`}
         description="Register now and join the future of work on Remotebond."
       />
       <div className="relative overflow-hidden bg-black mb-12">
