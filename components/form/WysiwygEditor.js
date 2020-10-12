@@ -3,7 +3,7 @@ import dynamic from "next/dynamic"
 import { Controller } from "react-hook-form"
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
-  ssr: true,
+  ssr: false,
   loading: () => <p>Loading ...</p>,
 })
 

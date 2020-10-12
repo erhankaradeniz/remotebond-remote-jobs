@@ -3,8 +3,6 @@
 .jobDescription__container > br, .jobDescription__container ul > br, .jobDescription__container ul > li > br {
   display: none;
 }
-
-/* Loader */
 svg#loader {
   -webkit-transform-origin: 50% 65%;
           transform-origin: 50% 65%;
@@ -40,13 +38,6 @@ svg#loader rect {
   }
 }
 
-
-/*!
- * Quill Editor v1.3.7
- * https://quilljs.com/
- * Copyright (c) 2014, Jason Chen
- * Copyright (c) 2013, salesforce.com
- */
 .ql-container {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
@@ -915,9 +906,6 @@ svg#loader rect {
 .ql-toolbar.ql-snow .ql-color-picker .ql-picker-item:hover {
   border-color: #000;
 }
-.ql-toolbar.ql-snow + .ql-container.ql-snow {
-  /* border-top: 0px; */
-}
 .ql-snow .ql-tooltip {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -983,9 +971,6 @@ svg#loader rect {
 }
 .ql-snow a {
   color: #06c;
-}
-.ql-container.ql-snow {
-  /* border: 1px solid #ccc; */
 }
 
 

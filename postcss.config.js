@@ -12,7 +12,7 @@ module.exports = {
             ],
             defaultExtractor: (content) =>
               content.match(/[\w-/:]+(?<!:)/g) || [],
-            whitelist: ["html", "body", "__next"],
+            safelist: ["html", "body", "__next"],
           },
         ]
       : undefined,
