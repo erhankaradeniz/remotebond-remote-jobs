@@ -52,7 +52,6 @@ const JobPostForm = ({ paymentIntentSSR }) => {
   const onSubmit = async (values, e) => {
     e.preventDefault()
     setPayment({ status: "processing" })
-    console.log(values)
     try {
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         paymentIntentSSR.client_secret,
@@ -159,7 +158,6 @@ const JobPostForm = ({ paymentIntentSSR }) => {
     }
   }
 
-  // console.log(errors)
   // Dirty hack to set tags in preview box
   tempTags = !watch("tags")
     ? ["Add tag", "Add tag", "Add tag"]

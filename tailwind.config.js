@@ -5,7 +5,7 @@ module.exports = {
     content: ["./pages/**/*.js", "./components/**/*.js"],
     options: {
       safelist: {
-        greedy: [/ql-$/],
+        greedy: [/^ql-/],
       },
     },
   },
