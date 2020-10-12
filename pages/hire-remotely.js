@@ -3,6 +3,7 @@ import Stripe from "stripe"
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
 import { parseCookies, setCookie } from "nookies"
+import { NextSeo } from "next-seo"
 
 // Page components
 import Banner from "../components/Banner"
@@ -45,6 +46,10 @@ const NewJobPage = ({ paymentIntent }) => {
   return (
     <Elements stripe={stripePromise}>
       <>
+        <NextSeo
+          title={`Create a new remote job post`}
+          description="Start hiring remotely, post a new remote job and find the most qualified people for your next remote position."
+        />
         <Banner message={`Launch deal! Base job ad is now priced at $25`} />
         <JobPostForm paymentIntentSSR={paymentIntent} />
       </>

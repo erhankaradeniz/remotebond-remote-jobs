@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import useSWR from "swr"
+import { NextSeo } from "next-seo"
 
 import { getJobsCountByCategory } from "../lib/jobs"
 import { getPaginatedSoftwareDevJobs } from "../lib/softwareDevJobs"
@@ -134,6 +135,10 @@ const RemoteDevJobsPage = ({
 
   return (
     <>
+      <NextSeo
+        title={`Remote dev / programming jobs`}
+        description="The latest and most popular remote dev / programming jobs around the web. Jobs included from top remote companies. Find your new dev / programming carreer on Remotebond."
+      />
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">
           <h1 className="text-white font-black text-2xl md:text-4xl my-4">

@@ -11,16 +11,16 @@ import originUrl from "../../helpers/url"
 
 const JobPostForm = ({ paymentIntentSSR }) => {
   const defaultValues = {
-    position: "wwww",
+    position: "",
     category: "Software Development",
-    tags: "hallo, test, tags",
+    tags: "",
     location: "Remote",
-    description: "<p>Dit is een test.</p>",
+    description: "",
     minSalary: null,
     maxSalary: null,
-    applyLink: "https://www.erhankaradeniz.com",
-    company_name: "Facebook",
-    company_email: "erhan@forvae.org",
+    applyLink: "",
+    company_name: "",
+    company_email: "",
     company_website: "",
     company_twitter: "",
     company_logo: "",

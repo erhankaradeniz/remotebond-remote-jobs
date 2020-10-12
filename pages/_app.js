@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }) => {
       <DefaultSeo {...SEO} />
       <NextSeo
         title="Remote Bond - Remote jobs in Software Development, Sales and more"
-        description="Looking for a remote job? Remote Bond has 5,000+ remote jobs as a Developer, Designer, Copywriter, Customer Support Rep, Sales Professional, Project Manager and more! Find a career where you can work remotely from anywhere."
+        description="Looking for a remote job? Hire Remote! Remotebond has thousands of remote work jobs as a Developer, Designer, Customer Support Rep, Sales Professional, Marketing Professional, Project Manager and more!"
       />
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -55,10 +55,10 @@ const App = ({ Component, pageProps }) => {
             __html: JSON.stringify({
               "@context": "http://schema.org",
               "@type": "Organization",
-              name: "Remote Bond",
-              naics: "5613",
+              name: "Remotebond",
               url: "https://remotebond.com",
               logo: "https://remotebond.com/siteimg/logo.png",
+              sameAs: ["https://twitter.com/remotebond"],
             }),
           }}
         ></script>

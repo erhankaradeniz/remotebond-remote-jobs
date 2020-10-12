@@ -81,7 +81,7 @@ const JobsList = ({
                                 : "text-blue-600"
                             }`}
                           >
-                            {`${title} - ${id}`}
+                            {`${title}`}
                           </div>
                           <div className="ml-2 flex-shrink-0 flex">
                             {company_is_highlighted && (
