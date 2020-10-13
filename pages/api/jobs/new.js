@@ -56,7 +56,7 @@ export default async (req, res) => {
         company_twitter,
         description,
       } = data.fields
-      await client.query(
+      const jobDocument = await client.query(
         q.Create(q.Collection("jobs"), {
           data: {
             title: position,
@@ -83,6 +83,7 @@ export default async (req, res) => {
           },
         })
       )
+
       console.log(`!!ADDED!!: ${position} at ${company_name}`)
     } else {
       // Image flag is set, we need to upload an image

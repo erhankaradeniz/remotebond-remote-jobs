@@ -1,7 +1,23 @@
 import React from "react"
+import { useRouter } from "next/router"
 import Link from "next/link"
+import useSWR from "swr"
 
 const Header = () => {
+  const router = useRouter()
+
+  const fetcher = (url) => fetch(url).then((r) => r.json())
+
+  const { data: user, mutate: mutateUser } = useSWR("/api/user", fetcher)
+
+  const logout = async () => {
+    const res = await fetch("/api/logout")
+    if (res.ok) {
+      mutateUser(null)
+      router.push("/login")
+    }
+  }
+
   return (
     <div className="bg-white">
       <div className="max-w-screen-xl mx-auto flex py-4 px-4 sm:px-6">
@@ -28,6 +44,31 @@ const Header = () => {
         </Link>
         <div className="flex-1">
           <ul className="flex justify-end items-center h-full space-x-3">
+            {user ? (
+              <>
+                <li>
+                  <Link href="/profile">
+                    <a>{user.email}</a>
+                  </Link>
+                </li>
+                <li>
+                  <button onClick={logout}>Logout</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link href="/login">
+                    <a>Login</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/register">
+                    <a>Register</a>
+                  </Link>
+                </li>
+              </>
+            )}
             <li>
               <span className="inline-flex rounded-md shadow-sm">
                 <Link href={`/hire-remotely`} as={`/hire-remotely`}>
