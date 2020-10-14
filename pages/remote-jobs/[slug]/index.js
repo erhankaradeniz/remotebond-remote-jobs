@@ -4,12 +4,12 @@ import DefaultErrorPage from "next/error"
 import Head from "next/head"
 import { NextSeo, JobPostingJsonLd } from "next-seo"
 
-import JobHeader from "../../components/JobHeader"
-import Breadcrumbs from "../../components/Breadcrumbs"
+import JobHeader from "../../../components/JobHeader"
+import Breadcrumbs from "../../../components/Breadcrumbs"
 
-import randomInt from "../../helpers/randomInt"
+import randomInt from "../../../helpers/randomInt"
 
-import getAllJobs, { getJobBySlug } from "../../lib/jobs"
+import getAllJobs, { getJobBySlug } from "../../../lib/jobs"
 
 export async function getStaticPaths() {
   const jobs = await getAllJobs()

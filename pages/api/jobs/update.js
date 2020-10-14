@@ -1,11 +1,6 @@
 import faunadb from "faunadb"
 import formidable from "formidable-serverless"
 import { v2 as cloudinary } from "cloudinary"
-import UIDGenerator from "uid-generator"
-
-// Helpers
-import Slugify from "../../../helpers/slugify"
-import generateUUID from "../../../helpers/uuid"
 
 const secret = process.env.FAUNADB_SECRET
 const q = faunadb.query
@@ -34,10 +29,6 @@ export default async (req, res) => {
     })
     let imagePath = null
     const { position, company_name } = data.fields
-    const randomDigit = Math.floor(100000 + Math.random() * 900000)
-    const slug = Slugify(`${randomDigit} ${position} at ${company_name}`)
-    const uidgen = new UIDGenerator(512, UIDGenerator.BASE62)
-    const token = uidgen.generateSync()
 
     // No image upload needed
     if (
@@ -58,37 +49,33 @@ export default async (req, res) => {
         company_website,
         company_twitter,
         description,
+        job_id,
       } = data.fields
       const jobDocument = await client.query(
-        q.Create(q.Collection("jobs"), {
+        q.Update(q.Ref(q.Collection("jobs"), job_id), {
           data: {
             title: position,
-            guid: generateUUID(),
             description: description,
             tags: tags.split(","),
-            pub_date: new Date().toISOString(),
+            last_modified: new Date().toISOString(),
             location: location,
             apply_url: applyLink,
-            slug: slug,
             primary_category: category,
-            working_hours: "",
             min_salary: minSalary,
             max_salary: maxSalary,
             company_name: company_name,
-            company_logo_url: "",
+            // company_logo_url: "",
             company_email: company_email,
             company_website: company_website,
             company_twitter: company_twitter,
-            show_company_logo: show_company_logo === "true" ? true : false,
-            company_is_highlighted:
-              company_is_highlighted === "true" ? true : false,
-            isExternalSource: false,
-            token: token,
+            // show_company_logo: show_company_logo === "true" ? true : false,
+            // company_is_highlighted:
+            //   company_is_highlighted === "true" ? true : false,
           },
         })
       )
 
-      console.log(`!!ADDED!!: ${position} at ${company_name}`)
+      console.log(`!!JOB UPDATED!!: ${position} at ${company_name}`)
     } else {
       // Image flag is set, we need to upload an image
       imagePath = data.files.company_logo.path
@@ -141,7 +128,7 @@ export default async (req, res) => {
           },
         })
       )
-      console.log(`!!ADDED with Logo!!: ${position} at ${company_name}`)
+      console.log(`!!UPDATED with Logo!!: ${position} at ${company_name}`)
     }
 
     // Everything is Okay
