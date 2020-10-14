@@ -4,12 +4,12 @@ import DefaultErrorPage from "next/error"
 import Head from "next/head"
 import { NextSeo, JobPostingJsonLd } from "next-seo"
 
-import JobHeader from "../../components/JobHeader"
-import Breadcrumbs from "../../components/Breadcrumbs"
+import JobHeader from "../../../components/JobHeader"
+import Breadcrumbs from "../../../components/Breadcrumbs"
 
-import randomInt from "../../helpers/randomInt"
+import randomInt from "../../../helpers/randomInt"
 
-import getAllJobs, { getJobBySlug } from "../../lib/jobs"
+import getAllJobs, { getJobBySlug } from "../../../lib/jobs"
 
 export async function getStaticPaths() {
   const jobs = await getAllJobs()
@@ -77,7 +77,7 @@ const JobsPage = ({ job }) => {
       <>
         <NextSeo
           title={`Remote ${job.title} job at ${job.company_name}`}
-          description="Looking for a remote job? Remote Bond has 5,000+ remote jobs as a Developer, Designer, Copywriter, Customer Support Rep, Sales Professional, Project Manager and more! Find a career where you can work remotely from anywhere."
+          description="Looking for a remote job? Remotebond has 5,000+ remote jobs as a Developer, Designer, Copywriter, Customer Support Rep, Sales Professional, Project Manager and more! Find a career where you can work remotely from anywhere."
         />
         <JobPostingJsonLd
           datePosted={job.pub_date}

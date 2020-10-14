@@ -15,7 +15,6 @@ export default async (req, res) => {
 
     if (paymentIntentId) {
       const { amount } = await stripe.paymentIntents.retrieve(paymentIntentId)
-      console.log(amount)
       switch (PACKAGE_TYPE) {
         case "logo_add":
           if (amount === 2500 || amount === 12500) {

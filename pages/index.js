@@ -2,6 +2,7 @@ import React from "react"
 
 import JobsList from "../components/JobsList"
 import FilterBar from "../components/FilterBar"
+// import SearchBar from "../components/SearchBar"
 import Hero from "../components/Hero"
 
 // import url from "../helpers/url"

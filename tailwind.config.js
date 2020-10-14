@@ -53,9 +53,16 @@ module.exports = {
   },
   variants: {
     animation: ["responsive", "hover", "focus"],
-    opacity: ["responsive", "group-hover", "hover"],
+    opacity: ["responsive", "group-hover", "hover", "disabled"],
     position: ["responsive", "group-hover", "hover"],
-    backgroundColor: ["responsive", "hover", "focus", "active", "group-hover"],
+    backgroundColor: [
+      "responsive",
+      "hover",
+      "focus",
+      "active",
+      "group-hover",
+      "disabled",
+    ],
     textColor: ["responsive", "hover", "focus", "group-hover"],
     visibility: ["group-hover"],
     cursor: ["responsive", "hover", "disabled"],

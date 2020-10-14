@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { NextSeo } from "next-seo"
 import Link from "next/link"
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState("")
 
@@ -14,7 +14,7 @@ const RegisterPage = () => {
     if (errorMessage) setErrorMessage("")
 
     try {
-      const res = await fetch("/api/signup", {
+      const res = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const RegisterPage = () => {
           <div className="max-w-screen-xl mx-auto py-16 px-4 sm:px-6 lg:py-12 lg:px-8">
             <div>
               <h2 className="text-center text-3xl leading-9 font-extrabold text-white">
-                Register your account
+                Login to Remotebond
               </h2>
             </div>
           </div>
@@ -71,23 +71,9 @@ const RegisterPage = () => {
                     name="password"
                     type="password"
                     required
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
-                    placeholder="Password"
-                    ref={register({ required: "Password is required" })}
-                  />
-                </div>
-                <div className="-mt-px">
-                  <input
-                    aria-label="Password"
-                    name="password2"
-                    type="password"
-                    required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
                     placeholder="Repeat password"
-                    ref={register({
-                      validate: (value) =>
-                        value === watch("password") || "Passwords do not match",
-                    })}
+                    ref={register({ required: "Password is required" })}
                   />
                 </div>
               </div>
@@ -116,7 +102,6 @@ const RegisterPage = () => {
                   </a>
                 </div>
               </div>
-
               <div className="mt-6">
                 <button
                   type="submit"
@@ -135,13 +120,13 @@ const RegisterPage = () => {
                       />
                     </svg>
                   </span>
-                  Sign up
+                  Login
                 </button>
               </div>
               <div className="mt-6 text-center">
-                <Link as={`/login`} href={`/login`}>
+                <Link as={`/register`} href={`/register`}>
                   <a className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-                    Already have an account?
+                    Don't have an account?
                   </a>
                 </Link>
               </div>
@@ -153,4 +138,4 @@ const RegisterPage = () => {
   )
 }
 
-export default RegisterPage
+export default LoginPage
