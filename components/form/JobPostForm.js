@@ -193,7 +193,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
   }, [stripe])
 
   useEffect(() => {
-    stripe.paymentRequest.update({
+    paymentRequest?.update({
       total: {
         label: "Remotebond job post",
         amount: jobPrice,
