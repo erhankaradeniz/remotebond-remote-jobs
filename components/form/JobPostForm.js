@@ -1,6 +1,11 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
+import {
+  CardElement,
+  useStripe,
+  useElements,
+  PaymentRequestButtonElement,
+} from "@stripe/react-stripe-js"
 import { destroyCookie } from "nookies"
 import Link from "next/link"
 
@@ -37,6 +42,8 @@ const JobPostForm = ({ paymentIntentSSR }) => {
   let tempTags = []
   const stripe = useStripe()
   const elements = useElements()
+
+  const [paymentRequest, setPaymentRequest] = useState(null)
   const [payment, setPayment] = useState({ status: "initial" })
   const [checkoutError, setCheckoutError] = useState()
   const [checkoutSuccess, setCheckoutSuccess] = useState()
@@ -162,6 +169,37 @@ const JobPostForm = ({ paymentIntentSSR }) => {
   tempTags = !watch("tags")
     ? ["Add tag", "Add tag", "Add tag"]
     : watch("tags").split(",")
+
+  useEffect(() => {
+    if (stripe) {
+      const pr = stripe.paymentRequest({
+        country: "US",
+        currency: "usd",
+        total: {
+          label: "Remotebond job post",
+          amount: 2500,
+        },
+        requestPayerName: true,
+        requestPayerEmail: true,
+      })
+
+      // Check the availability of the Payment Request API.
+      pr.canMakePayment().then((result) => {
+        if (result) {
+          setPaymentRequest(pr)
+        }
+      })
+    }
+  }, [stripe])
+
+  useEffect(() => {
+    stripe.paymentRequest.update({
+      total: {
+        label: "Remotebond job post",
+        amount: jobPrice,
+      },
+    })
+  }, [jobPrice])
 
   if (checkoutSuccess)
     return (
@@ -843,6 +881,11 @@ const JobPostForm = ({ paymentIntentSSR }) => {
                         </span>
                       )}
                     </label>
+                    {paymentRequest && (
+                      <PaymentRequestButtonElement
+                        options={{ paymentRequest }}
+                      />
+                    )}
                     <CardElement
                       className={`${
                         !checkoutError

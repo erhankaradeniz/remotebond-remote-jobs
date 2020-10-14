@@ -17,7 +17,7 @@ const App = ({ Component, pageProps }) => {
     <>
       <DefaultSeo {...SEO} />
       <NextSeo
-        title="Remote Bond - Remote jobs in Software Development, Sales and more"
+        title="Remotebond - Remote jobs in Software Development, Sales and more"
         description="Looking for a remote job? Hire Remote! Remotebond has thousands of remote work jobs as a Developer, Designer, Customer Support Rep, Sales Professional, Marketing Professional, Project Manager and more!"
       />
       <Head>

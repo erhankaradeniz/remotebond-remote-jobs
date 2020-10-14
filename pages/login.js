@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import { NextSeo } from "next-seo"
+import Link from "next/link"
 
 const LoginPage = () => {
   const router = useRouter()
@@ -101,7 +102,6 @@ const LoginPage = () => {
                   </a>
                 </div>
               </div>
-
               <div className="mt-6">
                 <button
                   type="submit"
@@ -122,6 +122,13 @@ const LoginPage = () => {
                   </span>
                   Login
                 </button>
+              </div>
+              <div className="mt-6 text-center">
+                <Link as={`/register`} href={`/register`}>
+                  <a className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                    Don't have an account?
+                  </a>
+                </Link>
               </div>
             </form>
           </div>

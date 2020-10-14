@@ -8,7 +8,9 @@ const Header = () => {
 
   const fetcher = (url) => fetch(url).then((r) => r.json())
 
-  const { data: user, mutate: mutateUser } = useSWR("/api/user", fetcher)
+  const { data: user, mutate: mutateUser } = useSWR("/api/user", fetcher, {
+    shouldRetryOnError: false,
+  })
 
   const logout = async () => {
     const res = await fetch("/api/logout")
@@ -43,7 +45,7 @@ const Header = () => {
           </a>
         </Link>
         <div className="flex-1">
-          <ul className="flex justify-end items-center h-full space-x-3">
+          <ul className="flex justify-end items-center h-full space-x-4">
             {user ? (
               <>
                 <li>
@@ -59,12 +61,7 @@ const Header = () => {
               <>
                 <li>
                   <Link href="/login">
-                    <a>Login</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/register">
-                    <a>Register</a>
+                    <a className="text-rb-gray-5 hover:text-blue-500">Login</a>
                   </Link>
                 </li>
               </>

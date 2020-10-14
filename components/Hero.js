@@ -85,7 +85,7 @@ const Hero = () => {
           Do you want to access talent{" "}
           <strong className="text-white">everywhere</strong>, or just in
           specific markets? If the answer is everywhere, look no further and let
-          Remote Bond help you.
+          Remotebond help you.
         </h2>
         <div className="flex justify-center items-center mt-8 space-y-4 sm:space-y-0 sm:space-x-4 flex-col sm:flex-row">
           <span className="inline-flex rounded-md shadow-sm">
