@@ -51,7 +51,7 @@ const JobsList = ({
                     }`}
                   >
                     <div className="px-4 py-4 sm:px-6 flex">
-                      <div>
+                      <div className="w-auto">
                         <div
                           className={`h-12 md:h-full w-12 rounded-sm text-center font-extrabold mr-4 pt-3 relative overflow-hidden ${
                             company_is_highlighted
@@ -73,9 +73,9 @@ const JobsList = ({
                         </div>
                       </div>
                       <div className="flex-1">
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                           <div
-                            className={`text-sm leading-5 font-medium truncate ${
+                            className={`text-sm leading-5 font-medium w-full break-all sm:truncate ${
                               company_is_highlighted
                                 ? "text-yellow-800"
                                 : "text-blue-600"
@@ -83,7 +83,7 @@ const JobsList = ({
                           >
                             {`${title}`}
                           </div>
-                          <div className="ml-2 flex-shrink-0 flex">
+                          <div className="mt-2 sm:mt-0 sm:ml-2 flex-shrink-0 flex">
                             {company_is_highlighted && (
                               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-red-100 text-red-800 mr-2">
                                 Featured
