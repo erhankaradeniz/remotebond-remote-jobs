@@ -14,9 +14,16 @@ export default async function signup(req, res) {
       // Exists returns boolean, Casefold returns normalize string
       q.Exists(q.Match(q.Index("user_by_email"), q.Casefold(email)))
     )
+    const existingUsername = await guestClient.query(
+      // Exists returns boolean, Casefold returns normalize string
+      q.Exists(q.Match(q.Index("user_by_username"), q.Casefold(username)))
+    )
 
     if (existingEmail) {
       return res.status(400).send(`Email ${email} already exists`)
+    }
+    if (existingUsername) {
+      return res.status(400).send(`Username ${username} already exists`)
     }
 
     const user = await guestClient.query(

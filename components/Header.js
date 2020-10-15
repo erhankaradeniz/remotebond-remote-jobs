@@ -49,7 +49,7 @@ const Header = () => {
             {user ? (
               <>
                 <li>
-                  <Link href="/profile">
+                  <Link href={`/u/${user.username}`} as={`/u/${user.username}`}>
                     <a>{user.email}</a>
                   </Link>
                 </li>
