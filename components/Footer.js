@@ -31,6 +31,29 @@ const Footer = () => {
               We strongly encourage employers to embrace diversity, equity, and
               inclusion as fundamental values when hiring through Remotebond.
             </p>
+            <a
+              href="https://www.twitter.com/erhankaradeniz"
+              target="_blank"
+              rel="nofollow"
+              title="Get in toouch with Erhan Karadeniz"
+              className="text-gray-400"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-5 h-5 inline-block mr-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                />
+              </svg>
+              Send feedback or just say Hi
+            </a>
           </div>
           <div className="w-full md:w-1/4 text-left mt-4 md:text-right">
             <span className="inline-flex rounded-md shadow-sm">
