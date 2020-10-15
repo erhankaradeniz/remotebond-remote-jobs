@@ -3,7 +3,7 @@ import { guestClient } from "../../lib/fauna-client"
 import { setAuthCookie } from "../../lib/auth-cookies"
 
 export default async function signup(req, res) {
-  const { email, password } = req.body
+  const { email, password, username } = req.body
 
   if (!email || !password) {
     return res.status(400).send("Email and Password not provided")
@@ -22,7 +22,7 @@ export default async function signup(req, res) {
     const user = await guestClient.query(
       q.Create(q.Collection("users"), {
         credentials: { password },
-        data: { email },
+        data: { email, username },
       })
     )
 
