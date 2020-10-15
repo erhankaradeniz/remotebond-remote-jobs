@@ -5,6 +5,9 @@ import getAllUsers, { getUserByUsername } from "../../lib/user"
 export async function getStaticPaths() {
   const users = await getAllUsers()
   if (users.length) {
+    console.log(user)
+    console.log("====DATA==")
+    console.log(user.data)
     return {
       paths: users.map((user) => {
         return {
