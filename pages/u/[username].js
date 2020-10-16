@@ -29,7 +29,16 @@ export async function getStaticProps(ctx) {
   const userData = JSON.parse(user)
   return {
     props: {
-      user: userData.data,
+      user: {
+        username: userData.data.username,
+        profile_image: userData.data.profile_image,
+        first_name: userData.data.first_name,
+        last_name: userData.data.last_name,
+        about: userData.data.about,
+        profile_image: userData.data.profile_image,
+        tagline: userData.data.tagline,
+        tags: userData.data.tags,
+      },
     },
     revalidate: 1,
   }
@@ -157,14 +166,10 @@ const UserProfilePage = ({ user }) => {
                         About
                       </dt>
                       <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        Fugiat ipsum ipsum deserunt culpa aute sint do nostrud
-                        anim incididunt cillum culpa consequat. Excepteur qui
-                        ipsum aliquip consequat sint. Sit id mollit nulla mollit
-                        nostrud in ea officia proident. Irure nostrud pariatur
-                        mollit ad adipisicing reprehenderit deserunt qui eu.
+                        {user.about ? user.about : ""}
                       </dd>
                     </div>
-                    <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    {/* <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                       <dt className="text-sm leading-5 font-medium text-gray-500">
                         Attachments
                       </dt>
@@ -226,7 +231,7 @@ const UserProfilePage = ({ user }) => {
                           </li>
                         </ul>
                       </dd>
-                    </div>
+                    </div> */}
                   </dl>
                 </div>
               </div>
