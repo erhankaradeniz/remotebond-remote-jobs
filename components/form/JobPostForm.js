@@ -313,13 +313,8 @@ const JobPostForm = ({ paymentIntentSSR }) => {
                       )}
                     </div>
                     <p className="mt-2 text-xs text-gray-400">
-                      Please specify as single job position like "Marketing
-                      Manager" or "Node JS Developer", not a sentence like
-                      "Looking htmlFor PM / Biz Dev / Manager". If posting
-                      multiple roles, please create multiple job posts. A job
-                      post is limited to a single job. We only allow real jobs,
-                      absolutely no MLM-type courses "learn how to work online"
-                      please.
+                      Please specify as single job position like "Fullstack
+                      developer Manager" or "Social Media manager".
                     </p>
                   </div>
                   <div className="col-span-6 sm:col-span-4">
@@ -436,11 +431,8 @@ const JobPostForm = ({ paymentIntentSSR }) => {
                     </div>
                     <p className="mt-2 text-xs text-gray-400">
                       Use tags like industry and tech stack, and separate
-                      multiple tags by comma. Short words are preferred. The
-                      first 3 tags are shown on the site, the other tags aren't
-                      but the job will be shown on each tag specific page (like
-                      /remote-react-jobs). We also generate tags automatically
-                      after you post/edit.
+                      multiple tags by comma. The first 3 tags are shown on the
+                      site, other tags are still used for tag specific pages.
                     </p>
                   </div>
                   <div className="col-span-6 sm:col-span-6">
@@ -488,10 +480,8 @@ const JobPostForm = ({ paymentIntentSSR }) => {
                       )}
                     </div>
                     <p className="mt-2 text-xs text-gray-400">
-                      Location or timezone this remote job is restricted to
-                      (e.g. Europe, United States or CET Timezone). If not
-                      restricted, leave it as "Remote". The less restricted this
-                      is, the more applicants you will get.
+                      Location for this job, leave "Remote" if it's a remote
+                      job.
                     </p>
                   </div>
                 </div>
