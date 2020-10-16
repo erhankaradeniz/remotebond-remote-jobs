@@ -31,13 +31,14 @@ export async function getStaticProps(ctx) {
     props: {
       user: {
         username: userData.data.username,
-        profile_image: userData.data.profile_image,
-        first_name: userData.data.first_name,
-        last_name: userData.data.last_name,
-        about: userData.data.about,
-        profile_image: userData.data.profile_image,
-        tagline: userData.data.tagline,
-        tags: userData.data.tags,
+        profile_image: userData.data.profile_image
+          ? userData.data.profile_image
+          : "",
+        first_name: userData.data.first_name ? userData.data.first_name : "",
+        last_name: userData.data.last_name ? userData.data.last_name : "",
+        about: userData.data.about ? userData.data.about : "",
+        tagline: userData.data.tagline ? userData.data.tagline : "",
+        tags: userData.data.tags ? userData.data.tags : "",
       },
     },
     revalidate: 1,
