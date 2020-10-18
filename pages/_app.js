@@ -3,8 +3,8 @@ import Head from "next/head"
 import NextNprogress from "nextjs-progressbar"
 import { DefaultSeo, NextSeo } from "next-seo"
 
-// import Router from "next/router"
-// import withGA from "next-ga"
+import Router from "next/router"
+import withGA from "next-ga"
 
 import SEO from "../next-seo.config"
 
@@ -71,5 +71,5 @@ const App = ({ Component, pageProps }) => {
   )
 }
 
-// export default withGA("UA-165711130-1", Router)(App)
-export default App
+export default withGA("UA-165711130-2", Router)(App)
+// export default App
