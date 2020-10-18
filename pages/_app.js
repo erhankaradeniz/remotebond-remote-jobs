@@ -71,5 +71,5 @@ const App = ({ Component, pageProps }) => {
   )
 }
 
-export default withGA("G-NY2JXBHRNS", Router)(App)
+export default withGA("UA-180773817-1", Router)(App)
 // export default App
