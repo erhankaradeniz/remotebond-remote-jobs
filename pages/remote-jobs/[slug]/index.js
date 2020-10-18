@@ -122,7 +122,7 @@ const JobsPage = ({ job }) => {
             <div className="flex justify-center mb-8">
               <span className="inline-flex rounded-md shadow-sm">
                 <a
-                  href={`${job.apply_url}&utm_source=remotebond.com&ref=remotebond.com`}
+                  href={`${job.apply_url}?utm_source=remotebond.com&ref=remotebond.com`}
                   target="_blank"
                   className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150"
                 >
