@@ -5,7 +5,7 @@ import { getAuthCookie } from "../../lib/auth-cookies"
 export default async function user(req, res) {
   const token = getAuthCookie(req)
   if (!token) {
-    return res.status(401).send("Auth cookie not found")
+    return res.status(200).send("Auth cookie not found")
   }
 
   try {
