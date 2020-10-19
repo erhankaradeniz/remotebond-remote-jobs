@@ -30,51 +30,51 @@ const HeaderNew = () => {
     }
   }
   return (
-    <nav class="bg-white shadow">
-      <div class="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div class="relative flex justify-between h-16">
-          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+    <nav className="bg-white shadow">
+      <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="relative flex justify-between h-16">
+          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* <!-- Mobile menu button --> */}
             <button
-              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
               aria-label="Main menu"
               aria-expanded="false"
               onClick={toggleMobileMenu}
             >
               {/* <!-- Icon when menu is closed. --> */}
               <svg
-                class={`${isMobileMenuOpen ? "hidden" : "block"} h-6 w-6`}
+                className={`${isMobileMenuOpen ? "hidden" : "block"} h-6 w-6`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
               {/* <!-- Icon when menu is open. -->*/}
               <svg
-                class={`${isMobileMenuOpen ? "block" : "hidden"} h-6 w-6`}
+                className={`${isMobileMenuOpen ? "block" : "hidden"} h-6 w-6`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
             </button>
           </div>
-          <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-            <div class="flex-shrink-0 flex items-center">
+          <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+            <div className="flex-shrink-0 flex items-center">
               {/* Normal Logo  */}
               <Link href={`/`} as={`/`}>
                 <a title="Return to homepage">
@@ -108,9 +108,9 @@ const HeaderNew = () => {
                     <g
                       id="Page-1"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                       fill="none"
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                     >
                       <g
                         id="Desktop-HD"
@@ -133,7 +133,7 @@ const HeaderNew = () => {
                             d="M101.59375,186.090909 L81.9914773,146.034091 L67.7159091,146.034091 L67.7159091,186.090909 L43,186.090909 L43,77 L84.9744318,77 C97.8651213,77 107.621771,80.0184357 114.244673,86.0553977 C120.867576,92.0923597 124.178977,100.437447 124.178977,111.090909 C124.178977,118.72589 122.50996,125.002461 119.171875,129.92081 C115.83379,134.839158 111.590225,138.70098 106.441051,141.506392 L128.653409,186.090909 L101.59375,186.090909 Z M67.7159091,97.4545455 L67.7159091,125.792614 L84.9744318,125.792614 C89.3423514,125.792614 92.8845745,124.647384 95.6012074,122.356889 C98.3178403,120.066395 99.6761364,116.524172 99.6761364,111.730114 C99.6761364,107.04259 98.3444735,103.491489 95.681108,101.076705 C93.0177424,98.6619197 89.448886,97.4545455 84.9744318,97.4545455 L67.7159091,97.4545455 Z M179.576705,77 C192.786998,77 202.623547,79.7876142 209.086648,85.3629261 C215.549748,90.9382381 218.78125,98.0937063 218.78125,106.829545 C218.78125,112.653438 217.272032,117.571713 214.253551,121.584517 C211.23507,125.597321 206.352306,128.296158 199.605114,129.681108 L199.605114,130.480114 C206.103726,131.332391 211.279455,134.120005 215.132457,138.84304 C218.98546,143.566075 220.911932,149.443147 220.911932,156.474432 C220.911932,165.316806 217.698186,172.463396 211.270597,177.914418 C204.843008,183.365439 195.556879,186.090909 183.411932,186.090909 L138.667614,186.090909 L138.667614,77 L179.576705,77 Z M182.346591,139.428977 L163.383523,139.428977 L163.383523,165.636364 L181.494318,165.636364 C186.821049,165.636364 190.673994,164.526645 193.053267,162.307173 C195.43254,160.087702 196.622159,157.007122 196.622159,153.065341 C196.622159,149.336629 195.521318,146.131761 193.319602,143.450639 C191.117887,140.769518 187.460253,139.428977 182.346591,139.428977 L182.346591,139.428977 Z M178.9375,97.4545455 L163.383523,97.4545455 L163.383523,122.383523 L177.446023,122.383523 C183.411962,122.383523 187.708794,121.398092 190.336648,119.427202 C192.964502,117.456311 194.278409,114.393487 194.278409,110.238636 C194.278409,108.036921 193.843399,105.959527 192.973366,104.006392 C192.103334,102.053257 190.558605,100.473017 188.339134,99.265625 C186.119662,98.0582326 182.985816,97.4545455 178.9375,97.4545455 Z"
                             id="RB"
                             fill="#FFFFFF"
-                            fill-rule="nonzero"
+                            fillRule="nonzero"
                           ></path>
                         </g>
                       </g>
@@ -142,10 +142,10 @@ const HeaderNew = () => {
                 </a>
               </Link>
             </div>
-            <div class="hidden sm:ml-6 sm:flex">
+            <div className="hidden sm:ml-6 sm:flex">
               <Link href={`/`} as={`/`}>
                 <a
-                  class="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out"
+                  className="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out"
                   title="Remote jobs on Remotebond"
                 >
                   Remote jobs
@@ -153,15 +153,18 @@ const HeaderNew = () => {
               </Link>
               <Link href={`/about`} as={`/about`}>
                 <a
-                  class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                  className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                   title="About remotebond"
                 >
                   About
                 </a>
               </Link>
-              <Link href={`/faq`} as={`/faq`}>
+              <Link
+                href={`/frequently-asked-questions`}
+                as={`/frequently-asked-questions`}
+              >
                 <a
-                  class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                  className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
                   title="About remotebond"
                 >
                   Faq
@@ -169,12 +172,12 @@ const HeaderNew = () => {
               </Link>
             </div>
           </div>
-          <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* <!-- Profile dropdown --> */}
-            <div class="ml-3 relative hidden sm:block z-20">
+            <div className="ml-3 relative hidden sm:block z-20">
               {user ? (
                 <button
-                  class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
+                  className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
                   id="user-menu"
                   aria-label="User menu"
                   aria-haspopup="true"
@@ -182,7 +185,7 @@ const HeaderNew = () => {
                 >
                   {user.profile_image ? (
                     <img
-                      class="h-8 w-8 rounded-full"
+                      className="h-8 w-8 rounded-full"
                       src={`${user.profile_image}`}
                       alt=""
                     />
@@ -194,9 +197,9 @@ const HeaderNew = () => {
                         fill="currentColor"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         />
                       </svg>
                     </div>
@@ -218,10 +221,10 @@ const HeaderNew = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-20">
+                <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-20">
                   {user && (
                     <div
-                      class="py-1 rounded-md bg-white shadow-xs"
+                      className="py-1 rounded-md bg-white shadow-xs"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
@@ -232,7 +235,7 @@ const HeaderNew = () => {
                           as={`/u/${user.username}`}
                         >
                           <a
-                            class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                            className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                             role="menuitem"
                           >
                             Your Profile
@@ -240,14 +243,14 @@ const HeaderNew = () => {
                         </Link>
                         <a
                           href="#"
-                          class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                          className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                           role="menuitem"
                         >
                           Settings
                         </a>
                         <a
                           href="#"
-                          class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                          className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                           role="menuitem"
                           onClick={logout}
                         >
@@ -275,35 +278,38 @@ const HeaderNew = () => {
 
     Menu open: "block", Menu closed: "hidden"
   --> */}
-      <div class={`${isMobileMenuOpen ? "block" : "hidden"} sm:hidden`}>
-        <div class="pt-2 pb-4">
+      <div className={`${isMobileMenuOpen ? "block" : "hidden"} sm:hidden`}>
+        <div className="pt-2 pb-4">
           <Link href={`/`} as={`/`}>
             <a
               title="Remote jobs on Remotebond"
-              class="block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out"
+              className="block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out"
             >
               Remote jobs
             </a>
           </Link>
           <Link href={`/about`} as={`/about`}>
-            <a class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <a className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               About
             </a>
           </Link>
-          <Link href={`/faq`} as={`/faq`}>
-            <a class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+          <Link
+            href={`/frequently-asked-questions`}
+            as={`/frequently-asked-questions`}
+          >
+            <a className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Faq
             </a>
           </Link>
         </div>
-        <div class="pt-4 pb-3 border-t border-gray-200">
+        <div className="pt-4 pb-3 border-t border-gray-200">
           {user ? (
             <>
-              <div class="flex items-center px-4 sm:px-6">
-                <div class="flex-shrink-0">
+              <div className="flex items-center px-4 sm:px-6">
+                <div className="flex-shrink-0">
                   {user.profile_image ? (
                     <img
-                      class="h-10 w-10 rounded-full"
+                      className="h-10 w-10 rounded-full"
                       src={`${user.profile_image}`}
                       alt=""
                     />
@@ -315,37 +321,37 @@ const HeaderNew = () => {
                         fill="currentColor"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         />
                       </svg>
                     </div>
                   )}
                 </div>
-                <div class="ml-3">
-                  <div class="text-base font-medium leading-6 text-gray-800">
+                <div className="ml-3">
+                  <div className="text-base font-medium leading-6 text-gray-800">
                     {user.username}
                   </div>
-                  <div class="text-sm font-medium leading-5 text-gray-500">
+                  <div className="text-sm font-medium leading-5 text-gray-500">
                     {user.email}
                   </div>
                 </div>
               </div>
-              <div class="mt-3">
+              <div className="mt-3">
                 <Link href={`/u/${user.username}`} as={`/u/${user.username}`}>
-                  <a class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6">
+                  <a className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6">
                     Your Profile
                   </a>
                 </Link>
                 <a
                   href="#"
-                  class="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
+                  className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
                 >
                   Settings
                 </a>
                 <button
-                  class="mt-1 w-full block text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
+                  className="mt-1 w-full block text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
                   onClick={logout}
                 >
                   Sign out
