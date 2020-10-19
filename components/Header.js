@@ -30,7 +30,6 @@ const HeaderNew = () => {
       router.push("/login")
     }
   }
-  console.log(currentPath)
   return (
     <nav className="bg-white shadow">
       <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8">
