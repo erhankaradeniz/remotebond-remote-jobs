@@ -4,7 +4,7 @@ import useSWR from "swr"
 import { NextSeo } from "next-seo"
 
 import { getJobsCountByCategory } from "../lib/jobs"
-import { getPaginatedDesignJobs } from "../lib/designJobs"
+import { getPaginatedNonTechJobs } from "../lib/nonTechJobs"
 import fetcher from "../lib/fetch"
 import getAllCategories from "../lib/categories"
 
@@ -19,7 +19,7 @@ export async function getStaticProps(ctx) {
   const job = jobsCount.data ? jobsCount.data : false
   const categoriesData = JSON.parse(categories)
 
-  const paginatedJobsFetch = await getPaginatedDesignJobs("null")
+  const paginatedJobsFetch = await getPaginatedNonTechJobs("null")
   const paginatedJobs = JSON.parse(paginatedJobsFetch)
 
   const latestRefId = paginatedJobs.after
@@ -144,15 +144,15 @@ const RemoteDesignJobs = ({
     <>
       <NextSeo
         title={`Remote customer support jobs`}
-        description="The latest and most popular remote design jobs around the web. Jobs included from top remote companies. Find your new customer support carreer on Remotebond."
+        description="The latest and most popular remote non tech jobs around the web. Jobs included from top remote companies. Find your new customer support carreer on Remotebond."
       />
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">
           <h1 className="text-white font-black text-2xl md:text-4xl my-4">
-            Remote Design Jobs
+            Remote Non Tech Jobs
           </h1>
           <h2 className="text-base md:text-xl text-rb-gray-4 w-3/4 mx-auto">
-            Browse {jobsCount} Remote design jobs in{" "}
+            Browse {jobsCount} Remote Non Tech jobs in{" "}
             {date.toLocaleDateString("en-EN", dateOptions)}
           </h2>
           <span className="inline-flex rounded-md shadow-sm mt-8">
@@ -170,7 +170,7 @@ const RemoteDesignJobs = ({
 
       {cursor.page !== 0 && data && data.data && !isLoading ? (
         <JobsList
-          slug="remote-design-jobs"
+          slug="remote-non-tech-jobs"
           jobs={data.data}
           loadMoreJobs={loadMoreJobs}
           loadPrevPage={loadPrevPage}
@@ -186,7 +186,7 @@ const RemoteDesignJobs = ({
       {/* Weird hack to have pre-rendered content, useSWR is acting weird with initialData */}
       {cursor.page === 0 && (
         <JobsList
-          slug="remote-design-jobs"
+          slug="remote-non-tech-jobs"
           jobs={initialData.data}
           loadMoreJobs={loadMoreJobs}
           loadPrevPage={loadPrevPage}
