@@ -16,18 +16,17 @@ export const getServerSideProps = async (ctx) => {
 
   let paymentIntent
 
-  const { paymentIntentId } = await parseCookies(ctx)
+  // const { paymentIntentId } = await parseCookies(ctx)
 
-  if (paymentIntentId) {
-    paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
+  // if (paymentIntentId) {
+  //   paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
 
-    return {
-      props: {
-        paymentIntent,
-      },
-    }
-  }
-
+  //   return {
+  //     props: {
+  //       paymentIntent,
+  //     },
+  //   }
+  // }
   paymentIntent = await stripe.paymentIntents.create({
     amount: 2500,
     currency: "usd",
