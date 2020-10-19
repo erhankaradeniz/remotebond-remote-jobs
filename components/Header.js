@@ -159,6 +159,14 @@ const HeaderNew = () => {
                   About
                 </a>
               </Link>
+              <Link href={`/faq`} as={`/faq`}>
+                <a
+                  class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                  title="About remotebond"
+                >
+                  Faq
+                </a>
+              </Link>
             </div>
           </div>
           <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -211,13 +219,13 @@ const HeaderNew = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-20">
-                  <div
-                    class="py-1 rounded-md bg-white shadow-xs"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="user-menu"
-                  >
-                    {user ? (
+                  {user && (
+                    <div
+                      class="py-1 rounded-md bg-white shadow-xs"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="user-menu"
+                    >
                       <>
                         <Link
                           href={`/u/${user.username}`}
@@ -246,16 +254,8 @@ const HeaderNew = () => {
                           Sign out
                         </a>
                       </>
-                    ) : (
-                      <>
-                        <Link href="/login">
-                          <a className="text-rb-gray-5 hover:text-blue-500">
-                            Sign in
-                          </a>
-                        </Link>
-                      </>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </Transition>
             </div>
@@ -288,6 +288,11 @@ const HeaderNew = () => {
           <Link href={`/about`} as={`/about`}>
             <a class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               About
+            </a>
+          </Link>
+          <Link href={`/faq`} as={`/faq`}>
+            <a class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              Faq
             </a>
           </Link>
         </div>

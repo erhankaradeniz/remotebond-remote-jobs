@@ -72,7 +72,7 @@ const IndexPage = (props) => {
       />
       <JobsList title="Design" slug="remote-design-jobs" jobs={designJobs} />
       <JobsList
-        title="Non tech"
+        title="Non Tech"
         slug="remote-non-tech-jobs"
         jobs={nonTechJobs}
       />
