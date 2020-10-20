@@ -61,7 +61,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
     setPayment({ status: "processing" })
     try {
       const { error, paymentIntent } = await stripe.confirmCardPayment(
-        paymentIntentSSR.client_secret,
+        paymentIntent.client_secret,
         {
           payment_method: {
             card: elements.getElement(CardElement),

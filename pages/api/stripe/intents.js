@@ -39,7 +39,12 @@ export default async (req, res) => {
           }
           break
         case "highlight_add":
-          if (amount === 2500 || amount === 15000) {
+          if (
+            amount === 2500 ||
+            amount === 5000 ||
+            amount === 12500 ||
+            amount === 15000
+          ) {
             // Update paymentIntent
             paymentIntent = await stripe.paymentIntents.update(
               paymentIntentId,
