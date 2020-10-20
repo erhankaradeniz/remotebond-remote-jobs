@@ -52,8 +52,6 @@ const JobsPage = ({ job }) => {
   const salarayAmount = randomInt(40000, 80000)
   const router = useRouter()
 
-  const saniztizedAndStripped = sanitizeHtml(strip_tags(job.description))
-
   if (router.isFallback) {
     return (
       <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
@@ -76,6 +74,7 @@ const JobsPage = ({ job }) => {
     let newDate = new Date(job.pub_date)
     newDate.setMonth(newDate.getMonth() + 1)
     const jobExpireDate = new Date(newDate).toISOString()
+    const saniztizedAndStripped = sanitizeHtml(strip_tags(job.description))
     return (
       <>
         <NextSeo
