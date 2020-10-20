@@ -8,6 +8,7 @@ import JobHeader from "../../../components/JobHeader"
 import Breadcrumbs from "../../../components/Breadcrumbs"
 
 import randomInt from "../../../helpers/randomInt"
+import { sanitizeHtml } from "../../../lib/sanitizer"
 
 import getAllJobs, { getJobBySlug } from "../../../lib/jobs"
 
@@ -50,6 +51,9 @@ function strip_tags(str) {
 const JobsPage = ({ job }) => {
   const salarayAmount = randomInt(40000, 80000)
   const router = useRouter()
+
+  const saniztizedAndStripped = sanitizeHtml(strip_tags(job.description))
+
   if (router.isFallback) {
     return (
       <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
@@ -76,14 +80,14 @@ const JobsPage = ({ job }) => {
       <>
         <NextSeo
           title={`Remote ${job.title} job at ${job.company_name}`}
-          description="Looking for a remote job? Remotebond has 5,000+ remote jobs as a Developer, Designer, Copywriter, Customer Support Rep, Sales Professional, Project Manager and more! Find a career where you can work remotely from anywhere."
+          description={`${saniztizedAndStripped.substr(0, 140)}...`}
           openGraph={{
             title: `Remote ${job.title} job at ${job.company_name}`,
           }}
         />
         <JobPostingJsonLd
           datePosted={job.pub_date}
-          description={strip_tags(job.description)}
+          description={saniztizedAndStripped}
           hiringOrganization={{
             name: job.company_name,
             sameAs: null,
