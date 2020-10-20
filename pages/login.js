@@ -38,6 +38,7 @@ const LoginPage = () => {
       <NextSeo
         title={`Register for a Remotebond remote profile and join the future of work.`}
         description="Register now and join the future of work on Remotebond."
+        canonical={`https://remotebond.com/login`}
       />
       <div className="flex flex-col flex-1">
         <div className="relative overflow-hidden bg-black">

@@ -48,6 +48,7 @@ const NewJobPage = ({ paymentIntent }) => {
         <NextSeo
           title={`Create a new remote job post`}
           description="Start hiring remotely, post a new remote job and find the most qualified people for your next remote position."
+          canonical={`https://remotebond.com/hire-remotely`}
         />
         <Banner message={`Launch deal! Base job ad is now priced at $25`} />
         <JobPostForm paymentIntentSSR={paymentIntent} />

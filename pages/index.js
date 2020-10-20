@@ -1,4 +1,5 @@
 import React from "react"
+import { NextSeo } from "next-seo"
 
 import JobsList from "../components/JobsList"
 import FilterBar from "../components/FilterBar"
@@ -46,8 +47,10 @@ const IndexPage = (props) => {
   const salesMarketingJobs = props.salesMarketingJobs.data
   const designJobs = props.designJobs.data
   const nonTechJobs = props.nonTechJobs.data
+
   return (
     <>
+      <NextSeo canonical={`https://remotebond.com`} />
       {/* Hero Section */}
       <Hero />
 

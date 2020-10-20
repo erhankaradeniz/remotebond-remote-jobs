@@ -8,6 +8,7 @@ const FaqPage = () => {
       <NextSeo
         title={`Remotebond - Frequently Asked Questions`}
         description="Looking for a remote job? Hire Remote! Remotebond has thousands of remote work jobs as a Developer, Designer, Customer Support Rep, Sales Professional, Marketing Professional, Project Manager and more!"
+        canonical={`https://remotebond.com/frequently-asked-questions`}
       />
       <FAQPageJsonLd
         mainEntity={[

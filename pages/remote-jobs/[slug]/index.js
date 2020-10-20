@@ -51,6 +51,7 @@ function strip_tags(str) {
 const JobsPage = ({ job }) => {
   const salarayAmount = randomInt(40000, 80000)
   const router = useRouter()
+  const pathName = router.asPath
 
   if (router.isFallback) {
     return (
@@ -83,6 +84,7 @@ const JobsPage = ({ job }) => {
           openGraph={{
             title: `Remote ${job.title} job at ${job.company_name}`,
           }}
+          canonical={`https://remotebond.com${pathName}`}
         />
         <JobPostingJsonLd
           datePosted={job.pub_date}
