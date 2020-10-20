@@ -5,6 +5,16 @@ export default {
     url: "https://remotebond.com",
     site_name:
       "Remotebond - Remote jobs in Software Development, Sales and more",
+    description:
+      "Start working and hiring remotely and join the future of work",
+    images: [
+      {
+        url: "https://remotebond.com/siteimg/og-remotebond.png",
+        width: 2048,
+        height: 1170,
+        alt: "Remotebond",
+      },
+    ],
   },
   twitter: {
     handle: "@remotebond",
