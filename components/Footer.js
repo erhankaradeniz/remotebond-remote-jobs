@@ -34,7 +34,7 @@ const Footer = () => {
             <a
               href="https://www.twitter.com/erhankaradeniz"
               target="_blank"
-              rel="nofollow"
+              rel="nofollow, noindex, noreferrer"
               title="Get in toouch with Erhan Karadeniz"
               className="text-gray-400"
             >
