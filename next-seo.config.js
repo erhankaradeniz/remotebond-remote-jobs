@@ -3,8 +3,7 @@ export default {
     type: "website",
     locale: "en_US",
     url: "https://remotebond.com",
-    site_name:
-      "Remotebond - Remote jobs in Software Development, Sales and more",
+    title: "Remotebond - Remote jobs in Software Development, Sales and more",
     description:
       "Start working and hiring remotely and join the future of work",
     images: [

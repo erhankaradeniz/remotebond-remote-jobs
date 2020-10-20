@@ -50,7 +50,6 @@ function strip_tags(str) {
 const JobsPage = ({ job }) => {
   const salarayAmount = randomInt(40000, 80000)
   const router = useRouter()
-
   if (router.isFallback) {
     return (
       <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
