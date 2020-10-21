@@ -49,8 +49,26 @@ const NewJobPage = ({ paymentIntent }) => {
           title={`Create a new remote job post`}
           description="Start hiring remotely, post a new remote job and find the most qualified people for your next remote position."
           canonical={`https://remotebond.com/hire-remotely`}
+          openGraph={{
+            url: `https://remotebond.com/hire-remotely`,
+            title: `Create a new remote job post`,
+            description: `Start hiring remotely, post a new remote job and find the most qualified people for your next remote position.`,
+          }}
         />
         <Banner message={`Launch deal! Base job ad is now priced at $25`} />
+        <div className="relative overflow-hidden bg-black">
+          <div className="max-w-screen-xl mx-auto py-16 px-4 sm:px-6 lg:py-12 lg:px-8">
+            <div>
+              <h1 className="text-center text-3xl leading-9 font-extrabold text-white">
+                Hire remotely
+              </h1>
+              <h2 className="text-rb-gray-4 text-center w-full">
+                Create your remote job post and reach remote workers all around
+                the world.
+              </h2>
+            </div>
+          </div>
+        </div>
         <JobPostForm paymentIntentSSR={paymentIntent} />
       </>
     </Elements>

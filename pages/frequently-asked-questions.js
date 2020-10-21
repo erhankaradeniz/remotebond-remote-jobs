@@ -7,8 +7,13 @@ const FaqPage = () => {
     <>
       <NextSeo
         title={`Remotebond - Frequently Asked Questions`}
-        description="Looking for a remote job? Hire Remote! Remotebond has thousands of remote work jobs as a Developer, Designer, Customer Support Rep, Sales Professional, Marketing Professional, Project Manager and more!"
+        description="Remotebond - Frequently asked questions about remote work, remote jobs and regular information about Remotebond"
         canonical={`https://remotebond.com/frequently-asked-questions`}
+        openGraph={{
+          url: `https://remotebond.com/frequently-asked-questions`,
+          title: `Remotebond - Frequently Asked Questions`,
+          description: `Remotebond - Frequently asked questions about remote work, remote jobs and regular information about Remotebond`,
+        }}
       />
       <FAQPageJsonLd
         mainEntity={[
@@ -51,9 +56,9 @@ const FaqPage = () => {
       />
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8">
-          <h2 className="text-4xl leading-10 font-display font-semibold text-white text-center md:text-5xl md:leading-none">
+          <h1 className="text-4xl leading-10 font-display font-semibold text-white text-center md:text-5xl md:leading-none">
             Frequently Asked Questions
-          </h2>
+          </h1>
         </div>
       </div>
       <div className="max-w-screen-xl mx-auto pt-4 pb-16 px-4 sm:px-6 lg:px-8">
@@ -62,7 +67,7 @@ const FaqPage = () => {
             <div>
               <div>
                 <dt className="text-lg leading-6 font-medium text-gray-900">
-                  <h1>What is Remotebond?</h1>
+                  <h2>What is Remotebond?</h2>
                 </dt>
                 <dd className="mt-2">
                   <p className="text-base leading-6 text-gray-500">
@@ -93,7 +98,7 @@ const FaqPage = () => {
               </div>
               <div className="mt-12">
                 <dt className="text-lg leading-6 font-medium text-gray-900">
-                  <h1>How do I post a job on Remotebond?</h1>
+                  <h2>How do I post a job on Remotebond?</h2>
                 </dt>
                 <dd className="mt-2">
                   <p className="text-base leading-6 text-gray-500">
@@ -145,7 +150,7 @@ const FaqPage = () => {
               </div>
               <div className="mt-12">
                 <dt className="text-lg leading-6 font-medium text-gray-900">
-                  <h1>Can I edit my job post after it's live?</h1>
+                  <h2>Can I edit my job post after it's live?</h2>
                 </dt>
                 <dd className="mt-2">
                   <p className="text-base leading-6 text-gray-500">
@@ -172,7 +177,7 @@ const FaqPage = () => {
             <div className="mt-12 sm:mt-0">
               <div id="team-pricing">
                 <dt className="text-lg leading-6 font-medium text-gray-900">
-                  <h1>How much does it cost to post a job?</h1>
+                  <h2>How much does it cost to post a job?</h2>
                 </dt>
                 <dd className="mt-2">
                   <p className="text-base leading-6 text-gray-500">
@@ -201,7 +206,7 @@ const FaqPage = () => {
               </div>
               <div className="mt-12">
                 <dt className="text-lg leading-6 font-medium text-gray-900">
-                  <h1>How long will my post be live?</h1>
+                  <h2>How long will my post be live?</h2>
                 </dt>
                 <dd className="mt-2">
                   <p className="text-base leading-6 text-gray-500">
@@ -213,7 +218,7 @@ const FaqPage = () => {
               </div>
               <div>
                 <dt className="mt-12 text-lg leading-6 font-medium text-gray-900">
-                  <h1>Will my post auto bump after 30 days?</h1>
+                  <h2>Will my post auto bump after 30 days?</h2>
                 </dt>
                 <dd className="mt-2">
                   <p className="text-base leading-6 text-gray-500">
@@ -237,7 +242,7 @@ const FaqPage = () => {
               </div>
               <div>
                 <dt className="mt-12 text-lg leading-6 font-medium text-gray-900">
-                  <h1>How can I register a profile on Remotebond?</h1>
+                  <h2>How can I register a profile on Remotebond?</h2>
                 </dt>
                 <dd className="mt-2">
                   <p className="text-base leading-6 text-gray-500">
@@ -248,7 +253,7 @@ const FaqPage = () => {
                       </a>
                     </Link>{" "}
                     or go directly to the{" "}
-                    <Link as={`/`} href={`/`}>
+                    <Link as={`/register`} href={`/register`}>
                       <a title="Remotebond homepage" className="font-medium">
                         register
                       </a>

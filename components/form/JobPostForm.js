@@ -239,7 +239,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
     )
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="pt-6 bg-rb-gray-1">
       <div className="bg-rb-gray-1">
         <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
           {Object.keys(errors).length !== 0 && (

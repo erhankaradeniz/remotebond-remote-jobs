@@ -34,11 +34,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(ctx) {
+  console.log(ctx)
   const job = await getJobBySlug(ctx.params.slug)
   const jobData = JSON.parse(job)
   return {
     props: {
       job: jobData.data,
+      slug: ctx.params.slug,
     },
     revalidate: 1,
   }
@@ -48,10 +50,9 @@ function strip_tags(str) {
   return str.replace(/(<(br[^>]*)>)/gi, "\n").replace(/(<([^>]+)>)/gi, "")
 }
 
-const JobsPage = ({ job }) => {
+const JobsPage = ({ job, slug }) => {
   const salarayAmount = randomInt(40000, 80000)
   const router = useRouter()
-  const pathName = router.asPath
 
   if (router.isFallback) {
     return (
@@ -81,10 +82,12 @@ const JobsPage = ({ job }) => {
         <NextSeo
           title={`Remote ${job.title} job at ${job.company_name}`}
           description={`${saniztizedAndStripped.substr(0, 140)}...`}
+          canonical={`https://remotebond.com/${slug}`}
           openGraph={{
+            url: `https://remotebond.com/${slug}`,
             title: `Remote ${job.title} job at ${job.company_name}`,
+            description: `${saniztizedAndStripped.substr(0, 140)}...`,
           }}
-          canonical={`https://remotebond.com${pathName}`}
         />
         <JobPostingJsonLd
           datePosted={job.pub_date}

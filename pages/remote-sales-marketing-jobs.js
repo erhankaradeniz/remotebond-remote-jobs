@@ -142,8 +142,13 @@ const RemoteSalesMarketingPage = ({
     <>
       <NextSeo
         title={`Remote Sales & Marketing jobs`}
-        description="The latest and most popular remote sales & marketing jobs around the web. Jobs included from top remote companies. Find your new sales & marketing carreer on Remotebond."
+        description="The latest and most popular remote sales & marketing jobs around the web. Jobs included from top remote companies. Find your new sales & marketing career on Remotebond."
         canonical={`https://remotebond.com/remote-sales-marketing-jobs`}
+        openGraph={{
+          url: `https://remotebond.com/remote-sales-marketing-jobs`,
+          title: `Remote sales & marketing jobs`,
+          description: `The latest and most popular remote sales & marketing jobs around the web. Jobs included from top remote companies. Find your new sales & marketing career on Remotebond.`,
+        }}
       />
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">

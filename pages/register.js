@@ -36,17 +36,22 @@ const RegisterPage = () => {
   return (
     <>
       <NextSeo
-        title={`Register for a Remotebond remote profile and join the future of work.`}
-        description="Register now and join the future of work on Remotebond."
+        title={`Register for a Remotebond remote profile and join the future of remote work.`}
+        description="Register now and join the future of remote work on Remotebond."
         canonical={`https://remotebond.com/register`}
+        openGraph={{
+          url: `https://remotebond.com/register`,
+          title: `Register for a Remotebond remote profile and join the future of remote work.`,
+          description: `Register now and join the future of remote work on Remotebond.`,
+        }}
       />
       <div className="flex flex-col flex-1">
         <div className="relative overflow-hidden bg-black">
           <div className="max-w-screen-xl mx-auto py-16 px-4 sm:px-6 lg:py-12 lg:px-8">
             <div>
-              <h2 className="text-center text-3xl leading-9 font-extrabold text-white">
+              <h1 className="text-center text-3xl leading-9 font-extrabold text-white">
                 Register your account
-              </h2>
+              </h1>
             </div>
           </div>
         </div>

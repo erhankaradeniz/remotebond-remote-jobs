@@ -141,8 +141,13 @@ const RemoteDevJobsPage = ({
     <>
       <NextSeo
         title={`Remote dev / programming jobs`}
-        description="The latest and most popular remote dev / programming jobs around the web. Jobs included from top remote companies. Find your new dev / programming carreer on Remotebond."
+        description="The latest and most popular remote dev / programming jobs around the web. Jobs included from top remote companies. Find your new dev / programming career on Remotebond."
         canonical={`https://remotebond.com/remote-dev-jobs`}
+        openGraph={{
+          url: `https://remotebond.com/remote-dev-jobs`,
+          title: `Remote dev / programming jobs`,
+          description: `The latest and most popular remote dev / programming jobs around the web. Jobs included from top remote companies. Find your new dev / programming career on Remotebond.`,
+        }}
       />
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">
