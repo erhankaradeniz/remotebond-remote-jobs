@@ -12,13 +12,13 @@ const Hero = () => {
           </span>
         </h1>
         <h2 className="text-white font-black text-2xl md:text-5xl md:leading-45 my-4">
-          Start working and hiring remotely and join the future of work
+          Start working and hiring remotely and join the future of remote work
         </h2>
         <h3 className="text-base md:text-xl text-rb-gray-4 w-3/4 mx-auto">
           Do you want to access talent{" "}
           <strong className="text-white">everywhere</strong>, or just in
           specific markets? If the answer is everywhere, look no further and let
-          Remotebond help you with your remote job / carreer.
+          Remotebond help you with your remote job / career.
         </h3>
         <div className="flex justify-center items-center mt-8 space-y-4 sm:space-y-0 sm:space-x-4 flex-col sm:flex-row">
           <span className="inline-flex rounded-md shadow-sm">
