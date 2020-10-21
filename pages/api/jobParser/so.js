@@ -26,13 +26,13 @@ export default async (req, res) => {
     const regex4 = /\s[^\w\s].*/gm // everything after a non alphanumeric character, hard check
 
     let feed = await parser.parseURL(feedSource)
-    const weekAgo = new Date(Date.now() - 604800000)
+    const dayAgo = new Date(Date.now() - 86400000)
 
     for (let i = 0; i < feed.items.length; i++) {
       let listingDate = new Date(feed.items[i].isoDate)
-      let isWithinWeek = listingDate > weekAgo
+      let isWithinDay = listingDate > dayAgo
       // Check for pubDate, don't include listings older than a week.
-      if (!!isWithinWeek) {
+      if (!!isWithinDay) {
         const randomDigit = Math.floor(100000 + Math.random() * 900000)
 
         const title = feed.items[i].title
