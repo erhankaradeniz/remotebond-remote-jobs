@@ -82,9 +82,9 @@ const JobsPage = ({ job, slug }) => {
         <NextSeo
           title={`Remote ${job.title} job at ${job.company_name}`}
           description={`${saniztizedAndStripped.substr(0, 140)}...`}
-          canonical={`https://remotebond.com/${slug}`}
+          canonical={`https://remotebond.com/remote-jobs/${slug}`}
           openGraph={{
-            url: `https://remotebond.com/${slug}`,
+            url: `https://remotebond.com/remote-jobs/${slug}`,
             title: `Remote ${job.title} job at ${job.company_name}`,
             description: `${saniztizedAndStripped.substr(0, 140)}...`,
           }}
