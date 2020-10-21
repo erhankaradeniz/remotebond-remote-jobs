@@ -1105,3 +1105,5 @@ a {
 a:hover {
   @apply text-nextjs-blue-hover;
 }
+
+.jobDescription__container br + br { display: none; }

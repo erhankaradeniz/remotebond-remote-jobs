@@ -88,7 +88,7 @@ const JobsPage = ({ job }) => {
         />
         <JobPostingJsonLd
           datePosted={job.pub_date}
-          description={saniztizedAndStripped}
+          description={strip_tags(job.description)}
           hiringOrganization={{
             name: job.company_name,
             sameAs: null,

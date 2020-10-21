@@ -120,3 +120,8 @@ export default async (req, res) => {
  * Delete all documents from a collection
  */
 // Map(Paginate(Match(Index("all_jobs"))), Lambda("X", Delete(Var("X"))))
+
+/*
+ * Delete all document from a collection by Category
+ */
+// Map(Paginate(Match(Index("all_jobs_by_category_desc"), "Customer Support")),Lambda(["pub_date", "primary_category", "ref"], Delete(Var("ref"))))

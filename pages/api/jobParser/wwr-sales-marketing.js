@@ -1,4 +1,5 @@
 import Parser from "rss-parser"
+import cheerio from "cheerio"
 import faunadb from "faunadb"
 
 import Slugify from "../../../helpers/slugify"
@@ -39,6 +40,14 @@ export default async (req, res) => {
       let isWithinWeek = listingDate > weekAgo
       //   // Check for pubDate, don't include listings older than a week.
       if (!!isWithinWeek) {
+        const $ = cheerio.load(feed.items[i].content, { xmlMode: true })
+
+        // Cleanup wwr stuff
+        $("img").remove()
+        $("p:first-of-type").remove()
+        $("p:last-of-type").remove()
+        $("a").removeAttr("href")
+
         const randomDigit = Math.floor(100000 + Math.random() * 900000)
         const pub_date = new Date(feed.items[i].pubDate)
         const title = feed.items[i].title
@@ -49,7 +58,7 @@ export default async (req, res) => {
           .replace(regex5, "")
           .replace(regex6, "")
         const guid = feed.items[i].guid
-        const description = feed.items[i].content
+        const description = $.html().trim()
         const tags = feed.items[i].categories
         const companyName = feed.items[i].title.replace(regex7, "")
         const pubDate = pub_date.toISOString()
