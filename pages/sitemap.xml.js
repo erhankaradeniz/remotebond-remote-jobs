@@ -16,6 +16,12 @@ const createSitemap = (jobs) => `<?xml version="1.0" encoding="UTF-8"?>
             <lastmod>${new Date().toISOString()}</lastmod>
         </url>
         <url>
+            <loc>${`https://remotebond.com/remote-jobs`}</loc>
+            <changefreq>hourly</changefreq>
+            <priority>0.9</priority>
+            <lastmod>${new Date().toISOString()}</lastmod>
+        </url>
+        <url>
             <loc>${`https://remotebond.com/register`}</loc>
             <changefreq>hourly</changefreq>
             <priority>0.9</priority>
