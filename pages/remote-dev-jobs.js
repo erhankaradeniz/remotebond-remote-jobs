@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import useSWR from "swr"
-import { NextSeo } from "next-seo"
+import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 
 import { getJobsCountByCategory } from "../lib/jobs"
 import { getPaginatedSoftwareDevJobs } from "../lib/softwareDevJobs"
@@ -149,6 +149,19 @@ const RemoteDevJobsPage = ({
           description: `The latest and most popular remote dev / programming jobs around the web. Jobs included from top remote companies. Find your new dev / programming career on Remotebond.`,
         }}
       />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: "remotebond.com",
+            item: "https://remotebond.com",
+          },
+          {
+            position: 2,
+            name: "Remote Dev / Programming jobs",
+          },
+        ]}
+      />
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">
           <h1 className="text-white font-black text-2xl md:text-4xl my-4">
@@ -160,7 +173,10 @@ const RemoteDevJobsPage = ({
           </h2>
           <span className="inline-flex rounded-md shadow-sm mt-8">
             <Link href={`/hire-remotely`} as={`/hire-remotely`}>
-              <a className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
+              <a
+                title="Post a remote job and hire remotely"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150"
+              >
                 Post a job for $25
               </a>
             </Link>

@@ -3,7 +3,7 @@ import Stripe from "stripe"
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
 import { parseCookies, setCookie } from "nookies"
-import { NextSeo } from "next-seo"
+import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 
 // Page components
 import Banner from "../components/Banner"
@@ -54,6 +54,19 @@ const NewJobPage = ({ paymentIntent }) => {
             title: `Create a new remote job post`,
             description: `Start hiring remotely, post a new remote job and find the most qualified people for your next remote position.`,
           }}
+        />
+        <BreadcrumbJsonLd
+          itemListElements={[
+            {
+              position: 1,
+              name: "remotebond.com",
+              item: "https://remotebond.com",
+            },
+            {
+              position: 2,
+              name: "Hire Remotely",
+            },
+          ]}
         />
         <Banner message={`Launch deal! Base job ad is now priced at $25`} />
         <div className="relative overflow-hidden bg-black">

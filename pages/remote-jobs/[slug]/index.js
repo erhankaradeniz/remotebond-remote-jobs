@@ -2,7 +2,7 @@ import React from "react"
 import { useRouter } from "next/router"
 import DefaultErrorPage from "next/error"
 import Head from "next/head"
-import { NextSeo, JobPostingJsonLd } from "next-seo"
+import { NextSeo, JobPostingJsonLd, BreadcrumbJsonLd } from "next-seo"
 
 import JobHeader from "../../../components/JobHeader"
 import Breadcrumbs from "../../../components/Breadcrumbs"
@@ -34,7 +34,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(ctx) {
-  console.log(ctx)
   const job = await getJobBySlug(ctx.params.slug)
   const jobData = JSON.parse(job)
   return {
@@ -88,6 +87,24 @@ const JobsPage = ({ job, slug }) => {
             title: `Remote ${job.title} job at ${job.company_name}`,
             description: `${saniztizedAndStripped.substr(0, 140)}...`,
           }}
+        />
+        <BreadcrumbJsonLd
+          itemListElements={[
+            {
+              position: 1,
+              name: "remotebond.com",
+              item: "https://remotebond.com",
+            },
+            {
+              position: 2,
+              name: "Remote Jobs",
+              item: "https://remotebond.com/remote-jobs",
+            },
+            {
+              position: 3,
+              name: `Remote ${job.title} job at ${job.company_name}`,
+            },
+          ]}
         />
         <JobPostingJsonLd
           datePosted={job.pub_date}

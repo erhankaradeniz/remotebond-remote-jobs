@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
-import { NextSeo } from "next-seo"
+import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 import Link from "next/link"
 
 const LoginPage = () => {
@@ -44,6 +44,19 @@ const LoginPage = () => {
           title: `Login for a Remotebond remote profile and join the future of remote work.`,
           description: `Login now and join the future of remote work on Remotebond.`,
         }}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: "remotebond.com",
+            item: "https://remotebond.com",
+          },
+          {
+            position: 2,
+            name: "Login",
+          },
+        ]}
       />
       <div className="flex flex-col flex-1">
         <div className="relative overflow-hidden bg-black">

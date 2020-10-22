@@ -1,5 +1,5 @@
 import React from "react"
-import { NextSeo } from "next-seo"
+import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 const AboutPage = () => {
   return (
     <>
@@ -12,6 +12,19 @@ const AboutPage = () => {
           title: `Remotebond - About`,
           description: `Remotebond - About us, how it started and how Remotebond helps you with remote jobs and your professional career`,
         }}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: "remotebond.com",
+            item: "https://remotebond.com",
+          },
+          {
+            position: 2,
+            name: "About",
+          },
+        ]}
       />
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8">

@@ -1,6 +1,6 @@
 import React from "react"
 import Link from "next/link"
-import { FAQPageJsonLd, NextSeo } from "next-seo"
+import { FAQPageJsonLd, NextSeo, BreadcrumbJsonLd } from "next-seo"
 
 const FaqPage = () => {
   return (
@@ -14,6 +14,19 @@ const FaqPage = () => {
           title: `Remotebond - Frequently Asked Questions`,
           description: `Remotebond - Frequently asked questions about remote work, remote jobs and regular information about Remotebond`,
         }}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: "remotebond.com",
+            item: "https://remotebond.com",
+          },
+          {
+            position: 2,
+            name: "Frequently Asked Questions",
+          },
+        ]}
       />
       <FAQPageJsonLd
         mainEntity={[
