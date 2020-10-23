@@ -4,7 +4,7 @@ import Link from "next/link"
 import useSWR from "swr"
 import { Transition } from "@headlessui/react"
 
-const HeaderNew = () => {
+const HeaderNew = ({ user }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const router = useRouter()
@@ -17,16 +17,9 @@ const HeaderNew = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
 
-  const fetcher = (url) => fetch(url).then((r) => r.json())
-
-  const { data: user, mutate: mutateUser } = useSWR("/api/user", fetcher, {
-    shouldRetryOnError: false,
-  })
-
   const logout = async () => {
     const res = await fetch("/api/logout")
     if (res.ok) {
-      mutateUser(null)
       router.push("/login")
     }
   }
@@ -156,18 +149,6 @@ const HeaderNew = () => {
                   Remote jobs
                 </a>
               </Link>
-              <Link href={`/about`} as={`/about`}>
-                <a
-                  className={`${
-                    currentPath === "/about"
-                      ? "ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out"
-                      : "ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
-                  }`}
-                  title="About remotebond"
-                >
-                  About
-                </a>
-              </Link>
               <Link
                 href={`/frequently-asked-questions`}
                 as={`/frequently-asked-questions`}
@@ -254,13 +235,15 @@ const HeaderNew = () => {
                             Your Profile
                           </a>
                         </Link>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                          role="menuitem"
-                        >
-                          Settings
-                        </a>
+                        <Link href={`/my/settings`} as={`/my/settings`}>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                            role="menuitem"
+                          >
+                            Settings
+                          </a>
+                        </Link>
                         <a
                           href="#"
                           className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
@@ -303,17 +286,6 @@ const HeaderNew = () => {
               }`}
             >
               Remote jobs
-            </a>
-          </Link>
-          <Link href={`/about`} as={`/about`}>
-            <a
-              className={`${
-                currentPath === "/about"
-                  ? "mt-1 block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out"
-                  : "mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-              }`}
-            >
-              About
             </a>
           </Link>
           <Link
@@ -373,12 +345,14 @@ const HeaderNew = () => {
                     Your Profile
                   </a>
                 </Link>
-                <a
-                  href="#"
-                  className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
-                >
-                  Settings
-                </a>
+                <Link href={`/my/settings`} as={`/my/settings`}>
+                  <a
+                    href="#"
+                    className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
+                  >
+                    Settings
+                  </a>
+                </Link>
                 <button
                   className="mt-1 w-full block text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
                   onClick={logout}

@@ -3,10 +3,10 @@ import React from "react"
 import Header from "./Header"
 import Footer from "./Footer"
 
-const Layout = ({ children }) => {
+const Layout = ({ user, children }) => {
   return (
     <>
-      <Header />
+      <Header user={user} />
       <main className="flex flex-col flex-grow">{children}</main>
       <Footer />
     </>
