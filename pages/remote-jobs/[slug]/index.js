@@ -137,8 +137,7 @@ const JobsPage = ({ job, slug }) => {
           location={job.location}
         />
 
-        <Breadcrumbs jobTitle={job.title} />
-
+        <Breadcrumbs jobTitle={job.title} category={job.primary_category} />
         <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
           <div className="w-full md:w-3/4">
             <div
