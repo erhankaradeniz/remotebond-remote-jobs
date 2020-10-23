@@ -33,7 +33,10 @@ const Breadcrumbs = (props) => {
       <div className="max-w-screen-xl mx-auto py-2 px-4 sm:px-6">
         <nav className="hidden sm:flex items-center text-sm leading-5 font-medium">
           <Link as={`/`} href={`/`}>
-            <a className="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">
+            <a
+              title={`Return to homepage`}
+              className="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out"
+            >
               Home
             </a>
           </Link>

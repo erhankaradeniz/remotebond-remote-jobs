@@ -75,41 +75,38 @@ const FaqPage = () => {
         </div>
       </div>
       <div className="max-w-screen-xl mx-auto pt-4 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="mt-6">
+        <div>
+          <div className="mb-12">
+            <h2 className="text-xl leading-7 font-bold text-gray-900">
+              What is Remotebond?
+            </h2>
+            <p className="text-base leading-6 text-gray-500">
+              Remotebond is a global community of remote workers. It is a place
+              where knowledge is shared to shape the future of remote work.
+            </p>
+            <p className="mt-4 text-base leading-6 text-gray-500">
+              Whether you’re a remote company looking to hire or a worker
+              looking for your next remote opportunity, I have created a
+              platform that provides a variety of jobs with new listings added
+              daily.
+            </p>
+            <p className="mt-4 text-base leading-6 text-gray-500">
+              With Remotebond, I (
+              <a
+                href="https://www.twitter.com/erhankaradeniz"
+                title="Erhan Karadeniz on Twitter"
+                className="font-medium"
+              >
+                Erhan Karadeniz
+              </a>
+              ) aim to bring talented freelancers and remote workers to
+              companies from all over the world, making the world of work
+              barrier-free.
+            </p>
+          </div>
           <dl className="md:grid md:grid-cols-2 md:gap-8">
             <div>
               <div>
-                <dt className="text-lg leading-6 font-medium text-gray-900">
-                  <h2>What is Remotebond?</h2>
-                </dt>
-                <dd className="mt-2">
-                  <p className="text-base leading-6 text-gray-500">
-                    Remotebond is a global community of remote workers. It is a
-                    place where knowledge is shared to shape the future of
-                    remote work.
-                  </p>
-                  <p className="mt-4 text-base leading-6 text-gray-500">
-                    Whether you’re a remote company looking to hire or a worker
-                    looking for your next remote opportunity, I have created a
-                    platform that provides a variety of jobs with new listings
-                    added daily.
-                  </p>
-                  <p className="mt-4 text-base leading-6 text-gray-500">
-                    With Remotebond, I (
-                    <a
-                      href="https://www.twitter.com/erhankaradeniz"
-                      title="Erhan Karadeniz on Twitter"
-                      className="font-medium"
-                    >
-                      Erhan Karadeniz
-                    </a>
-                    ) aim to bring talented freelancers and remote workers to
-                    companies from all over the world, making the world of work
-                    barrier-free.
-                  </p>
-                </dd>
-              </div>
-              <div className="mt-12">
                 <dt className="text-lg leading-6 font-medium text-gray-900">
                   <h2>How do I post a job on Remotebond?</h2>
                 </dt>
