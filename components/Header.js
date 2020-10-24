@@ -1,12 +1,16 @@
 import React, { useState } from "react"
 import { useRouter } from "next/router"
 import Link from "next/link"
-import useSWR from "swr"
 import { Transition } from "@headlessui/react"
 
-const HeaderNew = ({ user }) => {
+import useUser from "../lib/hooks/useUser"
+import fetchJson from "../lib/fetch"
+
+const HeaderNew = () => {
+  const { user, mutateUser } = useUser()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
   const router = useRouter()
   const currentPath = router.pathname
 
@@ -17,12 +21,13 @@ const HeaderNew = ({ user }) => {
     setIsDropdownOpen(!isDropdownOpen)
   }
 
-  const logout = async () => {
-    const res = await fetch("/api/logout")
-    if (res.ok) {
-      router.push("/login")
-    }
+  const logout = async (e) => {
+    e.preventDefault()
+    toggleDropdown()
+    await mutateUser(fetchJson("/api/logout"))
+    router.push("/login")
   }
+
   return (
     <nav className="bg-white shadow">
       <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -169,7 +174,7 @@ const HeaderNew = ({ user }) => {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* <!-- Profile dropdown --> */}
             <div className="ml-3 relative hidden sm:block z-20">
-              {user ? (
+              {user?.isLoggedIn ? (
                 <button
                   className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
                   id="user-menu"
@@ -216,7 +221,7 @@ const HeaderNew = ({ user }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-20">
-                  {user && (
+                  {user?.isLoggedIn && (
                     <div
                       className="py-1 rounded-md bg-white shadow-xs"
                       role="menu"
@@ -237,7 +242,6 @@ const HeaderNew = ({ user }) => {
                         </Link>
                         <Link href={`/my/settings`} as={`/my/settings`}>
                           <a
-                            href="#"
                             className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                             role="menuitem"
                           >
@@ -245,10 +249,9 @@ const HeaderNew = ({ user }) => {
                           </a>
                         </Link>
                         <a
-                          href="#"
                           className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                           role="menuitem"
-                          onClick={logout}
+                          onClick={(e) => logout(e)}
                         >
                           Sign out
                         </a>
@@ -304,7 +307,7 @@ const HeaderNew = ({ user }) => {
           </Link>
         </div>
         <div className="pt-4 pb-3 border-t border-gray-200">
-          {user ? (
+          {user?.isLoggedIn ? (
             <>
               <div className="flex items-center px-4 sm:px-6">
                 <div className="flex-shrink-0">
@@ -346,16 +349,13 @@ const HeaderNew = ({ user }) => {
                   </a>
                 </Link>
                 <Link href={`/my/settings`} as={`/my/settings`}>
-                  <a
-                    href="#"
-                    className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
-                  >
+                  <a className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6">
                     Settings
                   </a>
                 </Link>
                 <button
                   className="mt-1 w-full block text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
-                  onClick={logout}
+                  onClick={(e) => logout(e)}
                 >
                   Sign out
                 </button>

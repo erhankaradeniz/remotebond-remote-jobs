@@ -1,17 +1,31 @@
+import withSession from "../../lib/session"
 import { query as q } from "faunadb"
 import { authClient } from "../../lib/fauna-client"
-import { getAuthCookie } from "../../lib/auth-cookies"
 
-export default async function user(req, res) {
-  const token = getAuthCookie(req)
-  if (!token) {
-    return res.status(200).send("Auth cookie not found")
-  }
+export default withSession(async (req, res) => {
+  const user = req.session.get("user")
 
-  try {
-    const { ref, data } = await authClient(token).query(q.Get(q.Identity()))
-    res.status(200).json({ ...data, id: ref.id })
-  } catch (error) {
-    res.status(error.requestResult.statusCode).send(error.message)
+  if (user) {
+    try {
+      const { ref, data } = await authClient(user.secret).query(
+        q.Get(q.Identity())
+      )
+      res.json({
+        isLoggedIn: true,
+        username: data.username,
+        profile_image: data.profile_image ? data.profile_image : "",
+        first_name: data.first_name ? data.first_name : "",
+        last_name: data.last_name ? data.last_name : "",
+        about: data.about ? data.about : "",
+        tagline: data.tagline ? data.tagline : "",
+        tags: data.tags ? data.tags : "",
+      })
+    } catch (error) {
+      res.json({ isLoggedIn: false })
+    }
+  } else {
+    res.json({
+      isLoggedIn: false,
+    })
   }
-}
+})
