@@ -5,13 +5,13 @@ import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 import Link from "next/link"
 import fetchJson from "../lib/fetch"
 import useUser from "../lib/hooks/useUser"
+import Alert from "../components/dialog/Alert"
 
 const RegisterPage = () => {
   const { mutateUser } = useUser({
     redirectTo: "/",
     redirectIfFound: true,
   })
-  const router = useRouter()
   const [errorMessage, setErrorMessage] = useState("")
 
   const { handleSubmit, register, watch, errors } = useForm()
@@ -28,8 +28,7 @@ const RegisterPage = () => {
         })
       )
     } catch (error) {
-      console.error(error)
-      setErrorMessage(error.message)
+      setErrorMessage(error.data.message)
     }
   })
 
@@ -70,6 +69,19 @@ const RegisterPage = () => {
         </div>
         <div className="flex flex-1 items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md w-full">
+            {Object.keys(errors).length !== 0 && (
+              <Alert
+                title={`There ${
+                  Object.keys(errors).length > 1 ? "are" : "is"
+                } ${Object.keys(errors).length} ${
+                  Object.keys(errors).length > 1 ? "errors" : "error"
+                } with your submission`}
+                message={`Please fix the marked ${
+                  Object.keys(errors).length > 1 ? "fields" : "field"
+                } and try submitting your job post again`}
+              />
+            )}
+            {errorMessage && <Alert title="Errors" message={errorMessage} />}
             <form onSubmit={onSubmit} className="mt-8">
               <input type="hidden" name="remember" value="true" />
               <div className="rounded-md shadow-sm">

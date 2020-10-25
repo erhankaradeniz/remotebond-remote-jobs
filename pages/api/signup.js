@@ -20,10 +20,10 @@ export default withSession(async (req, res) => {
     )
 
     if (existingEmail) {
-      return res.status(400).send(`Email ${email} already exists`)
+      return res.status(500).json({ message: `Email already exists` })
     }
     if (existingUsername) {
-      return res.status(400).send(`Username ${username} already exists`)
+      return res.status(500).json({ message: `Username already exists` })
     }
 
     const newUser = await guestClient.query(
