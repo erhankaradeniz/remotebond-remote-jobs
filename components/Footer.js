@@ -28,8 +28,9 @@ const Footer = () => {
               </a>
             </Link>
             <p className="my-4">
-              We strongly encourage employers to embrace diversity, equity, and
-              inclusion as fundamental values when hiring through Remotebond.
+              More than just a job board – an online community with a common
+              goal of helping passionate freelancers and employers to share
+              knowledge and shape the future of work.
             </p>
             <a
               href="https://www.twitter.com/erhankaradeniz"
