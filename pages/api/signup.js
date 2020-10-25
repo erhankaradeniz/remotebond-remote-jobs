@@ -34,7 +34,7 @@ export default withSession(async (req, res) => {
     )
 
     if (!newUser.ref) {
-      return res.status(404).send("user ref is missing")
+      return res.status(404).json({ message: "user ref is missing" })
     }
 
     const auth = await guestClient.query(
@@ -44,7 +44,7 @@ export default withSession(async (req, res) => {
     )
 
     if (!auth.secret) {
-      return res.status(404).send("auth secret is missing")
+      return res.status(404).json({ message: "auth secret is missing" })
     }
 
     const user = {
@@ -57,7 +57,6 @@ export default withSession(async (req, res) => {
 
     res.status(200).json(user)
   } catch (error) {
-    console.error(error)
-    res.json({ error: error })
+    res.json({ message: error })
   }
 })

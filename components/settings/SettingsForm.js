@@ -1,9 +1,21 @@
-import React from "react"
+import React, { useState } from "react"
+import Alert from "../../components/dialog/Alert"
 
 const SettingsForm = () => {
+  const [postMessage, setPostMessage] = useState()
+  const submitEditProfile = (e) => {
+    e.preventDefault()
+    setPostMessage(
+      "Editing of your profile will be available in a few days. sorry for the inconvenience"
+    )
+  }
   return (
     <div className="shadow sm:rounded-md sm:overflow-hidden">
-      <form className="bg-white px-4 py-5 sm:p-6">
+      <form
+        className="bg-white px-4 py-5 sm:p-6"
+        onSubmit={(e) => submitEditProfile(e)}
+      >
+        {setPostMessage && <Alert title="Errors" message={postMessage} />}
         <div>
           <div>
             <div>
@@ -53,7 +65,7 @@ const SettingsForm = () => {
                 </p>
               </div>
 
-              <div class="sm:col-span-6">
+              {/* <div class="sm:col-span-6">
                 <label
                   for="photo"
                   class="block text-sm leading-5 font-medium text-gray-700"
@@ -78,10 +90,10 @@ const SettingsForm = () => {
                       Change
                     </button>
                   </span>
-                </div>
-              </div>
+                </div> */}
+            </div>
 
-              <div class="sm:col-span-6">
+            {/* <div class="sm:col-span-6">
                 <label
                   for="cover_photo"
                   class="block text-sm leading-5 font-medium text-gray-700"
@@ -382,7 +394,7 @@ const SettingsForm = () => {
                   </div>
                 </div>
               </fieldset>
-            </div>
+            </div>*/}
           </div>
         </div>
         <div class="mt-8 border-t border-gray-200 pt-5">
