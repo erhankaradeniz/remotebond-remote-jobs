@@ -1,8 +1,8 @@
 import { query as q } from "faunadb"
 import { guestClient } from "../../lib/fauna-client"
-import { setAuthCookie } from "../../lib/auth-cookies"
+import withSession from "../../lib/session"
 
-export default async function login(req, res) {
+export default withSession(async (req, res) => {
   const { email, password } = req.body
 
   if (!email || !password) {
@@ -20,11 +20,17 @@ export default async function login(req, res) {
       return res.status(404).send("auth secret is missing")
     }
 
-    setAuthCookie(res, auth.secret)
+    const user = {
+      secret: auth.secret,
+      isLoggedIn: true,
+    }
 
-    res.status(200).end()
+    req.session.set("user", user)
+    await req.session.save()
+
+    res.status(200).json(user)
   } catch (error) {
-    console.error(error)
-    res.status(error.requestResult.statusCode).send(error.message)
+    const { response: fetchResponse } = error
+    res.status(fetchResponse?.status || 500).json(error.data)
   }
-}
+})

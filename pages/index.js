@@ -13,6 +13,7 @@ import getLatestCustomerSupportJobs from "../lib/customerSupportJobs"
 import getLatestSalesMarketingJobs from "../lib/salesMarketingJobs"
 import getLatestDesignJobs from "../lib/designJobs"
 import getLatestNonTechJobs from "../lib/nonTechJobs"
+import SubscribeEmailForm from "../components/SubscribeEmailForm"
 
 export async function getStaticProps(ctx) {
   const categories = await getAllCategories()
@@ -63,6 +64,9 @@ const IndexPage = (props) => {
         slug="remote-dev-jobs"
         jobs={softwareDevJobs}
       />
+
+      <SubscribeEmailForm />
+
       <JobsList
         title="Customer Support"
         slug="remote-customer-support-jobs"

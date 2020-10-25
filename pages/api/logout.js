@@ -1,19 +1,20 @@
 import { query as q } from "faunadb"
 import { authClient } from "../../lib/fauna-client"
-import { getAuthCookie, removeAuthCookie } from "../../lib/auth-cookies"
+import withSession from "../../lib/session"
 
-export default async function logout(req, res) {
-  const token = getAuthCookie(req)
+export default withSession(async (req, res) => {
+  const user = req.session.get("user")
 
-  // already logged out
-  if (!token) return res.status(200).end()
-
-  try {
-    await authClient(token).query(q.Logout(false))
-    removeAuthCookie(res)
-    res.status(200).end()
-  } catch (error) {
-    console.error(error)
-    res.status(error.requestResult.statusCode).send(error.message)
+  if (user) {
+    try {
+      req.session
+      await authClient(user.secret).query(q.Logout(false))
+      req.session.destroy()
+      res.json({ isLoggedIn: false })
+    } catch (error) {
+      res.json({ error: error })
+    }
+  } else {
+    res.json({ isLoggedIn: false })
   }
-}
+})

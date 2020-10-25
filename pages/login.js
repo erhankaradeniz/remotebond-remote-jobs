@@ -3,8 +3,15 @@ import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 import Link from "next/link"
+import fetchJson from "../lib/fetch"
+import useUser from "../lib/hooks/useUser"
 
 const LoginPage = () => {
+  const { mutateUser } = useUser({
+    redirectTo: "/",
+    redirectIfFound: true,
+  })
+
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState("")
 
@@ -14,19 +21,13 @@ const LoginPage = () => {
     if (errorMessage) setErrorMessage("")
 
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (res.ok) {
-        router.push("/")
-      } else {
-        throw new Error(await res.text())
-      }
+      await mutateUser(
+        fetchJson("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        })
+      )
     } catch (error) {
       console.error(error)
       setErrorMessage(error.message)

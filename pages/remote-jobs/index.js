@@ -52,7 +52,16 @@ const RemoteDesignJobs = (props) => {
   }
   return (
     <>
-      <NextSeo canonical={`https://remotebond.com/remote-jobs`} />
+      <NextSeo
+        title={`Remote Software Development, Marketing, Design and more jobs`}
+        description={`The latest and most popular remote jobs around the web. Jobs included from top remote companies. Find your new remote career on Remotebond.`}
+        canonical={`https://remotebond.com/remote-jobs`}
+        openGraph={{
+          url: `https://remotebond.com/remote-jobs`,
+          title: `Remote Software Development, Marketing, Design and more jobs`,
+          description: `The latest and most popular remote jobs around the web. Jobs included from top remote companies. Find your new remote career on Remotebond.`,
+        }}
+      />
       <BreadcrumbJsonLd
         itemListElements={[
           {

@@ -1,8 +1,8 @@
 import { query as q } from "faunadb"
 import { guestClient } from "../../lib/fauna-client"
-import { setAuthCookie } from "../../lib/auth-cookies"
+import withSession from "../../lib/session"
 
-export default async function signup(req, res) {
+export default withSession(async (req, res) => {
   const { email, password, username } = req.body
 
   if (!email || !password) {
@@ -20,38 +20,43 @@ export default async function signup(req, res) {
     )
 
     if (existingEmail) {
-      return res.status(400).send(`Email ${email} already exists`)
+      return res.status(500).json({ message: `Email already exists` })
     }
     if (existingUsername) {
-      return res.status(400).send(`Username ${username} already exists`)
+      return res.status(500).json({ message: `Username already exists` })
     }
 
-    const user = await guestClient.query(
+    const newUser = await guestClient.query(
       q.Create(q.Collection("users"), {
         credentials: { password },
         data: { email, username },
       })
     )
 
-    if (!user.ref) {
-      return res.status(404).send("user ref is missing")
+    if (!newUser.ref) {
+      return res.status(404).json({ message: "user ref is missing" })
     }
 
     const auth = await guestClient.query(
-      q.Login(user.ref, {
+      q.Login(q.Match(q.Index("user_by_email"), q.Casefold(email)), {
         password,
       })
     )
 
     if (!auth.secret) {
-      return res.status(404).send("auth secret is missing")
+      return res.status(404).json({ message: "auth secret is missing" })
     }
 
-    setAuthCookie(res, auth.secret)
+    const user = {
+      secret: auth.secret,
+      isLoggedIn: true,
+    }
 
-    res.status(200).end()
+    req.session.set("user", user)
+    await req.session.save()
+
+    res.status(200).json(user)
   } catch (error) {
-    console.error(error)
-    res.status(error.requestResult.statusCode).send(error.message)
+    res.json({ message: error })
   }
-}
+})

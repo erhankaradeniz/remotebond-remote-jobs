@@ -1,5 +1,6 @@
 import React from "react"
 import Head from "next/head"
+import { SWRConfig } from "swr"
 import NextNprogress from "nextjs-progressbar"
 import { DefaultSeo, NextSeo } from "next-seo"
 
@@ -7,6 +8,8 @@ import Router from "next/router"
 import withGA from "next-ga"
 
 import SEO from "../next-seo.config"
+
+import fetch from "../lib/fetch"
 
 import Layout from "../components/Layout"
 
@@ -63,13 +66,21 @@ const App = ({ Component, pageProps }) => {
           }}
         ></script>
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-        <NextNprogress color="#1c64f2" options={{ showSpinner: false }} />
-      </Layout>
+      <SWRConfig
+        value={{
+          fetcher: fetch,
+          onError: (err) => {
+            console.error(err)
+          },
+        }}
+      >
+        <Layout user={pageProps.user}>
+          <Component {...pageProps} />
+          <NextNprogress color="#1c64f2" options={{ showSpinner: false }} />
+        </Layout>
+      </SWRConfig>
     </>
   )
 }
 
 export default withGA("UA-180773817-1", Router)(App)
-// export default App

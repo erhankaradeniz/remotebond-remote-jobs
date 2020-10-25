@@ -1,12 +1,16 @@
 import React, { useState } from "react"
 import { useRouter } from "next/router"
 import Link from "next/link"
-import useSWR from "swr"
 import { Transition } from "@headlessui/react"
 
+import useUser from "../lib/hooks/useUser"
+import fetchJson from "../lib/fetch"
+
 const HeaderNew = () => {
+  const { user, mutateUser } = useUser()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
   const router = useRouter()
   const currentPath = router.pathname
 
@@ -17,19 +21,13 @@ const HeaderNew = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
 
-  const fetcher = (url) => fetch(url).then((r) => r.json())
-
-  const { data: user, mutate: mutateUser } = useSWR("/api/user", fetcher, {
-    shouldRetryOnError: false,
-  })
-
-  const logout = async () => {
-    const res = await fetch("/api/logout")
-    if (res.ok) {
-      mutateUser(null)
-      router.push("/login")
-    }
+  const logout = async (e) => {
+    e.preventDefault()
+    toggleDropdown()
+    await mutateUser(fetchJson("/api/logout"))
+    router.push("/login")
   }
+
   return (
     <nav className="bg-white shadow">
       <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -156,18 +154,6 @@ const HeaderNew = () => {
                   Remote jobs
                 </a>
               </Link>
-              <Link href={`/about`} as={`/about`}>
-                <a
-                  className={`${
-                    currentPath === "/about"
-                      ? "ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out"
-                      : "ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
-                  }`}
-                  title="About remotebond"
-                >
-                  About
-                </a>
-              </Link>
               <Link
                 href={`/frequently-asked-questions`}
                 as={`/frequently-asked-questions`}
@@ -188,7 +174,7 @@ const HeaderNew = () => {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* <!-- Profile dropdown --> */}
             <div className="ml-3 relative hidden sm:block z-20">
-              {user ? (
+              {user?.isLoggedIn ? (
                 <button
                   className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
                   id="user-menu"
@@ -235,7 +221,7 @@ const HeaderNew = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-20">
-                  {user && (
+                  {user?.isLoggedIn && (
                     <div
                       className="py-1 rounded-md bg-white shadow-xs"
                       role="menu"
@@ -254,18 +240,18 @@ const HeaderNew = () => {
                             Your Profile
                           </a>
                         </Link>
+                        <Link href={`/my/settings`} as={`/my/settings`}>
+                          <a
+                            className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                            role="menuitem"
+                          >
+                            Settings
+                          </a>
+                        </Link>
                         <a
-                          href="#"
                           className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                           role="menuitem"
-                        >
-                          Settings
-                        </a>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                          role="menuitem"
-                          onClick={logout}
+                          onClick={(e) => logout(e)}
                         >
                           Sign out
                         </a>
@@ -305,17 +291,6 @@ const HeaderNew = () => {
               Remote jobs
             </a>
           </Link>
-          <Link href={`/about`} as={`/about`}>
-            <a
-              className={`${
-                currentPath === "/about"
-                  ? "mt-1 block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out"
-                  : "mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-              }`}
-            >
-              About
-            </a>
-          </Link>
           <Link
             href={`/frequently-asked-questions`}
             as={`/frequently-asked-questions`}
@@ -332,7 +307,7 @@ const HeaderNew = () => {
           </Link>
         </div>
         <div className="pt-4 pb-3 border-t border-gray-200">
-          {user ? (
+          {user?.isLoggedIn ? (
             <>
               <div className="flex items-center px-4 sm:px-6">
                 <div className="flex-shrink-0">
@@ -373,15 +348,14 @@ const HeaderNew = () => {
                     Your Profile
                   </a>
                 </Link>
-                <a
-                  href="#"
-                  className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
-                >
-                  Settings
-                </a>
+                <Link href={`/my/settings`} as={`/my/settings`}>
+                  <a className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6">
+                    Settings
+                  </a>
+                </Link>
                 <button
                   className="mt-1 w-full block text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6"
-                  onClick={logout}
+                  onClick={(e) => logout(e)}
                 >
                   Sign out
                 </button>
