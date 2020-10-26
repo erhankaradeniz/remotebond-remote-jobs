@@ -1,5 +1,6 @@
 import React from "react"
 import { NextSeo } from "next-seo"
+import MailchimpSubscribe from "react-mailchimp-subscribe"
 
 import JobsList from "../components/JobsList"
 import FilterBar from "../components/FilterBar"
@@ -41,6 +42,9 @@ export async function getStaticProps(ctx) {
   }
 }
 
+const _URL =
+  "https://remotebond.us2.list-manage.com/subscribe/post?u=51c5005b5295c8be00c28dffb&amp;id=dd69afa731"
+
 const IndexPage = (props) => {
   const categories = props.categories.data
   const softwareDevJobs = props.softwareDevJobs.data
@@ -65,7 +69,16 @@ const IndexPage = (props) => {
         jobs={softwareDevJobs}
       />
 
-      <SubscribeEmailForm />
+      <MailchimpSubscribe
+        url={_URL}
+        render={({ subscribe, status, message }) => (
+          <SubscribeEmailForm
+            status={status}
+            message={message}
+            onValidated={(formData) => subscribe(formData)}
+          />
+        )}
+      />
 
       <JobsList
         title="Customer Support"
