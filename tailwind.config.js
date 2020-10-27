@@ -27,6 +27,7 @@ module.exports = {
         "rb-gray-5": "#666666",
         "rb-gray-8": "#333333",
         "rb-gray-9": "#141414",
+        "rb-gray-10": "#111111",
         "rb-green-4": "#39E687",
         "rb-green-5": "#1FCC6D",
         "rb-green-6": "#06B354",

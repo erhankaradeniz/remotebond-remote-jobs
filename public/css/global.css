@@ -1098,6 +1098,17 @@ body {
   @apply flex flex-col min-h-screen;
 }
 
+.overflow-scrollbar-0::-webkit-scrollbar {
+    width: 0px;
+    height:0px;
+    background: transparent; /* Chrome/Safari/Webkit */
+}
+
+.overflow-scrollbar-0 {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
 a {
   @apply text-nextjs-blue;
   transition: color 125ms ease-in-out
