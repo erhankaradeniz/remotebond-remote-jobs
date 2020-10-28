@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 const TopicsScroller = ({ topics }) => {
   return (
@@ -12,14 +13,24 @@ const TopicsScroller = ({ topics }) => {
           </div>
           <div className="flex space-x-6">
             {topics.map((topic, idx) => {
-              const { title } = topic.data
+              const { title, slug, category } = topic.data
               return (
                 <div
                   className="flex-shrink-0 border-r border-rb-gray-5 pr-6"
                   key={idx}
                 >
-                  <h3 className="font-medium text-rb-gray-4 hover:text-white">
-                    {title}
+                  <h3 className="font-medium">
+                    <Link
+                      as={`/forum/${category}/${slug}`}
+                      href={`/forum/${category}/${slug}`}
+                    >
+                      <a
+                        title={title}
+                        className="text-rb-gray-4 hover:text-white"
+                      >
+                        {title}
+                      </a>
+                    </Link>
                   </h3>
                 </div>
               )
