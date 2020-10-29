@@ -12,8 +12,10 @@ const TopicsScroller = ({ topics }) => {
             </h2>
           </div>
           <div className="flex space-x-6">
-            {topics.map((topic, idx) => {
-              const { title, slug, category } = topic.data
+            {topics.map(({ topic: topic, category: category }, idx) => {
+              const { title, slug } = topic.data
+              const { slug: category_slug } = category.data
+
               return (
                 <div
                   className="flex-shrink-0 border-r border-rb-gray-5 pr-6"
@@ -21,8 +23,8 @@ const TopicsScroller = ({ topics }) => {
                 >
                   <h3 className="font-medium">
                     <Link
-                      as={`/forum/${category}/${slug}`}
-                      href={`/forum/${category}/${slug}`}
+                      as={`/forum/${category_slug}/${slug}`}
+                      href={`/forum/${category_slug}/${slug}`}
                     >
                       <a
                         title={title}

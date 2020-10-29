@@ -1118,3 +1118,7 @@ a:hover {
 }
 
 .jobDescription__container br + br { display: none; }
+.topic_questionContainer > p {
+  line-height: 1.5rem;
+  margin-bottom: 0.5em;
+}

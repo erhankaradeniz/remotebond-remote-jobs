@@ -68,7 +68,6 @@ const IndexPage = (props) => {
 
   // Forum threads data
   const forumTopics = props.forumTopics.data
-
   return (
     <>
       <NextSeo canonical={`https://remotebond.com`} />

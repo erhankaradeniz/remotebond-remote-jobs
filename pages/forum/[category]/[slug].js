@@ -1,9 +1,104 @@
 import React from "react"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
+import Link from "next/link"
+import { useForm } from "react-hook-form"
 
-import PageHeader from "../../components/PageHeader"
+import useUser from "../../../lib/hooks/useUser"
 
-const ForumTopicPage = () => {
+import { getTopicBySlug, getAllTopics } from "../../../lib/forumTopics"
+import RegisterNotification from "../../../components/forum/RegisterNotification"
+import WysiwygEditor from "../../../components/form/WysiwygEditor"
+
+export async function getStaticProps(ctx) {
+  // Forum related calls
+  const topic = await getTopicBySlug(ctx.params.slug)
+  const topicData = JSON.parse(topic)
+
+  return {
+    props: {
+      topic: topicData,
+    },
+    revalidate: 1,
+  }
+}
+
+export async function getStaticPaths() {
+  const topics = await getAllTopics()
+  const topicsData = JSON.parse(topics)
+  if (topicsData?.data.length) {
+    return {
+      paths: topicsData.data.map((data) => {
+        return {
+          params: {
+            category: data.category.data.slug,
+            slug: data.topic.data.slug,
+          },
+        }
+      }),
+      fallback: true,
+    }
+  } else {
+    return {
+      paths: [],
+      fallback: true,
+    }
+  }
+}
+
+const ForumTopicPage = (props) => {
+  const defaultValues = { comment: "" }
+  const { user } = useUser()
+  const { handleSubmit, register, errors, watch, control, setValue } = useForm({
+    defaultValues,
+  })
+
+  const {
+    topic: { data: topic },
+    author: { data: author },
+    category: { data: category },
+  } = props.topic
+
+  // Date manipulations
+  const pubDate = new Date(topic.created_at)
+  const pubDateOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }
+
+  // Setup category coloring
+  let activeTextColor, activeBgColor
+  switch (category.color) {
+    case "green":
+      activeTextColor = "text-green-800"
+      activeBgColor = "bg-green-100"
+      break
+    case "teal":
+      activeTextColor = "text-teal-800"
+      activeBgColor = "bg-teal-100"
+      break
+    case "pink":
+      activeTextColor = "text-pink-800"
+      activeBgColor = "bg-pink-100"
+      break
+    case "yellow":
+      activeTextColor = "text-yellow-800"
+      activeBgColor = "bg-yellow-100"
+      break
+    case "blue":
+      activeTextColor = "text-blue-800"
+      activeBgColor = "bg-blue-100"
+      break
+    default:
+      activeTextColor = "text-indigo-800"
+      activeBgColor = "bg-indigo-100"
+  }
+
+  const shareArticle = () => {
+    console.log("Sharing article")
+  }
+
   return (
     <>
       <NextSeo
@@ -29,10 +124,113 @@ const ForumTopicPage = () => {
           },
         ]}
       />
-      <PageHeader
-        title={`Remotebond Forum`}
-        subtitle={`The Remotebond Forum is a how-to content hub for all things remote work. From best practices for job seekers, tools, resources and news to hiring tips and processes, the Remotebond forum is meant to be community-driven documentation on how to get remote work right.`}
-      />
+      <div className="relative overflow-hidden bg-black mb-12">
+        <div className="max-w-screen-xl mx-auto py-16 px-4 sm:px-6 lg:py-12 lg:px-8">
+          <div>
+            <h1 className="text-center text-3xl mb-1 font-extrabold text-white">
+              {topic.title}
+            </h1>
+            <h2 className="text-rb-gray-4 text-center w-full">
+              {`This question was asked by`}
+              <Link href={`/u/${author.username}`}>
+                <a
+                  className="mx-2 text-white hover:underline"
+                  title={`${author.username} remote worker profile on Remotebond`}
+                >
+                  {author.username}
+                </a>
+              </Link>
+              {`in the`}
+              <span
+                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full mx-2 ${activeBgColor} ${activeTextColor}`}
+              >
+                {category.title}
+              </span>
+              {`category on`}
+              {` `}
+              {pubDate.toLocaleDateString("en-US", pubDateOptions)}
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div className="max-w-screen-xl w-full mx-auto py-4 px-4 sm:px-6 flex flex-col">
+        <div>
+          <div>
+            <div className="mb-1">
+              <span className="text-sm text-rb-gray-4">
+                Posted by{" "}
+                <Link
+                  href={`/u/${author.username}`}
+                >{`${author.username}`}</Link>
+              </span>
+            </div>
+            <div
+              className="topic_questionContainer"
+              dangerouslySetInnerHTML={{ __html: topic.content }}
+            ></div>
+          </div>
+
+          {/* Actions bar */}
+          <div className="flex my-5">
+            <div
+              className={`mr-6 flex items-center text-sm leading-5 text-rb-gray-5`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className={`flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4`}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                />
+              </svg>
+              {`${4} comments`}
+            </div>
+            <div className={`mr-6`}>
+              <button
+                className="flex items-center text-sm leading-5 text-rb-gray-5 hover:text-blue-600 group"
+                onClick={shareArticle}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className={`flex-shrink-0 mr-1.5 h-5 w-5 text-rb-gray-4 group-hover:text-blue-600`}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                  />
+                </svg>
+                {`Share`}
+              </button>
+            </div>
+          </div>
+        </div>
+        {console.log(user)}
+        {/* Only show when a user is logged in */}
+        {user?.isLoggedIn && (
+          <>
+            <div className="border-b border-rb-gray-2 pb-8">
+              <p className="text-xs">
+                Comment as{" "}
+                <Link href={`/u/${user.username}`}>{user.username}</Link>
+              </p>
+              <WysiwygEditor control={control} inputError={errors} />
+            </div>
+          </>
+        )}
+        {/* Only show this message to a user who's not logged in */}
+        {!user?.isLoggedIn && <RegisterNotification />}
+      </div>
     </>
   )
 }
