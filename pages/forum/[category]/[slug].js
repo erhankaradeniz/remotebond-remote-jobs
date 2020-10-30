@@ -59,7 +59,7 @@ const ForumTopicPage = (props) => {
     category: { data: category },
     comments: { data: comments },
   } = props.topic
-  console.log(comments)
+
   // Date manipulations
   const pubDate = new Date(topic.created_at)
   const pubDateOptions = {
@@ -245,7 +245,7 @@ const ForumTopicPage = (props) => {
         {user?.isLoggedIn && (
           <>
             {/* Post container with editor in it */}
-            <div className="border-b border-rb-gray-2 pb-8">
+            <div className="border-b border-rb-gray-2 pb-4">
               <p className="text-xs">
                 Comment as{" "}
                 <Link href={`/u/${user.username}`}>{user.username}</Link>
@@ -256,6 +256,11 @@ const ForumTopicPage = (props) => {
                 modules={modules}
                 formats={formats}
               />
+              <div className="mt-4 flex flex-col items-end">
+                <button className="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
+                  Comment
+                </button>
+              </div>
             </div>
 
             {/* Comments container  */}
@@ -299,6 +304,7 @@ const ForumTopicPage = (props) => {
             </div>
           </>
         )}
+
         {/* Only show this message to a user who's not logged in */}
         {!user?.isLoggedIn && <RegisterNotification />}
       </div>

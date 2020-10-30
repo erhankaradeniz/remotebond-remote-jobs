@@ -7,7 +7,7 @@ const TopicsScroller = ({ topics }) => {
       <div className="max-w-screen-xl mx-auto overflow-x-scroll pr-4 sm:pr-6 overflow-scrollbar-0 scrolling-touch select-none">
         <div className="flex flex-no-wrap relative">
           <div className="flex-shrink-0 bg-rb-gray-10 mr-4 sticky left-0 top-0 px-4">
-            <h2 className="font-black bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
+            <h2 className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
               Latest Topics
             </h2>
           </div>
