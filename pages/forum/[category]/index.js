@@ -1,7 +1,7 @@
 import React from "react"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 
-import PageHeader from "../../components/PageHeader"
+import PageHeader from "../../../components/PageHeader"
 
 const ForumCategoryIndexPage = () => {
   return (

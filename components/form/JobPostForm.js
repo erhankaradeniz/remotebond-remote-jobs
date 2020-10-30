@@ -56,6 +56,36 @@ const JobPostForm = ({ paymentIntentSSR }) => {
 
   const isPostHighlighted = watch("company_is_highlighted")
 
+  const modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link"],
+      ["clean"],
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
+  }
+  /*
+   * Quill editor formats
+   * See https://quilljs.com/docs/formats/
+   */
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+  ]
+
   const onSubmit = async (values, e) => {
     e.preventDefault()
     setPayment({ status: "processing" })
@@ -704,7 +734,12 @@ const JobPostForm = ({ paymentIntentSSR }) => {
                         </span>
                       )}
                     </label>
-                    <WysiwygEditor control={control} inputError={errors} />
+                    <WysiwygEditor
+                      control={control}
+                      inputError={errors}
+                      modules={modules}
+                      formats={formats}
+                    />
                   </div>
 
                   <div className="col-span-6 sm:col-span-6">

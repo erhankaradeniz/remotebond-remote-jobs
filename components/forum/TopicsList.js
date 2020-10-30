@@ -1,14 +1,9 @@
 import React from "react"
 import Link from "next/link"
 import Image from "next/image"
-import TimeAgo from "javascript-time-ago"
-import en from "javascript-time-ago/locale/en"
 
 // Local Components
 import TimeAgoWrapper from "./TimeAgo"
-
-// Add en locale to timewrapper
-TimeAgo.addLocale(en)
 
 const TopicsList = ({ topics }) => {
   // TODO, needs to be fetched like on a jobs category page

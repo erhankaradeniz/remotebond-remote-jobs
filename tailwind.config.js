@@ -50,6 +50,9 @@ module.exports = {
       lineHeight: {
         45: "4.5rem",
       },
+      borderWidth: {
+        3: "3px",
+      },
     },
   },
   variants: {

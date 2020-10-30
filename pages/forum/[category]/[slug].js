@@ -7,6 +7,7 @@ import useUser from "../../../lib/hooks/useUser"
 
 import { getTopicBySlug, getAllTopics } from "../../../lib/forumTopics"
 import RegisterNotification from "../../../components/forum/RegisterNotification"
+import Comment from "../../../components/forum/Comment"
 import WysiwygEditor from "../../../components/form/WysiwygEditor"
 
 export async function getStaticProps(ctx) {
@@ -56,8 +57,9 @@ const ForumTopicPage = (props) => {
     topic: { data: topic },
     author: { data: author },
     category: { data: category },
+    comments: { data: comments },
   } = props.topic
-
+  console.log(comments)
   // Date manipulations
   const pubDate = new Date(topic.created_at)
   const pubDateOptions = {
@@ -66,6 +68,30 @@ const ForumTopicPage = (props) => {
     month: "long",
     day: "numeric",
   }
+
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link"],
+      ["clean"],
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
+  }
+  const formats = [
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+  ]
 
   // Setup category coloring
   let activeTextColor, activeBgColor
@@ -165,7 +191,7 @@ const ForumTopicPage = (props) => {
               </span>
             </div>
             <div
-              className="topic_questionContainer"
+              className="topic_questionContainer text-rb-gray-8"
               dangerouslySetInnerHTML={{ __html: topic.content }}
             ></div>
           </div>
@@ -189,7 +215,7 @@ const ForumTopicPage = (props) => {
                   d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
                 />
               </svg>
-              {`${4} comments`}
+              {`${comments.length} comments`}
             </div>
             <div className={`mr-6`}>
               <button
@@ -215,16 +241,61 @@ const ForumTopicPage = (props) => {
             </div>
           </div>
         </div>
-        {console.log(user)}
         {/* Only show when a user is logged in */}
         {user?.isLoggedIn && (
           <>
+            {/* Post container with editor in it */}
             <div className="border-b border-rb-gray-2 pb-8">
               <p className="text-xs">
                 Comment as{" "}
                 <Link href={`/u/${user.username}`}>{user.username}</Link>
               </p>
-              <WysiwygEditor control={control} inputError={errors} />
+              <WysiwygEditor
+                control={control}
+                inputError={errors}
+                modules={modules}
+                formats={formats}
+              />
+            </div>
+
+            {/* Comments container  */}
+            <div>
+              {/* No comments */}
+              {!comments.length && (
+                <div className="flex flex-col items-center justify-center py-16">
+                  <span className="text-blue-600">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="h-8 w-8"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+                      />
+                    </svg>
+                  </span>
+                  <p className="text-xl font-medium">No Comments Yet</p>
+                  <p className="text-rb-gray-4">
+                    Be the first to share what you think!
+                  </p>
+                </div>
+              )}
+
+              <div className="flex flex-col pt-8 space-y-6">
+                {comments.length > 0 &&
+                  comments.map((commentObj, idx) => {
+                    const {
+                      comment: { data: comment },
+                      author: { data: author },
+                    } = commentObj
+                    return <Comment author={author} comment={comment} />
+                  })}
+              </div>
             </div>
           </>
         )}

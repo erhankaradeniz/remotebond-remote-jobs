@@ -1092,7 +1092,7 @@ LightGray: #C9CACE */
 }
 
 body {
-  @apply text-nextjs-body;
+  @apply text-rb-gray-8;
 }
 #__next {
   @apply flex flex-col min-h-screen;
