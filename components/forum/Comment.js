@@ -43,7 +43,6 @@ const Comment = ({ author, comment }) => {
 
   const onSubmit = (values, e) => {
     e.preventDefault()
-    console.log(values.topic_comment)
   }
 
   return (

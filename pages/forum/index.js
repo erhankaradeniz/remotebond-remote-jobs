@@ -2,12 +2,13 @@ import React, { useState } from "react"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 import Link from "next/link"
 
+import useUser from "../../lib/hooks/useUser"
 import Sidebar from "../../components/forum/Sidebar"
-
 import getAllForumTopics from "../../lib/forumTopics"
 import getAllForumCategories from "../../lib/forumCategories"
 import TopicsList from "../../components/forum/TopicsList"
 import CreateTopicSliderOver from "../../components/forum/CreateTopicSlideOver"
+import LoginModal from "../../components/forum/LoginModal"
 
 export async function getStaticProps(ctx) {
   // Forum related calls
@@ -26,13 +27,22 @@ export async function getStaticProps(ctx) {
 }
 
 const ForumIndexPage = (props) => {
+  const { user } = useUser()
   const [isSlideOverOpen, setIsSlideOverOpen] = useState(false)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
   // Forum threads data
   const forumTopics = props.forumTopics.data
   const forumCategories = props.forumCategories.data
-
+  forumTopics.sort(function (a, b) {
+    // Turn your strings into dates, and then subtract them
+    // to get a value that is either negative, positive, or zero.
+    return new Date(b.topic.data.created_at) - new Date(a.topic.data.created_at)
+  })
   const openSlideOver = () => {
-    setIsSlideOverOpen(!isSlideOverOpen)
+    user?.isLoggedIn
+      ? setIsSlideOverOpen(!isSlideOverOpen)
+      : setIsLoginModalOpen(!isLoginModalOpen)
   }
 
   return (
@@ -86,14 +96,19 @@ const ForumIndexPage = (props) => {
           </div>
         </div>
       </div>
-      <div className="max-w-screen-xl w-full mx-auto py-4 px-4 sm:px-6 flex space-x-0 md:space-x-8 flex-col md:flex-row">
-        <CreateTopicSliderOver
-          isOpen={isSlideOverOpen}
-          handleClose={() => setIsSlideOverOpen(!isSlideOverOpen)}
-        />
+      <div className="max-w-screen-xl z-10 w-full mx-auto py-4 px-4 sm:px-6 flex space-x-0 md:space-x-8 flex-col md:flex-row">
         <Sidebar categories={forumCategories} />
         <TopicsList topics={forumTopics} />
       </div>
+      <CreateTopicSliderOver
+        isOpen={isSlideOverOpen}
+        handleClose={() => setIsSlideOverOpen(!isSlideOverOpen)}
+        categories={forumCategories}
+      />
+      <LoginModal
+        isModalOpen={isLoginModalOpen}
+        handleClose={() => setIsLoginModalOpen(!isLoginModalOpen)}
+      />
     </>
   )
 }

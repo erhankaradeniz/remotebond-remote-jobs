@@ -55,7 +55,6 @@ const ForumTopicPage = (props) => {
     category: { data: category },
     comments: { data: comments },
   } = props.topic
-
   const defaultValues = { topic_comment: "" }
   const { user } = useUser()
   const { handleSubmit, register, errors, watch, control, setValue } = useForm({
@@ -130,7 +129,6 @@ const ForumTopicPage = (props) => {
   }
 
   const onSubmit = async (values, e) => {
-    console.log()
     e.preventDefault()
 
     const commentResponse = await fetch(
@@ -263,8 +261,30 @@ const ForumTopicPage = (props) => {
             </div>
           </div>
         </div>
+        {topic.isLocked && (
+          <div className="flex flex-col items-center justify-center py-16">
+            <span className="text-blue-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="h-8 w-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                />
+              </svg>
+            </span>
+            <p className="text-xl font-medium">Commenting disabled</p>
+            <p className="text-rb-gray-4">You cannot comment on this post.</p>
+          </div>
+        )}
         {/* Only show when a user is logged in */}
-        {user?.isLoggedIn && (
+        {user?.isLoggedIn && !topic.isLocked && (
           <>
             {/* Post container with editor in it */}
             <div className="border-b border-rb-gray-2 pb-4">

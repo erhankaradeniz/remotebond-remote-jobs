@@ -1,10 +1,62 @@
 import React from "react"
 import { Transition } from "@headlessui/react"
+import { useForm } from "react-hook-form"
 
-const CreateTopicSliderOver = ({ isOpen, handleClose }) => {
+import CreateTopicEditor from "./CreateTopicEditor"
+
+const CreateTopicSliderOver = ({ isOpen, handleClose, categories }) => {
+  const defaultValues = {
+    topic_content: "",
+    topic_title: "",
+    topic_category: "",
+  }
+  const { handleSubmit, register, errors, watch, control } = useForm({
+    defaultValues,
+  })
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link"],
+      ["clean"],
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
+  }
+  const formats = [
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+  ]
+
+  const onSubmit = async (values, e) => {
+    const commentResponse = await fetch(
+      `${window.location.origin}/api/forum/topic/new`,
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic_title: values.topic_title,
+          topic_category: values.topic_category,
+          topic_content: values.topic_content,
+        }),
+      }
+    )
+    handleClose()
+    // commentResponse.ok && router.reload()
+  }
+
   return (
     <div className={`fixed inset-0 overflow-hidden ${isOpen ? "z-30" : "z-0"}`}>
-      <div className={`absolute inset-0 ${isOpen ? "z-20" : "z-0"}`}>
+      <div className={`absolute inset-0 ${isOpen ? "z-20" : "z-0 hidden"}`}>
         <Transition
           show={isOpen}
           enter="ease-in-out duration-500 sm:duration-700"
@@ -19,10 +71,10 @@ const CreateTopicSliderOver = ({ isOpen, handleClose }) => {
       </div>
       <div
         className={`absolute inset-0 overflow-hidden ${
-          isOpen ? "z-30" : "z-0"
+          isOpen ? "z-30" : "z-0 hidden"
         }`}
       >
-        <section className="absolute inset-y-0 pl-16 max-w-full right-0 flex">
+        <section className="absolute inset-y-0 pl-0 sm:pl-16 max-w-full right-0 flex">
           <Transition
             show={isOpen}
             enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -32,7 +84,7 @@ const CreateTopicSliderOver = ({ isOpen, handleClose }) => {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <div className="w-screen max-w-md h-full">
+            <div className="w-screen max-w-screen sm:max-w-md h-full">
               <div className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl">
                 <div className="flex-1 h-0 overflow-y-auto">
                   <header className="space-y-1 py-6 px-4 bg-blue-700 sm:px-6">
@@ -72,62 +124,93 @@ const CreateTopicSliderOver = ({ isOpen, handleClose }) => {
                     </div>
                   </header>
                   <div className="flex-1 flex flex-col justify-between">
-                    <div className="px-4 divide-y divide-gray-200 sm:px-6">
-                      <div className="space-y-6 pt-6 pb-5">
-                        <div className="space-y-1">
-                          <label
-                            for="project_name"
-                            className="block text-sm font-medium leading-5 text-gray-900"
-                          >
-                            Topic name
-                          </label>
-                          <div className="relative rounded-md shadow-sm">
-                            <input
-                              id="project_name"
-                              className="form-input block w-full sm:text-sm sm:leading-5 transition ease-in-out duration-150"
-                            />
-                          </div>
-                        </div>
-                        <div className="space-y-1">
-                          <label
-                            for="description"
-                            className="block text-sm font-medium leading-5 text-gray-900"
-                          >
-                            Text
-                          </label>
-                          <div className="relative rounded-md shadow-sm">
-                            <textarea
-                              id="description"
-                              rows="4"
-                              className="form-input block w-full sm:text-sm sm:leading-5 transition ease-in-out duration-150"
-                            ></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="space-y-4 pt-4 pb-6">
-                        <div className="flex text-sm leading-5">
-                          <a
-                            href="#"
-                            className="group space-x-2 inline-flex items-center text-gray-500 hover:text-gray-900 transition ease-in-out duration-150"
-                          >
-                            {/* <!-- Heroicon name: question-mark-circle --> */}
-                            <svg
-                              className="h-5 w-5 text-gray-400 group-hover:text-gray-500 transition ease-in-out duration-150"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
+                    <form>
+                      <div className="px-4 divide-y divide-gra</form>y-200 sm:px-6">
+                        <div className="space-y-6 pt-6 pb-5">
+                          <div className="space-y-1">
+                            <label
+                              for="topic_title"
+                              className="block text-sm font-medium leading-5 text-gray-900"
                             >
-                              <path
-                                fill-rule="evenodd"
-                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                                clip-rule="evenodd"
+                              Topic title
+                            </label>
+                            <div className="relative rounded-md shadow-sm">
+                              <input
+                                id="topic_title"
+                                name="topic_title"
+                                className="form-input block w-full sm:text-sm sm:leading-5 transition ease-in-out duration-150"
+                                ref={register({
+                                  pattern: /^([a-zA-Z0-9 ]+)$/,
+                                })}
                               />
-                            </svg>
-                            <span>Community guidelines</span>
-                          </a>
+                            </div>
+                          </div>
+                          <div className="space-y-1">
+                            <label
+                              htmlFor="topic_content"
+                              className="block text-sm font-medium leading-5 text-gray-900"
+                            >
+                              Text
+                            </label>
+                            <div className="relative rounded-md shadow-sm">
+                              <CreateTopicEditor
+                                control={control}
+                                inputError={errors}
+                                modules={modules}
+                                formats={formats}
+                                inputName={"topic_content"}
+                              />
+                            </div>
+                          </div>
+                          <div className="space-y-1">
+                            <label htmlFor="topic_category">Category</label>
+                            <select
+                              defaultValue={`/`}
+                              // onChange={onDropdownChange}
+                              id="topic_category"
+                              name="topic_category"
+                              ref={register}
+                              className="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                            >
+                              <option disabled>Select a category</option>
+                              {categories.map((category, idx) => {
+                                const {
+                                  category: { data: categoryData, ref },
+                                } = category
+                                return (
+                                  <option key={idx} value={ref["@ref"].id}>
+                                    {categoryData.title}
+                                  </option>
+                                )
+                              })}
+                            </select>
+                          </div>
+                        </div>
+                        <div className="space-y-4 pt-4 pb-6">
+                          <div className="flex text-sm leading-5">
+                            <a
+                              href="#"
+                              className="group space-x-2 inline-flex items-center text-gray-500 hover:text-gray-900 transition ease-in-out duration-150"
+                            >
+                              {/* <!-- Heroicon name: question-mark-circle --> */}
+                              <svg
+                                className="h-5 w-5 text-gray-400 group-hover:text-gray-500 transition ease-in-out duration-150"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                                  clip-rule="evenodd"
+                                />
+                              </svg>
+                              <span>Community guidelines</span>
+                            </a>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 <div className="flex-shrink-0 px-4 py-4 space-x-4 flex justify-end">
@@ -143,6 +226,7 @@ const CreateTopicSliderOver = ({ isOpen, handleClose }) => {
                   <span className="inline-flex rounded-md shadow-sm">
                     <button
                       type="submit"
+                      onClick={handleSubmit(onSubmit)}
                       className="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out"
                     >
                       Save
