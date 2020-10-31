@@ -1,10 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { Transition } from "@headlessui/react"
 
 const Sidebar = ({ categories }) => {
+  const [isMobileSelectOpen, setIsMobileSelectOpen] = useState(false)
   const router = useRouter()
   const currentPath = router.pathname
+
+  const toggleMobileSelect = () => {
+    setIsMobileSelectOpen(!isMobileSelectOpen)
+  }
+
   return (
     <>
       <nav className="w-64 hidden md:block">
@@ -66,10 +73,11 @@ const Sidebar = ({ categories }) => {
         })}
       </nav>
       {/* // Mobile select menu  */}
-      <div className="space-y-1 block md:hidden">
+      <div className="space-y-1 block md:hidden z-10 mb-6">
         <div className="relative">
           <span className="inline-block w-full rounded-md shadow-sm">
             <button
+              onClick={toggleMobileSelect}
               type="button"
               aria-haspopup="listbox"
               aria-expanded="true"
@@ -77,12 +85,11 @@ const Sidebar = ({ categories }) => {
               className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5"
             >
               <div className="flex items-center space-x-3">
-                {/* <!-- On: "bg-green-400", Off: "bg-gray-200" --> */}
                 <span
                   aria-label="Online"
-                  className="bg-green-400 flex-shrink-0 inline-block h-2 w-2 rounded-full"
+                  className="bg-white flex-shrink-0 inline-block h-2 w-2 rounded-full"
                 ></span>
-                <span className="block truncate">Tom Cook</span>
+                <span className="block truncate">All Categories</span>
               </div>
               <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                 <svg
@@ -102,69 +109,75 @@ const Sidebar = ({ categories }) => {
             </button>
           </span>
 
-          {/* <!--
-      Select popover, show/hide based on select state.
-
-      Entering: ""
-        From: ""
-        To: ""
-      Leaving: "transition ease-in duration-100"
-        From: "opacity-100"
-        To: "opacity-0"
-    --> */}
-          <div className="absolute mt-1 w-full rounded-md bg-white shadow-lg">
-            <ul
-              tabIndex="-1"
-              role="listbox"
-              aria-labelledby="listbox-label"
-              aria-activedescendant="listbox-item-3"
-              className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
-            >
-              {/* <!--
-          Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
-
-          Highlighted: "text-white bg-indigo-600", Not Highlighted: "text-gray-900"
-        --> */}
-              <li
-                id="listbox-item-0"
-                role="option"
-                className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9"
+          <Transition
+            show={isMobileSelectOpen}
+            enter=""
+            enterFrom=""
+            enterTo=""
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="absolute mt-1 w-full rounded-md bg-white shadow-lg">
+              <ul
+                tabIndex="-1"
+                role="listbox"
+                aria-labelledby="listbox-label"
+                aria-activedescendant="listbox-item-3"
+                className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
               >
-                <div className="flex items-center space-x-3">
-                  {/* <!-- Online: "bg-green-400", Not Online: "bg-gray-200" --> */}
-                  <span
-                    aria-label="Online"
-                    className="bg-green-400 flex-shrink-0 inline-block h-2 w-2 rounded-full"
-                  ></span>
-                  {/* <!-- Selected: "font-semibold", Not Selected: "font-normal" --> */}
-                  <span className="font-normal block truncate">
-                    Wade Cooper
-                  </span>
-                </div>
+                {categories.map((categoryData, midx) => {
+                  const {
+                    category: { data: category },
+                  } = categoryData
 
-                {/* <!--
-            Checkmark, only display for selected option.
+                  let activeBgColor
+                  switch (category.color) {
+                    case "green":
+                      activeBgColor = "bg-green-500"
+                      break
+                    case "teal":
+                      activeBgColor = "bg-teal-500"
+                      break
+                    case "pink":
+                      activeBgColor = "bg-pink-500"
+                      break
+                    case "yellow":
+                      activeBgColor = "bg-yellow-500"
+                      break
+                    case "blue":
+                      activeBgColor = "bg-blue-500"
+                      break
+                    default:
+                      activeBgColor = "bg-indigo-500"
+                  }
 
-            Highlighted: "text-white", Not Highlighted: "text-indigo-600"
-          --> */}
-                <span className="absolute inset-y-0 right-0 flex items-center pr-4">
-                  {/* <!-- Heroicon name: check --> */}
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </li>
-            </ul>
-          </div>
+                  return (
+                    <li
+                      key={midx}
+                      id="listbox-item-0"
+                      role="option"
+                      className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:text-white hover:bg-blue-600 hover:cursor-pointer"
+                    >
+                      <Link href={`/forum/${category.slug}`}>
+                        <div className="flex items-center space-x-3">
+                          {/* <!-- Online: "bg-green-400", Not Online: "bg-gray-200" --> */}
+                          <span
+                            aria-label="Online"
+                            className={`flex-shrink-0 inline-block h-2 w-2 rounded-full ${activeBgColor}`}
+                          ></span>
+                          {/* <!-- Selected: "font-semibold", Not Selected: "font-normal" --> */}
+                          <span className="font-normal block truncate">
+                            {category.title}
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </Transition>
         </div>
       </div>
     </>
