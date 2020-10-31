@@ -1,12 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
+import Link from "next/link"
 
-import PageHeader from "../../components/PageHeader"
 import Sidebar from "../../components/forum/Sidebar"
 
 import getAllForumTopics from "../../lib/forumTopics"
 import getAllForumCategories from "../../lib/forumCategories"
 import TopicsList from "../../components/forum/TopicsList"
+import CreateTopicSliderOver from "../../components/forum/CreateTopicSlideOver"
 
 export async function getStaticProps(ctx) {
   // Forum related calls
@@ -25,9 +26,14 @@ export async function getStaticProps(ctx) {
 }
 
 const ForumIndexPage = (props) => {
+  const [isSlideOverOpen, setIsSlideOverOpen] = useState(false)
   // Forum threads data
   const forumTopics = props.forumTopics.data
   const forumCategories = props.forumCategories.data
+
+  const openSlideOver = () => {
+    setIsSlideOverOpen(!isSlideOverOpen)
+  }
 
   return (
     <>
@@ -54,11 +60,37 @@ const ForumIndexPage = (props) => {
           },
         ]}
       />
-      <PageHeader
-        title={`Remote Work Forum`}
-        subtitle={`The Remotebond Forum is a how-to content hub for all things remote work. From best practices for job seekers, tools, resources and news to hiring tips and processes, the Remotebond forum is meant to be community-driven documentation on how to get remote work right.`}
-      />
+      <div className="relative overflow-hidden bg-black mb-12 z-10">
+        <div className="max-w-screen-xl mx-auto py-16 px-4 sm:px-6 lg:py-12 lg:px-8">
+          <div>
+            <h1 className="text-center text-3xl leading-10 font-extrabold text-white">
+              Remote Work Forum
+            </h1>
+            <h2 className="text-rb-gray-4 text-center w-full">
+              The Remotebond Forum is a how-to content hub for all things remote
+              work. From best practices for job seekers, tools, resources and
+              news to hiring tips and processes, the Remotebond forum is meant
+              to be community-driven documentation on how to get remote work
+              right.
+            </h2>
+          </div>
+          <div className="flex justify-center items-center mt-8 space-y-4 sm:space-y-0 sm:space-x-4 flex-col sm:flex-row">
+            <span className="inline-flex rounded-md shadow-sm">
+              <button
+                onClick={openSlideOver}
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150"
+              >
+                Create topic
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
       <div className="max-w-screen-xl w-full mx-auto py-4 px-4 sm:px-6 flex space-x-0 md:space-x-8 flex-col md:flex-row">
+        <CreateTopicSliderOver
+          isOpen={isSlideOverOpen}
+          handleClose={() => setIsSlideOverOpen(!isSlideOverOpen)}
+        />
         <Sidebar categories={forumCategories} />
         <TopicsList topics={forumTopics} />
       </div>
