@@ -7,12 +7,17 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   loading: () => <p>Loading ...</p>,
 })
 
-const WysiwygEditor = ({ control, inputError, modules, formats }) => {
+const CreateTopicEditor = ({
+  control,
+  inputError,
+  modules,
+  formats,
+  inputName,
+}) => {
   return (
     <Controller
-      name="description"
+      name={inputName}
       control={control}
-      rules={{ required: "Description is required" }}
       render={(props) => {
         return (
           <QuillNoSSRWrapper
@@ -33,4 +38,4 @@ const WysiwygEditor = ({ control, inputError, modules, formats }) => {
   )
 }
 
-export default WysiwygEditor
+export default CreateTopicEditor

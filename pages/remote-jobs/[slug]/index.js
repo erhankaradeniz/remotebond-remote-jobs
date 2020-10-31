@@ -23,12 +23,12 @@ export async function getStaticPaths() {
           },
         }
       }),
-      fallback: true,
+      fallback: "blocking",
     }
   } else {
     return {
       paths: [],
-      fallback: true,
+      fallback: "blocking",
     }
   }
 }

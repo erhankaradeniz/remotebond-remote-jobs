@@ -1092,10 +1092,21 @@ LightGray: #C9CACE */
 }
 
 body {
-  @apply text-nextjs-body;
+  @apply text-rb-gray-8;
 }
 #__next {
   @apply flex flex-col min-h-screen;
+}
+
+.overflow-scrollbar-0::-webkit-scrollbar {
+    width: 0px;
+    height:0px;
+    background: transparent; /* Chrome/Safari/Webkit */
+}
+
+.overflow-scrollbar-0 {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
 }
 
 a {
@@ -1107,3 +1118,7 @@ a:hover {
 }
 
 .jobDescription__container br + br { display: none; }
+.topic_questionContainer > p {
+  line-height: 1.5rem;
+  margin-bottom: 0.5em;
+}

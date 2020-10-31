@@ -6,6 +6,8 @@ import JobsList from "../components/JobsList"
 import FilterBar from "../components/FilterBar"
 // import SearchBar from "../components/SearchBar"
 import Hero from "../components/Hero"
+import SubscribeEmailForm from "../components/SubscribeEmailForm"
+import TopicsScroller from "../components/TopicsScroller"
 
 // import url from "../helpers/url"
 import getAllCategories from "../lib/categories"
@@ -14,21 +16,30 @@ import getLatestCustomerSupportJobs from "../lib/customerSupportJobs"
 import getLatestSalesMarketingJobs from "../lib/salesMarketingJobs"
 import getLatestDesignJobs from "../lib/designJobs"
 import getLatestNonTechJobs from "../lib/nonTechJobs"
-import SubscribeEmailForm from "../components/SubscribeEmailForm"
+
+import getAllForumTopics from "../lib/forumTopics"
 
 export async function getStaticProps(ctx) {
+  // Jobs related calls
   const categories = await getAllCategories()
   const softwareDevJobs = await getLatestSoftwareDevJobs()
   const customerSupportJobs = await getLatestCustomerSupportJobs()
   const salesMarketingJobs = await getLatestSalesMarketingJobs()
   const designJobs = await getLatestDesignJobs()
   const nonTechJobs = await getLatestNonTechJobs()
+
+  // Forum related calls
+  const forumTopics = await getAllForumTopics()
+
   const categoriesData = JSON.parse(categories)
-  let softwareDevJobsData = JSON.parse(softwareDevJobs)
-  let customerSupportJobsData = JSON.parse(customerSupportJobs)
-  let salesMarketingJobsData = JSON.parse(salesMarketingJobs)
-  let designJobsData = JSON.parse(designJobs)
-  let nonTechJobsData = JSON.parse(nonTechJobs)
+  const softwareDevJobsData = JSON.parse(softwareDevJobs)
+  const customerSupportJobsData = JSON.parse(customerSupportJobs)
+  const salesMarketingJobsData = JSON.parse(salesMarketingJobs)
+  const designJobsData = JSON.parse(designJobs)
+  const nonTechJobsData = JSON.parse(nonTechJobs)
+
+  const forumTopicsData = JSON.parse(forumTopics)
+
   return {
     props: {
       categories: categoriesData,
@@ -37,6 +48,7 @@ export async function getStaticProps(ctx) {
       salesMarketingJobs: salesMarketingJobsData,
       designJobs: designJobsData,
       nonTechJobs: nonTechJobsData,
+      forumTopics: forumTopicsData,
     },
     revalidate: 1,
   }
@@ -46,6 +58,7 @@ const _URL =
   "https://remotebond.us2.list-manage.com/subscribe/post?u=51c5005b5295c8be00c28dffb&amp;id=dd69afa731"
 
 const IndexPage = (props) => {
+  // Jobs Data
   const categories = props.categories.data
   const softwareDevJobs = props.softwareDevJobs.data
   const customerSupportJobs = props.customerSupportJobs.data
@@ -53,11 +66,16 @@ const IndexPage = (props) => {
   const designJobs = props.designJobs.data
   const nonTechJobs = props.nonTechJobs.data
 
+  // Forum threads data
+  const forumTopics = props.forumTopics.data
   return (
     <>
       <NextSeo canonical={`https://remotebond.com`} />
       {/* Hero Section */}
       <Hero />
+
+      {/* Forum topics scoller */}
+      <TopicsScroller topics={forumTopics} />
 
       {/* Filters  */}
       <FilterBar categories={categories} />
