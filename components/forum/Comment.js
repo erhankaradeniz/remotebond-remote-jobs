@@ -3,14 +3,15 @@ import Link from "next/link"
 import { useForm } from "react-hook-form"
 
 import TimeAgoWrapper from "../forum/TimeAgo"
-import WysiwygEditor from "../form/WysiwygEditor"
+import CommentEditor from "../forum/CommentEditor"
 
 const Comment = ({ author, comment }) => {
-  const defaultValues = { comment: "" }
+  const defaultValues = { topic_comment: "" }
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false)
   const { handleSubmit, register, errors, watch, control, setValue } = useForm({
     defaultValues,
   })
+  const isCommentEmpty = watch("topic_comment")
 
   const modules = {
     toolbar: [
@@ -40,13 +41,18 @@ const Comment = ({ author, comment }) => {
     setIsReplyBoxOpen(!isReplyBoxOpen)
   }
 
+  const onSubmit = (values, e) => {
+    e.preventDefault()
+    console.log(values.topic_comment)
+  }
+
   return (
     <div className="border-rb-gray-2 border-l-3 pl-6">
       <span className="text-sm">
         {<Link href={`/u/${author.username}`}>{author.username}</Link>} ·{" "}
         {
           <span className="text-rb-gray-4">
-            <TimeAgoWrapper date={comment.created_at} />
+            {comment && <TimeAgoWrapper date={comment.created_at} />}
           </span>
         }
       </span>
@@ -98,15 +104,19 @@ const Comment = ({ author, comment }) => {
         </div>
       </div>
       {isReplyBoxOpen && (
-        <form className="py-4">
-          <WysiwygEditor
+        <form onSubmit={handleSubmit(onSubmit)} className="py-4">
+          <CommentEditor
             control={control}
             inputError={errors}
             modules={modules}
             formats={formats}
+            inputName={"topic_comment"}
           />
           <div className="mt-2 flex flex-col items-end">
-            <button className="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
+            <button
+              disabled={!isCommentEmpty || isCommentEmpty == "<p><br></p>"}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150 disabled:bg-rb-gray-4 disabled:cursor-not-allowed"
+            >
               Comment
             </button>
           </div>

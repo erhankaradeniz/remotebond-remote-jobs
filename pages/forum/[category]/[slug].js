@@ -1,6 +1,7 @@
 import React from "react"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 
 import useUser from "../../../lib/hooks/useUser"
@@ -8,7 +9,7 @@ import useUser from "../../../lib/hooks/useUser"
 import { getTopicBySlug, getAllTopics } from "../../../lib/forumTopics"
 import RegisterNotification from "../../../components/forum/RegisterNotification"
 import Comment from "../../../components/forum/Comment"
-import WysiwygEditor from "../../../components/form/WysiwygEditor"
+import CommentEditor from "../../../components/forum/CommentEditor"
 
 export async function getStaticProps(ctx) {
   // Forum related calls
@@ -47,18 +48,21 @@ export async function getStaticPaths() {
 }
 
 const ForumTopicPage = (props) => {
-  const defaultValues = { comment: "" }
+  const router = useRouter()
+  const {
+    topic: { data: topic, ref: topic_ref },
+    author: { data: author },
+    category: { data: category },
+    comments: { data: comments },
+  } = props.topic
+
+  const defaultValues = { topic_comment: "" }
   const { user } = useUser()
   const { handleSubmit, register, errors, watch, control, setValue } = useForm({
     defaultValues,
   })
 
-  const {
-    topic: { data: topic },
-    author: { data: author },
-    category: { data: category },
-    comments: { data: comments },
-  } = props.topic
+  const isCommentEmpty = watch("topic_comment")
 
   // Date manipulations
   const pubDate = new Date(topic.created_at)
@@ -125,6 +129,24 @@ const ForumTopicPage = (props) => {
     console.log("Sharing article")
   }
 
+  const onSubmit = async (values, e) => {
+    console.log()
+    e.preventDefault()
+
+    const commentResponse = await fetch(
+      `${window.location.origin}/api/forum/comment/new`,
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic_comment: values.topic_comment,
+          topic_ref: topic_ref["@ref"].id,
+        }),
+      }
+    )
+    commentResponse.ok && router.reload()
+  }
+
   return (
     <>
       <NextSeo
@@ -179,7 +201,7 @@ const ForumTopicPage = (props) => {
           </div>
         </div>
       </div>
-      <div className="max-w-screen-xl w-full mx-auto py-4 px-4 sm:px-6 flex flex-col">
+      <div className="max-w-screen-xl w-full mx-auto pt-4 pb-12 px-4 sm:px-6 flex flex-col">
         <div>
           <div>
             <div className="mb-1">
@@ -250,17 +272,26 @@ const ForumTopicPage = (props) => {
                 Comment as{" "}
                 <Link href={`/u/${user.username}`}>{user.username}</Link>
               </p>
-              <WysiwygEditor
-                control={control}
-                inputError={errors}
-                modules={modules}
-                formats={formats}
-              />
-              <div className="mt-4 flex flex-col items-end">
-                <button className="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
-                  Comment
-                </button>
-              </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <CommentEditor
+                  control={control}
+                  inputError={errors}
+                  modules={modules}
+                  formats={formats}
+                  inputName={"topic_comment"}
+                />
+                <div className="mt-4 flex flex-col items-end">
+                  {/* // Quill Editor does not empty totally and we need to check for the empty paragraph */}
+                  <button
+                    disabled={
+                      !isCommentEmpty || isCommentEmpty == "<p><br></p>"
+                    }
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150 disabled:bg-rb-gray-4 disabled:cursor-not-allowed"
+                  >
+                    Comment
+                  </button>
+                </div>
+              </form>
             </div>
 
             {/* Comments container  */}
@@ -298,7 +329,9 @@ const ForumTopicPage = (props) => {
                       comment: { data: comment },
                       author: { data: author },
                     } = commentObj
-                    return <Comment author={author} comment={comment} />
+                    return (
+                      <Comment key={idx} author={author} comment={comment} />
+                    )
                   })}
               </div>
             </div>
