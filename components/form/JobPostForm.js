@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
-import {
-  CardElement,
-  useStripe,
-  useElements,
-  PaymentRequestButtonElement,
-} from "@stripe/react-stripe-js"
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { destroyCookie } from "nookies"
 import Link from "next/link"
 
@@ -43,7 +38,6 @@ const JobPostForm = ({ paymentIntentSSR }) => {
   const stripe = useStripe()
   const elements = useElements()
 
-  const [paymentRequest, setPaymentRequest] = useState(null)
   const [payment, setPayment] = useState({ status: "initial" })
   const [checkoutError, setCheckoutError] = useState()
   const [checkoutSuccess, setCheckoutSuccess] = useState()
@@ -91,7 +85,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
     setPayment({ status: "processing" })
     try {
       const { error, paymentIntent } = await stripe.confirmCardPayment(
-        paymentIntent.client_secret,
+        paymentIntentSSR.client_secret,
         {
           payment_method: {
             card: elements.getElement(CardElement),
@@ -102,6 +96,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
           },
         }
       )
+      console.log(error)
       if (error) throw new Error(error.message)
 
       if (paymentIntent.status === "succeeded") {
@@ -154,7 +149,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
     const isChecked = event?.target?.checked
     if (isChecked || watch("show_company_logo")) {
       const intentResponse = await fetch(
-        `${window.location.origin}/api/stripe/intents?package=logo_add`
+        `${window.location.origin}/api/stripe/intents?package=logo_add&token=${paymentIntentSSR.id}`
       )
       // Intent is OK, continue
       intentResponse.status === 200 &&
@@ -167,7 +162,7 @@ const JobPostForm = ({ paymentIntentSSR }) => {
         })
     } else {
       const intentResponse = await fetch(
-        `${window.location.origin}/api/stripe/intents?package=logo_remove`
+        `${window.location.origin}/api/stripe/intents?package=logo_remove&token=${paymentIntentSSR.id}`
       )
       // Intent is OK, continue
       intentResponse.status === 200 &&
@@ -182,13 +177,13 @@ const JobPostForm = ({ paymentIntentSSR }) => {
     const isChecked = event?.target?.checked
     if (isChecked || watch("company_is_highlighted")) {
       const intentResponse = await fetch(
-        `${window.location.origin}/api/stripe/intents?package=highlight_add`
+        `${window.location.origin}/api/stripe/intents?package=highlight_add&token=${paymentIntentSSR.id}`
       )
       intentResponse.status === 200 &&
         setJobPrice((prevPrice) => prevPrice + 10000)
     } else {
       const intentResponse = await fetch(
-        `${window.location.origin}/api/stripe/intents?package=highlight_remove`
+        `${window.location.origin}/api/stripe/intents?package=highlight_remove&token=${paymentIntentSSR.id}`
       )
       intentResponse.status === 200 &&
         setJobPrice((prevPrice) => prevPrice - 10000)
@@ -199,37 +194,6 @@ const JobPostForm = ({ paymentIntentSSR }) => {
   tempTags = !watch("tags")
     ? ["Add tag", "Add tag", "Add tag"]
     : watch("tags").split(",")
-
-  useEffect(() => {
-    if (stripe) {
-      const pr = stripe.paymentRequest({
-        country: "US",
-        currency: "usd",
-        total: {
-          label: "Remotebond job post",
-          amount: 2500,
-        },
-        requestPayerName: true,
-        requestPayerEmail: true,
-      })
-
-      // Check the availability of the Payment Request API.
-      pr.canMakePayment().then((result) => {
-        if (result) {
-          setPaymentRequest(pr)
-        }
-      })
-    }
-  }, [stripe])
-
-  useEffect(() => {
-    paymentRequest?.update({
-      total: {
-        label: "Remotebond job post",
-        amount: jobPrice,
-      },
-    })
-  }, [jobPrice])
 
   if (checkoutSuccess)
     return (
@@ -906,11 +870,6 @@ const JobPostForm = ({ paymentIntentSSR }) => {
                         </span>
                       )}
                     </label>
-                    {paymentRequest && (
-                      <PaymentRequestButtonElement
-                        options={{ paymentRequest }}
-                      />
-                    )}
                     <CardElement
                       className={`${
                         !checkoutError

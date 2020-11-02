@@ -5,14 +5,16 @@ import { parseCookies } from "nookies"
 export default async (req, res) => {
   if (req.method === "GET") {
     const PACKAGE_TYPE = req.query.package
+    const paymentIntentId = req.query.token
     const PACKAGE = {
       LOGO: 2500,
       HIGHLIGHT: 10000,
     }
     let paymentIntent
 
-    const { paymentIntentId } = await parseCookies({ req })
-
+    // const { paymentIntentId } = await parseCookies({ req })
+    // const cookie = await parseCookies({ req })
+    // console.log(cookie)
     if (paymentIntentId) {
       const { amount } = await stripe.paymentIntents.retrieve(paymentIntentId)
       switch (PACKAGE_TYPE) {
