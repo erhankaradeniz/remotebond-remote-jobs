@@ -74,22 +74,6 @@ const IndexPage = (props) => {
       {/* Hero Section */}
       <Hero />
 
-      {/* // Temporary */}
-      <div className="fixed right-4 bottom-4">
-        <a
-          href="https://www.producthunt.com/posts/remotebond?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-remotebond"
-          target="_blank"
-        >
-          <img
-            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=272790&theme=light"
-            alt="Remotebond - Start working and hiring remotely | Product Hunt"
-            style={{ width: "250px", height: "54px" }}
-            width="250"
-            height="54"
-          />
-        </a>
-      </div>
-
       {/* Forum topics scoller */}
       <TopicsScroller topics={forumTopics} />
 
