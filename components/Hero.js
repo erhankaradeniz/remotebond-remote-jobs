@@ -4,7 +4,6 @@ import Link from "next/link"
 const Hero = () => {
   return (
     <div id="hero" className="relative overflow-hidden bg-black">
-      <div id="bucket" className="absolute inset-0 z-0"></div>
       <div className="max-w-screen-xl relative mx-auto text-center py-12 md:py-28 px-4 sm:px-6 z-10">
         <h1 className="uppercase text-lg tracking-widest font-bold text-rb-gray-5">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
