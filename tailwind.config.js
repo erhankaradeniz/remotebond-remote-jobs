@@ -1,4 +1,4 @@
-const { colors, fontFamily } = require("tailwindcss/defaultTheme")
+const { fontFamily } = require("tailwindcss/defaultTheme")
 
 module.exports = {
   purge: ["./pages/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
@@ -11,15 +11,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        "nextjs-body": "#111111",
-        "nextjs-mid-gray": "#696969",
-        "nextjs-blue": "#0070f3",
-        "nextjs-blue-hover": "#68b5fb",
-        "nextjs-cyan": "#79FFE1",
-        "nextjs-violet": "#7928CA",
-        "nextjs-alert": "#FF0080",
-        "nextjs-accent-1": "#FAFAFA",
-        "nextjs-accent-2": "#EAEAEA",
         "rb-gray-1": "#F2F2f2",
         "rb-gray-2": "#E6E6E6",
         "rb-gray-3": "#DADADA",
