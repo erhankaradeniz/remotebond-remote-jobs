@@ -11,11 +11,12 @@ class AppDocument extends Document {
       <Html lang="en">
         <Head>
           <link rel="dns-prefetch" href="https://www.googletagmanager.com/" />
+          <link rel="dns-prefetch" href="https://www.google-analytics.com/" />
           <link
             href={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
             rel="preload"
             as="script"
-          ></link>
+          />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}

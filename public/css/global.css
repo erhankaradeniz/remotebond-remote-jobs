@@ -38,6 +38,12 @@ svg#loader rect {
   }
 }
 
+/* purgecss end ignore */
+
+@tailwind components;
+@tailwind utilities;
+
+
 .ql-container {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
@@ -972,12 +978,6 @@ svg#loader rect {
 .ql-snow a {
   color: #06c;
 }
-
-
-/* purgecss end ignore */
-
-@tailwind components;
-@tailwind utilities;
 
 /* Colors
 AlmostBlack: #2A2A32
