@@ -1,21 +1,30 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Head from "next/head"
 import { SWRConfig } from "swr"
 import NextNprogress from "nextjs-progressbar"
 import { DefaultSeo, NextSeo } from "next-seo"
-
-import Router from "next/router"
-import withGA from "next-ga"
+import { useRouter } from "next/router"
 
 import SEO from "../next-seo.config"
 
 import fetch from "../lib/fetch"
+import * as gtag from "../lib/gtag"
 
 import Layout from "../components/Layout"
 
 import "../public/css/global.css"
 
 const App = ({ Component, pageProps }) => {
+  const router = useRouter()
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url)
+    }
+    router.events.on("routeChangeComplete", handleRouteChange)
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange)
+    }
+  }, [router.events])
   return (
     <>
       <DefaultSeo {...SEO} />
@@ -83,4 +92,4 @@ const App = ({ Component, pageProps }) => {
   )
 }
 
-export default withGA("UA-180773817-1", Router)(App)
+export default App
