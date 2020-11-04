@@ -2,7 +2,7 @@ import React from "react"
 import Stripe from "stripe"
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
-import { parseCookies, setCookie } from "nookies"
+import { setCookie } from "nookies"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 
 // Page components
@@ -16,17 +16,6 @@ export const getServerSideProps = async (ctx) => {
 
   let paymentIntent
 
-  // const { paymentIntentId } = await parseCookies(ctx)
-
-  // if (paymentIntentId) {
-  //   paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
-
-  //   return {
-  //     props: {
-  //       paymentIntent,
-  //     },
-  //   }
-  // }
   paymentIntent = await stripe.paymentIntents.create({
     amount: 2500,
     currency: "usd",
