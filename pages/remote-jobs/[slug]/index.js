@@ -49,6 +49,11 @@ function strip_tags(str) {
   return str.replace(/(<(br[^>]*)>)/gi, "\n").replace(/(<([^>]+)>)/gi, "")
 }
 
+function validateEmail(email) {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  return re.test(String(email).toLowerCase())
+}
+
 const JobsPage = ({ job, slug }) => {
   const salarayAmount = randomInt(40000, 80000)
   const router = useRouter()
@@ -76,6 +81,7 @@ const JobsPage = ({ job, slug }) => {
     newDate.setMonth(newDate.getMonth() + 1)
     const jobExpireDate = new Date(newDate).toISOString()
     const saniztizedAndStripped = sanitizeHtml(strip_tags(job.description))
+    const isEmail = validateEmail(job.apply_url)
     return (
       <>
         <NextSeo
@@ -147,13 +153,23 @@ const JobsPage = ({ job, slug }) => {
 
             <div className="flex justify-center mb-8">
               <span className="inline-flex rounded-md shadow-sm">
-                <a
-                  href={`${job.apply_url}?utm_source=remotebond.com&ref=remotebond.com`}
-                  target="_blank"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150"
-                >
-                  Apply for this job
-                </a>
+                {!isEmail ? (
+                  <a
+                    href={`${job.apply_url}?utm_source=remotebond.com&ref=remotebond.com`}
+                    target="_blank"
+                    className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150"
+                  >
+                    Apply for this job
+                  </a>
+                ) : (
+                  <a
+                    href={`mailto:${job.apply_url}?subject=Application for ${job.title} via Remotebond`}
+                    target="_blank"
+                    className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150"
+                  >
+                    Apply for this job
+                  </a>
+                )}
               </span>
             </div>
 
