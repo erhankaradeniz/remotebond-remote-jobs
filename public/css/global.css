@@ -1022,3 +1022,6 @@ a:hover {
   line-height: 1.5rem;
   margin-bottom: 0.5em;
 }
+.break-inside {
+  break-inside: avoid;
+}
