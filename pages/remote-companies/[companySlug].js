@@ -1,5 +1,6 @@
 import React from "react"
 import Head from "next/head"
+import DefaultErrorPage from "next/error"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 import { useRouter } from "next/router"
 
