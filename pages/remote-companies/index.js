@@ -13,17 +13,6 @@ export async function getStaticProps(ctx) {
     return { ...companyData, jobsCount: companyJobsCount }
   })
   companiesArr.sort((a, b) => (a.slug > b.slug ? 1 : b.slug > a.slug ? -1 : 0))
-  // const companiesSortedByLetter = companiesArr.reduce((r, e) => {
-  //   // get first letter of name of current element
-  //   let letter = e.slug[0]
-  //   // if there is no property in accumulator with this letter create it
-  //   if (!r[letter]) r[letter] = { letter, children: [e] }
-  //   // if there is push current element to children array for that letter
-  //   else r[letter].children.push(e)
-  //   // return accumulator
-  //   return r
-  // }, {})
-  // let companiesByLetterArr = Object.values(companiesSortedByLetter)
   return {
     props: {
       companies: companiesArr,

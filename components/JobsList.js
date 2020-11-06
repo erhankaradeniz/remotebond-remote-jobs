@@ -181,7 +181,7 @@ const JobsList = ({
           })}
         </ul>
       </div>
-      {!isPaginated ? (
+      {!isPaginated && slug ? (
         <div className="flex justify-center sm:justify-end px-2 sm:px-0">
           <Link as={slug} href={slug}>
             <a className="inline-flex px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-50 hover:text-blue-700 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200 transition ease-in-out duration-150">{`More ${title} Jobs →`}</a>
