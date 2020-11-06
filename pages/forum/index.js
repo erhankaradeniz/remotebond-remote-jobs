@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
-import Link from "next/link"
 
 import useUser from "../../lib/hooks/useUser"
 import Sidebar from "../../components/forum/Sidebar"

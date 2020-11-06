@@ -146,7 +146,7 @@ const ForumTopicPage = (props) => {
   }
 
   let strippedDescription = topic.content.replace(/(<([^>]+)>)/gi, "")
-  console.log(strippedDescription.substring(0, 110))
+
   return (
     <>
       <NextSeo
