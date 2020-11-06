@@ -1,5 +1,5 @@
 import React from "react"
-import Link from "next/link"
+import Head from "next/head"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
 import { useRouter } from "next/router"
 
