@@ -1,6 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
+import { useRouter } from "next/router"
 
 import { getAllCompaniesOnly, getCompanyBySlug } from "../../lib/company"
 import JobsList from "../../components/JobsList"
@@ -42,6 +43,7 @@ export async function getStaticProps(ctx) {
 }
 
 const RemoteCompaniesIndexPage = (props) => {
+  const router = useRouter()
   const {
     company: { data: company },
     jobs: { data: jobs },

@@ -1,6 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import { NextSeo, BreadcrumbJsonLd } from "next-seo"
+import { useRouter } from "next/router"
 
 import { getAllCompanies } from "../../lib/company"
 
@@ -22,6 +23,7 @@ export async function getStaticProps(ctx) {
 }
 
 const RemoteCompaniesIndexPage = (props) => {
+  const router = useRouter()
   const { companies } = props
   let date = new Date()
   let dateOptions = {
