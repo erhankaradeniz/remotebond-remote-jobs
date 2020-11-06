@@ -3,7 +3,6 @@ import faunadb from "faunadb"
 
 import Slugify from "../../../helpers/slugify"
 import createNewCompany from "../../../lib/company"
-import { black } from "@tailwindcss/ui/colors"
 
 const secret = process.env.FAUNADB_SECRET
 const q = faunadb.query
