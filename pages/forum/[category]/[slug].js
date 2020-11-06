@@ -145,16 +145,18 @@ const ForumTopicPage = (props) => {
     commentResponse.ok && router.reload()
   }
 
+  let strippedDescription = topic.content.replace(/(<([^>]+)>)/gi, "")
+  console.log(strippedDescription.substring(0, 110))
   return (
     <>
       <NextSeo
-        title={`Remotebond Forum a hub for everything related to remote work`}
-        description="The Remotebond Forum is a how-to content hub for all things remote work."
-        canonical={`https://remotebond.com/forum`}
+        title={`${topic.title}`}
+        description={`${strippedDescription.substring(0, 110)}...`}
+        canonical={`https://remotebond.com/forum/${category.slug}/${topic.slug}`}
         openGraph={{
-          url: `https://remotebond.com/forum`,
-          title: `Remotebond Forum a hub for everything related to remote work`,
-          description: `The Remotebond Forum is a how-to content hub for all things remote work.`,
+          url: `https://remotebond.com/forum/${category.slug}/${topic.slug}`,
+          title: `${topic.title}`,
+          description: `${strippedDescription.substring(0, 110)}...`,
         }}
       />
       <BreadcrumbJsonLd
