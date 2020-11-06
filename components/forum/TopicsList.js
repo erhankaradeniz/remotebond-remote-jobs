@@ -90,6 +90,7 @@ const TopicsList = ({ topics }) => {
                                 width={20}
                                 height={20}
                                 className="rounded-full"
+                                alt={`${username} profile on remotebond`}
                               />
                               <span className="ml-1.5">{username}</span>
                             </div>
