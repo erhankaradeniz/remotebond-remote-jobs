@@ -86,7 +86,7 @@ const RemoteCompaniesIndexPage = (props) => {
           )}`}
           canonical={`https://remotebond.com/remote-companies/${company.slug}`}
           openGraph={{
-            url: `https://remotebond.com/remote-companies`,
+            url: `https://remotebond.com/remote-companies/${company.slug}`,
             title: `${company.name} hiring remotely`,
             description: `${company.name} is hiring remotely. ${
               jobs.length
