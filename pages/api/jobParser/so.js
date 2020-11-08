@@ -3,6 +3,7 @@ import faunadb from "faunadb"
 
 import Slugify from "../../../helpers/slugify"
 import createNewCompany from "../../../lib/company"
+import createNewTags from "../../../lib/tag"
 
 const secret = process.env.FAUNADB_SECRET
 const q = faunadb.query
@@ -29,9 +30,10 @@ export default async (req, res) => {
     let feed = await parser.parseURL(feedSource)
     const dayAgo = new Date(Date.now() - 86400000)
 
-    for (let i = 0; i < feed.items.length; i++) {
+    for (let i = 0; i < 100; i++) {
       let listingDate = new Date(feed.items[i].isoDate)
       let isWithinDay = listingDate > dayAgo
+
       // Check for pubDate, don't include listings older than a week.
       if (!!isWithinDay) {
         const randomDigit = Math.floor(100000 + Math.random() * 900000)
@@ -60,13 +62,14 @@ export default async (req, res) => {
         // Write to db
         if (!isDuplicate.data.length) {
           const companyRef = await createNewCompany(companyName)
+          const tagsRefsArr = await createNewTags(feed.items[i].categories)
           await client.query(
             q.Create(q.Collection("jobs"), {
               data: {
                 title: title,
                 guid: guid,
                 description: description,
-                tags: tags,
+                tags: tagsRefsArr,
                 company_name: companyName,
                 company_ref: companyRef.ref,
                 pub_date: pubDate,
