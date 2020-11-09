@@ -1,7 +1,10 @@
 import React from "react"
 import Link from "next/link"
 
+import useUser from "../lib/hooks/useUser"
+
 const Hero = () => {
+  const { user } = useUser()
   return (
     <div id="hero" className="relative overflow-hidden bg-black">
       <div className="max-w-screen-xl relative mx-auto text-center py-12 md:py-28 px-4 sm:px-6 z-10">
@@ -27,16 +30,18 @@ const Hero = () => {
               </a>
             </Link>
           </span>
-          <span className="inline-flex rounded-md">
-            <Link href={`/register`} as={`/register`}>
-              <button
-                type="button"
-                className="inline-flex items-center border-rb-gray-8 px-6 py-3 border border-transparent font-bold text-base leading-6 rounded-md text-rb-gray-3 hover:text-rb-gray-8 hover:bg-white hover:border-white focus:outline-none active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
-              >
-                Register account
-              </button>
-            </Link>
-          </span>
+          {!user?.isLoggedIn && (
+            <span className="inline-flex rounded-md">
+              <Link href={`/register`} as={`/register`}>
+                <button
+                  type="button"
+                  className="inline-flex items-center border-rb-gray-8 px-6 py-3 border border-transparent font-bold text-base leading-6 rounded-md text-rb-gray-3 hover:text-rb-gray-8 hover:bg-white hover:border-white focus:outline-none active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+                >
+                  Register account
+                </button>
+              </Link>
+            </span>
+          )}
         </div>
       </div>
     </div>
