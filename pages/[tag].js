@@ -33,8 +33,10 @@ export async function getStaticPaths() {
 export async function getStaticProps(ctx) {
   const regex = /\-(.*)\-/g
   const tagSlug = regex.exec(ctx.params.tag)
-  const jobs = await getPaginatedJobsByTag(null, null, null, null, tagSlug[1])
-
+  let jobs
+  if (tagSlug) {
+    jobs = await getPaginatedJobsByTag(null, null, null, null, tagSlug[1])
+  }
   if (jobs) {
     const jobsData = JSON.parse(jobs)
     return {
