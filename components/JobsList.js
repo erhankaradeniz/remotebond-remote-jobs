@@ -150,7 +150,8 @@ const JobsList = ({
                             </div>
                           </div>
                           <div className="mt-2 flex items-center text-sm leading-5 sm:mt-0">
-                            {tags_refs && tags_refs.length && (
+                            {/* Temp remove tags, before page crash */}
+                            {/* {tags_refs && tags_refs.length && (
                               <ul className="flex space-x-3">
                                 {tags_refs.map((tag, i) => {
                                   if (i > 2) return
@@ -175,7 +176,7 @@ const JobsList = ({
                                   )
                                 })}
                               </ul>
-                            )}
+                            )} */}
                           </div>
                         </div>
                       </div>
