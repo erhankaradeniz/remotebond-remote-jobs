@@ -1,6 +1,5 @@
 import React from "react"
 import Link from "next/link"
-import ReactTooltip from "react-tooltip"
 
 const JobsList = ({
   title,
@@ -13,9 +12,6 @@ const JobsList = ({
   hasPrevPage,
   hasMoreJobs,
 }) => {
-  const onTagClick = (event) => {
-    event.stopPropagation()
-  }
   return (
     <div className="w-full max-w-screen-xl mx-auto my-12">
       {title && (
@@ -32,17 +28,18 @@ const JobsList = ({
               company_name,
               slug,
               tags,
+              tags_refs,
               company_is_highlighted,
               show_company_logo,
               company_logo_url,
             } = job.data
-            const id = job.ref["@ref"].id
+
+            // const id = job.ref["@ref"].id
             return (
               <li key={idx}>
                 <Link as={`/remote-jobs/${slug}`} href={`/remote-jobs/${slug}`}>
-                  <a
-                    title={`Remote ${title} job at ${company_name}`}
-                    className={`block focus:outline-none  transition duration-150 ease-in-out ${
+                  <div
+                    className={`block focus:outline-none  transition duration-150 ease-in-out hover:cursor-pointer ${
                       idx !== 0 ? "border-t border-gray-200" : ""
                     } ${
                       company_is_highlighted
@@ -81,7 +78,14 @@ const JobsList = ({
                                 : "text-blue-600"
                             }`}
                           >
-                            {`${title}`}
+                            <Link
+                              as={`/remote-jobs/${slug}`}
+                              href={`/remote-jobs/${slug}`}
+                            >
+                              <a
+                                title={`Remote ${title} job at ${company_name}`}
+                              >{`${title}`}</a>
+                            </Link>
                           </div>
                           <div className="mt-2 sm:mt-0 sm:ml-2 flex-shrink-0 flex">
                             {company_is_highlighted && (
@@ -89,7 +93,7 @@ const JobsList = ({
                                 Featured
                               </span>
                             )}
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            <span className="px-2 inline-flex text-xs leading-5 font-normal rounded-full bg-green-100 text-green-800">
                               Allows remote
                             </span>
                           </div>
@@ -145,26 +149,28 @@ const JobsList = ({
                               {location ? location : "Remote"}
                             </div>
                           </div>
-                          <div className="mt-2 flex items-center text-sm leading-5 text-rb-gray-5 sm:mt-0">
-                            {tags.length && (
+                          <div className="mt-2 flex items-center text-sm leading-5 sm:mt-0">
+                            {tags_refs && tags_refs.length && (
                               <ul className="flex space-x-3">
-                                {tags.map((tag, i) => {
+                                {tags_refs.map((tag, i) => {
                                   if (i > 2) return
                                   return (
                                     <li
                                       key={i}
-                                      className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 ${
+                                      className={`inline-flex items-center px-2 py-0.5 rounded text-xs group font-medium leading-4 hover:cursor-pointer ${
                                         company_is_highlighted
                                           ? "bg-yellow-400 text-white hover:bg-yellow-300"
-                                          : "bg-gray-100 text-rb-gray-5 hover:bg-rb-gray-8 hover:text-white"
+                                          : "bg-blue-100 text-white group-hover:bg-blue-600 group-hover:text-white hover:bg-blue-600 hover:text-white"
                                       }`}
                                     >
-                                      <span
-                                        data-tip="React-tooltip"
-                                        onClick={() => onTagClick()}
-                                      >
-                                        {tag}
-                                      </span>
+                                      <Link href={`/remote-${tag.slug}-jobs`}>
+                                        <a
+                                          title={`Filter remote ${tag.name} jobs`}
+                                          className="group-hover:text-white"
+                                        >
+                                          {tag.name}
+                                        </a>
+                                      </Link>
                                     </li>
                                   )
                                 })}
@@ -174,7 +180,7 @@ const JobsList = ({
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </Link>
               </li>
             )
@@ -267,9 +273,6 @@ const JobsList = ({
           </button>
         </div>
       )}
-      <ReactTooltip place="top" type="dark" effect="solid">
-        <span>Filter by tag is not available at this moment.</span>
-      </ReactTooltip>
     </div>
   )
 }

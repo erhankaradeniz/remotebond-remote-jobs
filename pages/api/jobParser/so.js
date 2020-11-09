@@ -30,10 +30,11 @@ export default async (req, res) => {
     let feed = await parser.parseURL(feedSource)
     const dayAgo = new Date(Date.now() - 86400000)
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < feed.items.length; i++) {
       let listingDate = new Date(feed.items[i].isoDate)
       let isWithinDay = listingDate > dayAgo
 
+      // console.log(tagsRefsArr)
       // Check for pubDate, don't include listings older than a week.
       if (!!isWithinDay) {
         const randomDigit = Math.floor(100000 + Math.random() * 900000)
@@ -69,7 +70,8 @@ export default async (req, res) => {
                 title: title,
                 guid: guid,
                 description: description,
-                tags: tagsRefsArr,
+                tags: tags,
+                tags_refs: tagsRefsArr,
                 company_name: companyName,
                 company_ref: companyRef.ref,
                 pub_date: pubDate,
