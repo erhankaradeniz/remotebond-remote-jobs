@@ -42,18 +42,29 @@ export async function getStaticProps(ctx) {
   if (jobs) {
     const jobsData = JSON.parse(jobs)
     const latestRefId = jobsData.after ? jobsData.after[2]["@ref"].id : null
-    const initialPubDate = jobsData.after ? jobsData.after[0] : null
-    const firstPubDate = jobsData.data[0].data.pub_date
-    return {
-      props: {
-        // jobs: jobsData.data,
-        initialData: jobsData,
-        initialAfter: latestRefId,
-        initialPubDate,
-        firstPubDate,
-        slug: tagSlug[1],
-      },
-      revalidate: 1,
+    const initialPubDate = jobsData?.after ? jobsData.after[0] : null
+    const firstPubDate = jobsData?.data[0]?.data.pub_date
+    if (initialPubDate && firstPubDate) {
+      console.log("object")
+      return {
+        props: {
+          // jobs: jobsData.data,
+          initialData: jobsData,
+          initialAfter: latestRefId,
+          initialPubDate,
+          firstPubDate,
+          slug: tagSlug[1],
+        },
+        revalidate: 1,
+      }
+    } else {
+      console.log("Hallo")
+      return {
+        props: {
+          initialData: jobsData,
+          slug: tagSlug[1],
+        },
+      }
     }
   } else {
     return {
@@ -73,7 +84,7 @@ const JobsPage = ({
   initialPubDate,
 }) => {
   const router = useRouter()
-
+  console.log(slug)
   if (router.isFallback) {
     return (
       <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
@@ -106,13 +117,13 @@ const JobsPage = ({
 
     const newJobs = () => {
       if (cursor.isPrevClicked) {
-        return `/api/jobs/prev?key=${cursor.before}&d=${cursor.prevDate}&tag=`
+        return `/api/jobs/prev?key=${cursor.before}&d=${cursor.prevDate}&tag=${slug}`
       }
 
       if (!cursor.date && !cursor.isPrevClicked) {
-        return `/api/jobs/next?tag=`
+        return `/api/jobs/next?tag=${slug}`
       } else {
-        return `/api/jobs/next?key=${cursor.key}&d=${cursor.date}&tag=`
+        return `/api/jobs/next?key=${cursor.key}&d=${cursor.date}&tag=${slug}`
       }
     }
 
@@ -226,7 +237,7 @@ const JobsPage = ({
         </div>
 
         <div className="max-w-screen-xl w-full mx-auto py-10 px-4 sm:px-6">
-          {/* {cursor.page !== 0 && data && data.data && !isLoading ? (
+          {cursor.page !== 0 && data && data.data && !isLoading ? (
             <JobsList
               slug={`remote-${slug}-jobs`}
               jobs={data.data}
@@ -239,10 +250,10 @@ const JobsPage = ({
             />
           ) : cursor.page !== 0 ? (
             <Loader />
-          ) : null} */}
+          ) : null}
 
           {/* Weird hack to have pre-rendered content, useSWR is acting weird with initialData */}
-          {cursor.page === 0 && (
+          {cursor.page === 0 && initialData && (
             <JobsList
               slug={`remote-${slug}-jobs`}
               jobs={initialData.data}
