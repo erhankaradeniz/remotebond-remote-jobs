@@ -13,9 +13,9 @@ import Loader from "../components/Loader"
 export async function getStaticPaths() {
   let tags = await getAllTags()
   console.log(tags)
-  tags.filter((e) => e !== "design" || e !== "Design")
-  tags.filter((e) => e !== "non-tech" || e !== "Non Tech")
-  tags.filter((e) => e || e !== "customer-support")
+  tags.filter((e) => e !== "design")
+  tags.filter((e) => e !== "non-tech")
+  tags.filter((e) => e !== "customer-support")
   if (tags.length) {
     return {
       paths: tags.map((tag) => {
