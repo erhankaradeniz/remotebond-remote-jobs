@@ -28,7 +28,7 @@ export async function getStaticProps(ctx) {
   const initialPubDate = paginatedJobs?.after ? paginatedJobs.after[0] : null
   const firstPubDate = paginatedJobs?.data[0]?.data.pub_date
 
-  if (jobsCount && initialPubDate && firstPubDate) {
+  if (jobsCount) {
     return {
       props: {
         categories: categoriesData,
