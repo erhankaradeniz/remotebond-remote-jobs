@@ -4,6 +4,7 @@ import faunadb from "faunadb"
 
 import Slugify from "../../../helpers/slugify"
 import createNewCompany from "../../../lib/company"
+import createNewTags from "../../../lib/tag"
 
 const secret = process.env.FAUNADB_SECRET
 const q = faunadb.query
@@ -77,6 +78,7 @@ export default async (req, res) => {
         //     // Write to db
         if (!isDuplicate.data.length) {
           const companyRef = await createNewCompany(companyName)
+          const tagsRefsArr = await createNewTags(feed.items[i].categories)
           await client.query(
             q.Create(q.Collection("jobs"), {
               data: {
@@ -84,6 +86,7 @@ export default async (req, res) => {
                 guid: guid,
                 description: description,
                 tags: tags,
+                tags_refs: tagsRefsArr,
                 company_name: companyName,
                 company_ref: companyRef.ref,
                 pub_date: pubDate,
