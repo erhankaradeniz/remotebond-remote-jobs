@@ -192,13 +192,13 @@ const JobsPage = ({
     return (
       <>
         <NextSeo
-          title={``}
-          description={``}
-          canonical={`https://remotebond.com`}
+          title={`Remote ${tagStr} jobs`}
+          description={`The latest and most popular remote ${tagStr} jobs around the web. Jobs included from top remote companies. Find your new ${tagStr} career on Remotebond.`}
+          canonical={`https://remotebond.com/remote-${slug}-jobs`}
           openGraph={{
-            url: `https://remotebond.com`,
-            title: ``,
-            description: ``,
+            url: `https://remotebond.com/remote-${slug}-jobs`,
+            title: `Remote ${tagStr} jobs`,
+            description: `The latest and most popular remote ${tagStr} jobs around the web. Jobs included from top remote companies. Find your new ${tagStr} career on Remotebond.`,
           }}
         />
         <BreadcrumbJsonLd
@@ -210,7 +210,7 @@ const JobsPage = ({
             },
             {
               position: 2,
-              name: `Remote job at`,
+              name: `Remote ${tagStr} jobs`,
             },
           ]}
         />
