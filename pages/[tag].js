@@ -12,12 +12,11 @@ import Loader from "../components/Loader"
 
 export async function getStaticPaths() {
   let tags = await getAllTags()
-  tags.filter((e) => e !== "design" || e !== "Design")
-  tags.filter((e) => e !== "non tech" || e !== "Non Tech")
-  tags.filter((e) => e !== "sales and marketing" || e !== "Sales And Marketing")
-  tags.filter((e) => e !== "customer support" || e !== "Customer Support")
+  console.log(tags)
+  tags.filter((e) => e !== "design")
+  tags.filter((e) => e !== "non-tech")
+  tags.filter((e) => e !== "customer-support")
   if (tags.length) {
-    console.log(tags)
     return {
       paths: tags.map((tag) => {
         const tagSlug = `remote-${tag}-jobs`
