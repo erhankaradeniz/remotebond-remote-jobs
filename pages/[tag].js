@@ -17,7 +17,6 @@ export async function getStaticPaths() {
   tags.filter((e) => e !== "sales and marketing" || e !== "Sales And Marketing")
   tags.filter((e) => e !== "customer support" || e !== "Customer Support")
   if (tags.length) {
-    console.log(tags)
     return {
       paths: tags.map((tag) => {
         const tagSlug = `remote-${tag}-jobs`
