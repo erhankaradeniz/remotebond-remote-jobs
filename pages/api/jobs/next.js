@@ -1,18 +1,38 @@
 import { getPaginatedSoftwareDevJobs } from "../../../lib/softwareDevJobs"
+import { getPaginatedJobsByTag } from "../../../lib/tag"
 
 export default async (req, res) => {
-  let nextPage, pubDate
+  let nextPage, pubDate, tag
   if (req.query) {
     nextPage = req.query.key
     pubDate = req.query.d
+    tag = req.query.tag
   }
   if (req.method === "GET") {
     let paginatedJobsFetch
     if (nextPage && pubDate) {
-      paginatedJobsFetch = await getPaginatedSoftwareDevJobs(
-        nextPage,
-        pubDate,
-        false
+      if (tag) {
+        paginatedJobsFetch = await getPaginatedJobsByTag(
+          nextPage,
+          pubDate,
+          false,
+          null,
+          tag
+        )
+      } else {
+        paginatedJobsFetch = await getPaginatedSoftwareDevJobs(
+          nextPage,
+          pubDate,
+          false
+        )
+      }
+    } else if (tag) {
+      paginatedJobsFetch = await getPaginatedJobsByTag(
+        null,
+        null,
+        null,
+        null,
+        tag
       )
     } else {
       paginatedJobsFetch = await getPaginatedSoftwareDevJobs()

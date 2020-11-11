@@ -2,6 +2,7 @@ import React from "react"
 
 import getAllJobs from "../lib/jobs"
 import { getAllCompaniesOnly } from "../lib/company"
+import { getAllTags } from "../lib/tag"
 
 const createSitemap = (
   jobs,
@@ -74,6 +75,21 @@ const createSitemap = (
             <lastmod>${new Date().toISOString()}</lastmod>
         </url>
         ${
+          tags.length &&
+          tags
+            .map((tag) => {
+              return `
+                    <url>
+                        <loc>${`https://remotebond.com/remote-${tag}-jobs`}</loc>
+                        <changefreq>hourly</changefreq>
+                        <priority>0.9</priority>
+                        <lastmod>${new Date().toISOString()}</lastmod>
+                    </url>
+                `
+            })
+            .join("")
+        }
+        ${
           jobs.length &&
           jobs
             .map((job) => {
@@ -113,8 +129,17 @@ class Sitemap extends React.Component {
   static async getInitialProps({ res }) {
     const jobs = await getAllJobs()
     const companies = await getAllCompaniesOnly()
+
+    let tags = await getAllTags()
+    tags.filter((e) => e !== "design" || e !== "Design")
+    tags.filter((e) => e !== "non tech" || e !== "Non Tech")
+    tags.filter(
+      (e) => e !== "sales and marketing" || e !== "Sales And Marketing"
+    )
+    tags.filter((e) => e !== "customer support" || e !== "Customer Support")
+
     res.setHeader("Content-Type", "text/xml")
-    res.write(createSitemap(jobs, companies))
+    res.write(createSitemap(jobs, companies, tags))
     res.end()
   }
 }

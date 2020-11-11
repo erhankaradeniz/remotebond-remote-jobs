@@ -25,8 +25,8 @@ export async function getStaticProps(ctx) {
   const latestRefId = paginatedJobs.after
     ? paginatedJobs.after[2]["@ref"].id
     : null
-  const initialPubDate = paginatedJobs.after ? paginatedJobs.after[0] : null
-  const firstPubDate = paginatedJobs.data[0].data.pub_date
+  const initialPubDate = paginatedJobs?.after ? paginatedJobs.after[0] : null
+  const firstPubDate = paginatedJobs?.data[0]?.data.pub_date
 
   if (jobsCount) {
     return {
@@ -188,7 +188,7 @@ const RemoteDesignJobs = ({
       </div>
 
       {/* Filters  */}
-      <FilterBar categories={categories.data} />
+      {categories && <FilterBar categories={categories.data} />}
 
       {cursor.page !== 0 && data && data.data && !isLoading ? (
         <JobsList
@@ -206,7 +206,7 @@ const RemoteDesignJobs = ({
       ) : null}
 
       {/* Weird hack to have pre-rendered content, useSWR is acting weird with initialData */}
-      {cursor.page === 0 && (
+      {cursor.page === 0 && initialData && (
         <JobsList
           slug="remote-non-tech-jobs"
           jobs={initialData.data}

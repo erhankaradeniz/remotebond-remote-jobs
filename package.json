@@ -26,7 +26,6 @@
     "react-mailchimp-subscribe": "^2.1.0",
     "react-quill": "^1.3.5",
     "react-time-ago": "^6.2.0",
-    "react-tooltip": "^4.2.9",
     "request": "^2.88.2",
     "rss-parser": "^3.9.0",
     "stripe": "^8.107.0",

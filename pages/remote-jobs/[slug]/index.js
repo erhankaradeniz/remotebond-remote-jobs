@@ -35,13 +35,22 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(ctx) {
   const job = await getJobBySlug(ctx.params.slug)
-  const jobData = JSON.parse(job)
-  return {
-    props: {
-      job: jobData.data,
-      slug: ctx.params.slug,
-    },
-    revalidate: 1,
+  if (job) {
+    const jobData = JSON.parse(job)
+    return {
+      props: {
+        job: jobData.data,
+        slug: ctx.params.slug,
+      },
+      revalidate: 1,
+    }
+  } else {
+    return {
+      props: {
+        job: null,
+        slug: null,
+      },
+    }
   }
 }
 
