@@ -35,8 +35,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(ctx) {
   const job = await getJobBySlug(ctx.params.slug)
-  console.log(job)
-
   if (job) {
     const jobData = JSON.parse(job)
     return {

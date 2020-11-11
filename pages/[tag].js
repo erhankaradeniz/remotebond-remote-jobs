@@ -45,7 +45,6 @@ export async function getStaticProps(ctx) {
     const initialPubDate = jobsData?.after ? jobsData.after[0] : null
     const firstPubDate = jobsData?.data[0]?.data.pub_date
     if (initialPubDate && firstPubDate) {
-      console.log("object")
       return {
         props: {
           // jobs: jobsData.data,
@@ -58,7 +57,6 @@ export async function getStaticProps(ctx) {
         revalidate: 1,
       }
     } else {
-      console.log("Hallo")
       return {
         props: {
           initialData: jobsData,
@@ -84,7 +82,6 @@ const JobsPage = ({
   initialPubDate,
 }) => {
   const router = useRouter()
-  console.log(slug)
   if (router.isFallback) {
     return (
       <div className="max-w-screen-xl mx-auto py-10 px-4 sm:px-6">
@@ -135,7 +132,6 @@ const JobsPage = ({
       year: "numeric",
       month: "long",
     }
-    console.log(data)
     const loadMoreJobs = () => {
       setCursor({
         key: data.after[2]

@@ -14,7 +14,6 @@ export default async (req, res) => {
 
     // const { paymentIntentId } = await parseCookies({ req })
     // const cookie = await parseCookies({ req })
-    // console.log(cookie)
     if (paymentIntentId) {
       const { amount } = await stripe.paymentIntents.retrieve(paymentIntentId)
       switch (PACKAGE_TYPE) {

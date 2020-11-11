@@ -34,7 +34,6 @@ export default async (req, res) => {
       let listingDate = new Date(feed.items[i].isoDate)
       let isWithinDay = listingDate > dayAgo
 
-      // console.log(tagsRefsArr)
       // Check for pubDate, don't include listings older than a week.
       if (!!isWithinDay) {
         const randomDigit = Math.floor(100000 + Math.random() * 900000)
