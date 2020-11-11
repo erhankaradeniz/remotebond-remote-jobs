@@ -11,7 +11,11 @@ import JobsList from "../components/JobsList"
 import Loader from "../components/Loader"
 
 export async function getStaticPaths() {
-  const tags = await getAllTags()
+  let tags = await getAllTags()
+  tags.filter((e) => e !== "design" || e !== "Design")
+  tags.filter((e) => e !== "non tech" || e !== "Non Tech")
+  tags.filter((e) => e !== "sales and marketing" || e !== "Sales And Marketing")
+  tags.filter((e) => e !== "customer support" || e !== "Customer Support")
   if (tags.length) {
     return {
       paths: tags.map((tag) => {
