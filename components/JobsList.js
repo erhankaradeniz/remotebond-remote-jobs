@@ -150,7 +150,6 @@ const JobsList = ({
                             </div>
                           </div>
                           <div className="mt-2 flex items-center text-sm leading-5 sm:mt-0">
-                            {console.log(tags)}
                             {/* Temp remove tags, before page crash */}
                             {tags_refs && tags_refs.length && (
                               <ul className="flex space-x-3">
