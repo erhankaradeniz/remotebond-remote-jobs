@@ -11,7 +11,7 @@ const FilterBar = ({ categories }) => {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto flex justify-center px-4 sm:px-6">
+    <div className="max-w-screen-xl w-full mx-auto flex justify-center px-4 sm:px-6">
       <span className="relative z-0 shadow-sm rounded-md hidden sm:inline-flex">
         <Link as={"/"} href={"/"}>
           <a
@@ -49,13 +49,15 @@ const FilterBar = ({ categories }) => {
         })}
       </span>
       <div className="block sm:hidden w-full">
-        <label htmlFor="category"></label>
+        <label htmlFor="category" className="block text-sm text-center">
+          Select Category
+        </label>
         <select
           defaultValue={`${currentPath}`}
           onChange={onDropdownChange}
           id="category"
           name="category"
-          className="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+          className="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-2 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
         >
           <option value={`/`}>All</option>
           {categories.map((category, idx) => {
