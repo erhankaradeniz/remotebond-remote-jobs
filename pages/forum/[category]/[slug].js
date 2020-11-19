@@ -14,13 +14,20 @@ import CommentEditor from "../../../components/forum/CommentEditor"
 export async function getStaticProps(ctx) {
   // Forum related calls
   const topic = await getTopicBySlug(ctx.params.slug)
-  const topicData = JSON.parse(topic)
-
-  return {
-    props: {
-      topic: topicData,
-    },
-    revalidate: 1,
+  const notFound = !topic
+  if (!notFound) {
+    const topicData = JSON.parse(topic)
+    return {
+      props: {
+        topic: topicData,
+      },
+      revalidate: 1,
+    }
+  } else {
+    return {
+      props: {},
+      notFound,
+    }
   }
 }
 
