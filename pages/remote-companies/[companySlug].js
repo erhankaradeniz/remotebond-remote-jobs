@@ -33,13 +33,21 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(ctx) {
   const company = await getCompanyBySlug(ctx.params.companySlug)
-  let companyData = JSON.parse(company)
-  return {
-    props: {
-      company: companyData.company,
-      jobs: companyData.jobs,
-    },
-    revalidate: 1,
+  const notFound = !company
+  if (!notFound) {
+    let companyData = JSON.parse(company)
+    return {
+      props: {
+        company: companyData.company,
+        jobs: companyData.jobs,
+      },
+      revalidate: 1,
+    }
+  } else {
+    return {
+      props: {},
+      notFound,
+    }
   }
 }
 
