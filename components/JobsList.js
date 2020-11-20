@@ -72,17 +72,18 @@ const JobsList = ({
                       <div className="flex-1">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                           <div
-                            className={`text-sm leading-5 font-medium w-full break-all sm:truncate ${
-                              company_is_highlighted
-                                ? "text-yellow-800"
-                                : "text-blue-600"
-                            }`}
+                            className={`text-sm leading-5 font-medium w-full break-all sm:truncate`}
                           >
                             <Link
                               as={`/remote-jobs/${slug}`}
                               href={`/remote-jobs/${slug}`}
                             >
                               <a
+                                className={`${
+                                  company_is_highlighted
+                                    ? "text-yellow-800"
+                                    : "text-blue-600"
+                                }`}
                                 title={`Remote ${title} job at ${company_name}`}
                               >{`${title}`}</a>
                             </Link>
@@ -160,14 +161,18 @@ const JobsList = ({
                                       key={i}
                                       className={`inline-flex items-center px-2 py-0.5 rounded text-xs group font-medium leading-4 hover:cursor-pointer ${
                                         company_is_highlighted
-                                          ? "bg-yellow-400 text-white hover:bg-yellow-300"
-                                          : "bg-blue-100 text-white group-hover:bg-blue-600 group-hover:text-white hover:bg-blue-600 hover:text-white"
+                                          ? "bg-yellow-400 hover:bg-yellow-300"
+                                          : "bg-blue-100 group-hover:bg-blue-600 group-hover:text-white hover:bg-blue-600 hover:text-white"
                                       }`}
                                     >
                                       <Link href={`/remote-${tag.slug}-jobs`}>
                                         <a
                                           title={`Filter remote ${tag.name} jobs`}
-                                          className="group-hover:text-white"
+                                          className={`${
+                                            company_is_highlighted
+                                              ? "text-white group-hover:text-yellow-800"
+                                              : null
+                                          } group-hover:text-white`}
                                         >
                                           {tag.name}
                                         </a>
