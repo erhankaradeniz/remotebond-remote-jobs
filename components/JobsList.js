@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "next/link"
+import Image from "next/image"
 
 const JobsList = ({
   title,
@@ -33,7 +34,14 @@ const JobsList = ({
               show_company_logo,
               company_logo_url,
             } = job.data
-
+            // We have to strip the first part from url
+            let stripped_company_logo_url
+            if (company_logo_url) {
+              stripped_company_logo_url = company_logo_url.replace(
+                "https://res.cloudinary.com/remotebond/image/upload",
+                ""
+              )
+            }
             // const id = job.ref["@ref"].id
             return (
               <li key={idx}>
@@ -50,19 +58,25 @@ const JobsList = ({
                     <div className="px-4 py-4 sm:px-6 flex">
                       <div className="w-auto">
                         <div
-                          className={`h-12 md:h-full w-12 rounded-sm text-center font-extrabold mr-4 pt-3 relative overflow-hidden ${
+                          className={`h-12 w-12 rounded-sm font-extrabold mr-4 flex items-center justify-center relative overflow-hidden ${
                             company_is_highlighted
                               ? "bg-yellow-400 text-white"
                               : "bg-gray-100 text-gray-500"
                           }`}
                         >
                           {show_company_logo ? (
-                            <img
-                              className="absolute inset-0 object-cover h-full w-full"
-                              src={company_logo_url}
+                            <Image
+                              src={stripped_company_logo_url}
+                              width={48}
+                              height={48}
                               alt={`Remote ${title} job at ${company_name}`}
                             />
                           ) : (
+                            // <img
+                            //   className="absolute inset-0 object-cover h-full w-full"
+                            //   src={company_logo_url}
+
+                            // />
                             <span className="uppercase">
                               {company_name.charAt(0)}
                             </span>
@@ -81,7 +95,7 @@ const JobsList = ({
                               <a
                                 className={`${
                                   company_is_highlighted
-                                    ? "text-yellow-800"
+                                    ? "text-yellow-800 hover:text-yellow-700"
                                     : "text-blue-600"
                                 }`}
                                 title={`Remote ${title} job at ${company_name}`}
