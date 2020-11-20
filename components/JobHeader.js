@@ -1,6 +1,13 @@
 import React from "react"
 
-const JobHeader = ({ title, workingHours, company, applyUrl, location }) => {
+const JobHeader = ({
+  title,
+  workingHours,
+  company,
+  applyUrl,
+  location,
+  isEmail,
+}) => {
   return (
     <div className="bg-black">
       <div className="max-w-screen-xl mx-auto py-4 px-4 sm:px-6">
@@ -74,25 +81,47 @@ const JobHeader = ({ title, workingHours, company, applyUrl, location }) => {
           </div>
           <div className="mt-5 flex lg:mt-0 lg:ml-4 pb-4">
             <span className="shadow-sm rounded-md">
-              <a
-                href={`${applyUrl}?utm_source=remotebond.com&ref=remotebond.com`}
-                rel="nofollow, noindex, noreferrer"
-                target="_blank"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-5 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-rb-green-7 active:bg-rb-green-7 transition duration-150 ease-in-out"
-              >
-                <svg
-                  className="-ml-1 mr-2 h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+              {!isEmail ? (
+                <a
+                  href={`${applyUrl}?utm_source=remotebond.com&ref=remotebond.com`}
+                  rel="nofollow, noindex, noreferrer"
+                  target="_blank"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-5 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-rb-green-7 active:bg-rb-green-7 transition duration-150 ease-in-out"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                Apply now
-              </a>
+                  <svg
+                    className="-ml-1 mr-2 h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Apply now
+                </a>
+              ) : (
+                <a
+                  href={`mailto:${applyUrl}?subject=Application for ${title} via Remotebond`}
+                  rel="nofollow, noindex, noreferrer"
+                  target="_blank"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-5 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-rb-green-7 active:bg-rb-green-7 transition duration-150 ease-in-out"
+                >
+                  <svg
+                    className="-ml-1 mr-2 h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Apply now
+                </a>
+              )}
             </span>
           </div>
         </div>

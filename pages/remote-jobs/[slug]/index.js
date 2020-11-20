@@ -141,6 +141,7 @@ const JobsPage = ({ job, slug }) => {
         company={job.company_name}
         applyUrl={job.apply_url}
         location={job.location}
+        isEmail={isEmail}
       />
 
       <Breadcrumbs jobTitle={job.title} category={job.primary_category} />
