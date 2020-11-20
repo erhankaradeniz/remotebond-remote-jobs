@@ -83,7 +83,7 @@ const IndexPage = (props) => {
       {/* Posting group */}
       <JobsList
         title="Software Development"
-        slug="remote-dev-jobs"
+        slug="/remote-dev-jobs"
         jobs={softwareDevJobs}
       />
 
@@ -100,18 +100,18 @@ const IndexPage = (props) => {
 
       <JobsList
         title="Customer Support"
-        slug="remote-customer-support-jobs"
+        slug="/remote-customer-support-jobs"
         jobs={customerSupportJobs}
       />
       <JobsList
         title="Sales & Marketing"
-        slug="remote-sales-marketing-jobs"
+        slug="/remote-sales-marketing-jobs"
         jobs={salesMarketingJobs}
       />
-      <JobsList title="Design" slug="remote-design-jobs" jobs={designJobs} />
+      <JobsList title="Design" slug="/remote-design-jobs" jobs={designJobs} />
       <JobsList
         title="Non Tech"
-        slug="remote-non-tech-jobs"
+        slug="/remote-non-tech-jobs"
         jobs={nonTechJobs}
       />
     </>
