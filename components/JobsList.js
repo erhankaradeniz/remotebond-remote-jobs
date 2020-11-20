@@ -72,11 +72,6 @@ const JobsList = ({
                               alt={`Remote ${title} job at ${company_name}`}
                             />
                           ) : (
-                            // <img
-                            //   className="absolute inset-0 object-cover h-full w-full"
-                            //   src={company_logo_url}
-
-                            // />
                             <span className="uppercase">
                               {company_name.charAt(0)}
                             </span>
