@@ -24,7 +24,11 @@ const Hero = () => {
         </h3>
         <div className="flex justify-center items-center mt-8 space-y-4 sm:space-y-0 sm:space-x-4 flex-col sm:flex-row">
           <span className="inline-flex rounded-md shadow-sm">
-            <Link href={`/hire-remotely`} as={`/hire-remotely`}>
+            <Link
+              href={`/hire-remotely`}
+              as={`/hire-remotely`}
+              prefetch={false}
+            >
               <a className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-bold rounded-md text-white bg-rb-green-6 hover:bg-rb-green-5 hover:text-white focus:outline-none focus:border-rb-green-7 focus:shadow-outline-blue active:bg-rb-green-7 transition ease-in-out duration-150">
                 Post a job for $25
               </a>

@@ -58,7 +58,11 @@ const Footer = () => {
           </div>
           <div className="w-full md:w-1/4 text-left mt-4 md:text-right">
             <span className="inline-flex rounded-md shadow-sm">
-              <Link href={`/hire-remotely`} as={`/hire-remotely`}>
+              <Link
+                href={`/hire-remotely`}
+                as={`/hire-remotely`}
+                prefetch={false}
+              >
                 <a className="inline-flex items-center px-6 py-3 border border-transparent text-base leading-4 font-bold rounded-md text-white bg-blue-600 hover:bg-blue-500 hover:text-white focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
                   Post a job
                 </a>
