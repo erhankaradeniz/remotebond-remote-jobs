@@ -166,7 +166,7 @@ const HeaderNew = () => {
                   Remote companies
                 </a>
               </Link>
-              <Link href={`/forum`} as={`/forum`}>
+              <Link href={`/forum`} as={`/forum`} prefetch={false}>
                 <a
                   className={`${
                     currentPath === "/forum"
@@ -331,7 +331,7 @@ const HeaderNew = () => {
               Remote companies
             </a>
           </Link>
-          <Link href={`/forum`} as={`/forum`}>
+          <Link href={`/forum`} as={`/forum`} prefetch={false}>
             <a
               className={`${
                 currentPath === "/forum"

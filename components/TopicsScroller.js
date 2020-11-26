@@ -25,6 +25,7 @@ const TopicsScroller = ({ topics }) => {
                     <Link
                       as={`/forum/${category_slug}/${slug}`}
                       href={`/forum/${category_slug}/${slug}`}
+                      prefetch={false}
                     >
                       <a
                         title={title}
