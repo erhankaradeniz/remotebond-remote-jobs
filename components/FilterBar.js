@@ -30,6 +30,7 @@ const FilterBar = ({ categories }) => {
               key={idx}
               as={`/${category.data.slug}`}
               href={`/${category.data.slug}`}
+              prefetch={false}
             >
               <a
                 className={`${
