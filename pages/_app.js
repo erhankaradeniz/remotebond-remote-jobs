@@ -33,7 +33,7 @@ const App = ({ Component, pageProps }) => {
         title="Remotebond - Remote jobs in Software Development, Sales and more"
         description="Looking for a remote job? Hire Remote! Remotebond has thousands of remote work jobs as a Developer, Designer, Customer Support Rep, Sales Professional, Marketing Professional, Project Manager and more!"
       />
-      <GoogleFonts href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" />
+      <GoogleFonts href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;&display=swap" />
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
