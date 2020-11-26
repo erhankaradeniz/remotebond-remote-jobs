@@ -75,7 +75,7 @@ const HeaderNew = () => {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
               {/* Normal Logo  */}
-              <Link href={`/`} as={`/`}>
+              <Link href={`/`} as={`/`} prefetch={false}>
                 <a title="Return to homepage">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +94,7 @@ const HeaderNew = () => {
                 </a>
               </Link>
               {/* Logo small */}
-              <Link href={`/`} as={`/`}>
+              <Link href={`/`} as={`/`} prefetch={false}>
                 <a title="Return to homepage">
                   <svg
                     width="264px"
@@ -414,7 +414,7 @@ const HeaderNew = () => {
             </>
           ) : (
             <div>
-              <Link href={`/register`} as={`/register`}>
+              <Link href={`/register`} as={`/register`} prefetch={false}>
                 <a className="flex mx-4 sm:mx-6 justify-center items-center px-4 py-3 border border-transparent text-base leading-4 font-bold rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 hover:text-white transition ease-in-out duration-150">
                   Register
                 </a>
