@@ -142,7 +142,7 @@ const HeaderNew = () => {
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex">
-              <Link href={`/remote-jobs`} as={`/remote-jobs`}>
+              <Link href={`/remote-jobs`} as={`/remote-jobs`} prefetch={false}>
                 <a
                   className={`${
                     currentPath === "/remote-jobs"
@@ -154,7 +154,11 @@ const HeaderNew = () => {
                   Remote jobs
                 </a>
               </Link>
-              <Link href={`/remote-companies`} as={`/remote-companies`}>
+              <Link
+                href={`/remote-companies`}
+                as={`/remote-companies`}
+                prefetch={false}
+              >
                 <a
                   className={`${
                     currentPath === "/remote-companies"
@@ -181,6 +185,7 @@ const HeaderNew = () => {
               <Link
                 href={`/frequently-asked-questions`}
                 as={`/frequently-asked-questions`}
+                prefetch={false}
               >
                 <a
                   className={`${
@@ -229,7 +234,7 @@ const HeaderNew = () => {
                   )}
                 </button>
               ) : (
-                <Link href="/login">
+                <Link href="/login" prefetch={false}>
                   <a className="text-rb-gray-5 hover:text-blue-500">Sign in</a>
                 </Link>
               )}
@@ -256,6 +261,7 @@ const HeaderNew = () => {
                         <Link
                           href={`/u/${user.username}`}
                           as={`/u/${user.username}`}
+                          prefetch={false}
                         >
                           <a
                             className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
@@ -264,7 +270,11 @@ const HeaderNew = () => {
                             Your Profile
                           </a>
                         </Link>
-                        <Link href={`/my/settings`} as={`/my/settings`}>
+                        <Link
+                          href={`/my/settings`}
+                          as={`/my/settings`}
+                          prefetch={false}
+                        >
                           <a
                             className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                             role="menuitem"
@@ -307,7 +317,7 @@ const HeaderNew = () => {
   --> */}
       <div className={`${isMobileMenuOpen ? "block" : "hidden"} sm:hidden`}>
         <div className="pt-2 pb-4">
-          <Link href={`/remote-jobs`} as={`/remote-jobs`}>
+          <Link href={`/remote-jobs`} as={`/remote-jobs`} prefetch={false}>
             <a
               title="Remote jobs on Remotebond"
               className={`${
@@ -319,7 +329,11 @@ const HeaderNew = () => {
               Remote jobs
             </a>
           </Link>
-          <Link href={`/remote-companies`} as={`/remote-companies`}>
+          <Link
+            href={`/remote-companies`}
+            as={`/remote-companies`}
+            prefetch={false}
+          >
             <a
               title="Remote companies on Remotebond"
               className={`${
@@ -345,6 +359,7 @@ const HeaderNew = () => {
           <Link
             href={`/frequently-asked-questions`}
             as={`/frequently-asked-questions`}
+            prefetch={false}
           >
             <a
               className={`${
@@ -394,12 +409,20 @@ const HeaderNew = () => {
                 </div>
               </div>
               <div className="mt-3">
-                <Link href={`/u/${user.username}`} as={`/u/${user.username}`}>
+                <Link
+                  href={`/u/${user.username}`}
+                  as={`/u/${user.username}`}
+                  prefetch={false}
+                >
                   <a className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6">
                     Your Profile
                   </a>
                 </Link>
-                <Link href={`/my/settings`} as={`/my/settings`}>
+                <Link
+                  href={`/my/settings`}
+                  as={`/my/settings`}
+                  prefetch={false}
+                >
                   <a className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out sm:px-6">
                     Settings
                   </a>

@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="bg-black text-white py-10">
         <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row py-4 px-4 sm:px-6">
           <div className="w-full md:w-4/3">
-            <Link href={`/`}>
+            <Link href={`/`} prefetch={false}>
               <a title="Return to RemoteBond homepage" className="flex">
                 <span className="flex items-center text-white mr-2 w-36">
                   <svg
