@@ -1,5 +1,3 @@
-const { fontFamily } = require("tailwindcss/defaultTheme")
-
 module.exports = {
   purge: ["./pages/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   darkMode: false,
@@ -24,9 +22,6 @@ module.exports = {
         "rb-green-5": "#1FCC6D",
         "rb-green-6": "#06B354",
         "rb-green-7": "#00993A",
-      },
-      fontFamily: {
-        sans: ['"Inter"', ...fontFamily.sans],
       },
       boxShadow: {
         default: "0px 1px 2px rgba(0, 0, 0, 0.20)",

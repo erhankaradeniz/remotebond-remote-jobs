@@ -64,7 +64,7 @@ Yellow: #FDDC2D
 LightGray: #C9CACE */
 
 body {
-  @apply text-rb-gray-8;
+  @apply text-rb-gray-8 font-sans;
 }
 #__next {
   @apply flex flex-col min-h-screen;
