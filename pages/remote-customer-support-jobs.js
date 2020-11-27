@@ -167,9 +167,30 @@ const RemoteCustomerSupportPage = ({
       />
       <div className="relative overflow-hidden bg-black mb-12">
         <div className="max-w-screen-xl mx-auto text-center py-6 md:py-12 px-4 sm:px-6">
-          <h1 className="text-white font-black text-2xl md:text-4xl my-4">
-            Remote Customer Support Jobs
-          </h1>
+          <div className="flex items-center justify-center">
+            <h1 className="text-white font-black text-2xl md:text-4xl my-4">
+              Remote Customer Support Jobs
+            </h1>
+            <a
+              href={`https://remotebond.com/remote-customer-support-jobs.rss`}
+              className="inline-block w-5 h-5 text-white bg-orange-400 rounded-md p-px ml-3 hover:text-white"
+              title={`Remote Customer Support Jobs RSS Feed`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"
+                />
+              </svg>
+            </a>
+          </div>
           <h2 className="text-base md:text-xl text-rb-gray-4 w-3/4 mx-auto">
             Browse {jobsCount} Remote Customer Support jobs in{" "}
             {date.toLocaleDateString("en-EN", dateOptions)}
