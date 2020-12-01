@@ -14,11 +14,11 @@ class AppDocument extends Document {
   }
 
   render() {
-    let csp = `default-src 'self' data: https://js.stripe.com www.google-analytics.com https://res.cloudinary.com/remotebond/; script-src 'self' https://remotebond.us2.list-manage.com/ https://js.stripe.com www.google-analytics.com ${cspHashOf(
+    let csp = `default-src 'self' data: https://js.stripe.com https://www.googletagmanager.com/ www.google-analytics.com https://res.cloudinary.com/remotebond/; script-src 'self' https://www.googletagmanager.com/ https://remotebond.us2.list-manage.com/ https://js.stripe.com www.google-analytics.com ${cspHashOf(
       NextScript.getInlineScriptSource(this.props)
     )}`
     if (process.env.NODE_ENV !== "production") {
-      csp = `style-src 'self' 'unsafe-inline'; font-src 'self' data:; default-src 'self' data: https://js.stripe.com www.google-analytics.com https://res.cloudinary.com/remotebond/; script-src 'unsafe-eval' 'self' https://remotebond.us2.list-manage.com/ https://js.stripe.com www.google-analytics.com ${cspHashOf(
+      csp = `style-src 'self' 'unsafe-inline'; font-src 'self' data:; default-src 'self' data: https://www.googletagmanager.com/ https://js.stripe.com www.google-analytics.com https://res.cloudinary.com/remotebond/; script-src 'unsafe-eval' 'self' https://www.googletagmanager.com/ https://remotebond.us2.list-manage.com/ https://js.stripe.com www.google-analytics.com ${cspHashOf(
         NextScript.getInlineScriptSource(this.props)
       )}`
     }
