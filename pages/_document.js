@@ -1,5 +1,12 @@
+import crypto from "crypto"
 import Document, { Html, Head, Main, NextScript } from "next/document"
 import { GA_TRACKING_ID } from "../lib/gtag"
+
+const cspHashOf = (text) => {
+  const hash = crypto.createHash("sha256")
+  hash.update(text)
+  return `'sha256-${hash.digest("base64")}'`
+}
 class AppDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
@@ -7,6 +14,15 @@ class AppDocument extends Document {
   }
 
   render() {
+    let csp = `default-src 'self' data: https://js.stripe.com www.google-analytics.com https://res.cloudinary.com/remotebond/; script-src 'self' https://remotebond.us2.list-manage.com/ https://js.stripe.com www.google-analytics.com ${cspHashOf(
+      NextScript.getInlineScriptSource(this.props)
+    )}`
+    if (process.env.NODE_ENV !== "production") {
+      csp = `style-src 'self' 'unsafe-inline'; font-src 'self' data:; default-src 'self' data: https://js.stripe.com www.google-analytics.com https://res.cloudinary.com/remotebond/; script-src 'unsafe-eval' 'self' https://remotebond.us2.list-manage.com/ https://js.stripe.com www.google-analytics.com ${cspHashOf(
+        NextScript.getInlineScriptSource(this.props)
+      )}`
+    }
+
     return (
       <Html lang="en">
         <Head>
@@ -33,6 +49,7 @@ class AppDocument extends Document {
           `,
             }}
           />
+          <meta httpEquiv="Content-Security-Policy" content={csp} />
         </Head>
         <body className="antialiased">
           <Main />
