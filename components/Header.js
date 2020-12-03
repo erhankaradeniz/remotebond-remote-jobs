@@ -59,7 +59,7 @@ const HeaderNew = () => {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 32 32"
-                    className="block xl:hidden h-8 w-auto"
+                    className="block xl:hidden h-8 w-auto mt-1"
                   >
                     <g fill="none" fillRule="evenodd">
                       <rect fill="#1C64F2" width="32" height="32" rx="4" />
@@ -133,39 +133,36 @@ const HeaderNew = () => {
             </div>
           </div>
 
-          <div class="flex-grow flex items-center justify-center px-2 ml-4 xl:ml-6 xl:justify-end">
-            <div class="max-w-lg w-full xl:max-w-xs">
-              <label for="search" class="sr-only">
+          <div className="flex-grow flex items-center justify-center px-2 ml-4 xl:ml-6 xl:justify-end">
+            <div className="max-w-lg w-full xl:max-w-xs">
+              <label htmlFor="searchq" className="sr-only">
                 Search
               </label>
-              <div class="mt-1 flex rounded-md shadow-sm">
-                <div class="relative flex items-stretch flex-grow focus-within:z-10">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <div className="mt-1 flex">
+                <div className="relative flex items-stretch flex-grow focus-within:z-10">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg
-                      class="h-5 w-5 text-gray-400"
+                      className="h-5 w-5 text-gray-400"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       aria-hidden="true"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       />
                     </svg>
                   </div>
                   <input
                     type="text"
-                    name="email"
-                    id="email"
-                    class="focus:ring-blue-500 focus:border-blue-500 block w-full rounded-none rounded-l-md py-2 pl-10 sm:text-sm border-gray-300"
+                    name="searchq"
+                    id="searchq"
+                    className="border focus:ring-blue-500 focus:border-blue-500 block w-full rounded-md shadow-sm py-2 pl-10 sm:text-sm border-gray-300"
                     placeholder="Search for job titles"
                   />
                 </div>
-                {/* <button class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-                  <span>Search</span>
-                </button> */}
               </div>
             </div>
           </div>
