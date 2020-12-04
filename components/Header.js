@@ -34,7 +34,7 @@ const HeaderNew = () => {
     let query = searchQuery
       .replace(/[\"\'~`!@#$%^&()_={}[\]:;,.<>+\/?-]+|\d+|^\s+$/g, "")
       .replace(/\s+/gi, " ")
-    router.push(`/search/${query.toLowerCase()}`)
+    router.push(`/search/${query}`)
   }
 
   const emptyQuery = () => {

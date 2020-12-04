@@ -8,7 +8,9 @@ import JobsList from "../../components/JobsList"
 
 export async function getServerSideProps(ctx) {
   const { query } = ctx.query
-  const jobsQuery = await searchJobsByTitle(query)
+  const lowerCasedQuery = query.toLowerCase()
+
+  const jobsQuery = await searchJobsByTitle(lowerCasedQuery)
   const jobs = JSON.parse(jobsQuery)
   if (!jobs.data) {
     return {
