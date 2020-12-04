@@ -10,6 +10,7 @@ const HeaderNew = () => {
   const { user, mutateUser } = useUser()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
 
   const router = useRouter()
   const currentPath = router.pathname
@@ -28,58 +29,30 @@ const HeaderNew = () => {
     router.push("/login")
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    searchQuery
+      .replace(/[\"\'~`!@#$%^&()_={}[\]:;,.<>+\/?-]+|\d+|^\s+$/g, "")
+      .replace(/\s+/gi, " ")
+    router.push(`/search/${searchQuery}`)
+  }
+
+  const emptyQuery = () => {
+    setSearchQuery("")
+  }
+
   return (
     <nav className="bg-white shadow z-20">
-      <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 xl:px-8">
         <div className="relative flex justify-between h-16">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            {/* <!-- Mobile menu button --> */}
-            <button
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-              aria-label="Main menu"
-              aria-expanded="false"
-              onClick={toggleMobileMenu}
-            >
-              {/* <!-- Icon when menu is closed. --> */}
-              <svg
-                className={`${isMobileMenuOpen ? "hidden" : "block"} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              {/* <!-- Icon when menu is open. -->*/}
-              <svg
-                className={`${isMobileMenuOpen ? "block" : "hidden"} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+          <div className="flex-grow-0 xl:flex-auto flex items-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
               {/* Normal Logo  */}
               <Link href={`/`} as={`/`} prefetch={false}>
                 <a title="Return to homepage">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="hidden lg:block h-4 w-auto"
+                    className="hidden xl:block h-4 w-auto"
                     viewBox="0 0 415 54"
                   >
                     <g fill="none" fillRule="evenodd">
@@ -97,51 +70,23 @@ const HeaderNew = () => {
               <Link href={`/`} as={`/`} prefetch={false}>
                 <a title="Return to homepage">
                   <svg
-                    width="264px"
-                    height="264px"
-                    viewBox="0 0 264 264"
-                    version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="block lg:hidden h-8 w-auto"
+                    viewBox="0 0 32 32"
+                    className="block xl:hidden h-8 w-auto mt-1 text-blue-600"
                   >
-                    <g
-                      id="Page-1"
-                      stroke="none"
-                      strokeWidth="1"
-                      fill="none"
-                      fillRule="evenodd"
-                    >
-                      <g
-                        id="Desktop-HD"
-                        transform="translate(-44.000000, -691.000000)"
-                      >
-                        <g
-                          id="Group"
-                          transform="translate(44.000000, 691.000000)"
-                        >
-                          <rect
-                            id="Rectangle"
-                            fill="#3C99F7"
-                            x="0"
-                            y="0"
-                            width="264"
-                            height="264"
-                            rx="12"
-                          ></rect>
-                          <path
-                            d="M101.59375,186.090909 L81.9914773,146.034091 L67.7159091,146.034091 L67.7159091,186.090909 L43,186.090909 L43,77 L84.9744318,77 C97.8651213,77 107.621771,80.0184357 114.244673,86.0553977 C120.867576,92.0923597 124.178977,100.437447 124.178977,111.090909 C124.178977,118.72589 122.50996,125.002461 119.171875,129.92081 C115.83379,134.839158 111.590225,138.70098 106.441051,141.506392 L128.653409,186.090909 L101.59375,186.090909 Z M67.7159091,97.4545455 L67.7159091,125.792614 L84.9744318,125.792614 C89.3423514,125.792614 92.8845745,124.647384 95.6012074,122.356889 C98.3178403,120.066395 99.6761364,116.524172 99.6761364,111.730114 C99.6761364,107.04259 98.3444735,103.491489 95.681108,101.076705 C93.0177424,98.6619197 89.448886,97.4545455 84.9744318,97.4545455 L67.7159091,97.4545455 Z M179.576705,77 C192.786998,77 202.623547,79.7876142 209.086648,85.3629261 C215.549748,90.9382381 218.78125,98.0937063 218.78125,106.829545 C218.78125,112.653438 217.272032,117.571713 214.253551,121.584517 C211.23507,125.597321 206.352306,128.296158 199.605114,129.681108 L199.605114,130.480114 C206.103726,131.332391 211.279455,134.120005 215.132457,138.84304 C218.98546,143.566075 220.911932,149.443147 220.911932,156.474432 C220.911932,165.316806 217.698186,172.463396 211.270597,177.914418 C204.843008,183.365439 195.556879,186.090909 183.411932,186.090909 L138.667614,186.090909 L138.667614,77 L179.576705,77 Z M182.346591,139.428977 L163.383523,139.428977 L163.383523,165.636364 L181.494318,165.636364 C186.821049,165.636364 190.673994,164.526645 193.053267,162.307173 C195.43254,160.087702 196.622159,157.007122 196.622159,153.065341 C196.622159,149.336629 195.521318,146.131761 193.319602,143.450639 C191.117887,140.769518 187.460253,139.428977 182.346591,139.428977 L182.346591,139.428977 Z M178.9375,97.4545455 L163.383523,97.4545455 L163.383523,122.383523 L177.446023,122.383523 C183.411962,122.383523 187.708794,121.398092 190.336648,119.427202 C192.964502,117.456311 194.278409,114.393487 194.278409,110.238636 C194.278409,108.036921 193.843399,105.959527 192.973366,104.006392 C192.103334,102.053257 190.558605,100.473017 188.339134,99.265625 C186.119662,98.0582326 182.985816,97.4545455 178.9375,97.4545455 Z"
-                            id="RB"
-                            fill="#FFFFFF"
-                            fillRule="nonzero"
-                          ></path>
-                        </g>
-                      </g>
+                    <g fill="none" fillRule="evenodd">
+                      <rect fill="currentColor" width="32" height="32" rx="4" />
+                      <path
+                        d="M12.36 22.095l-2.351-4.756H8.297v4.756H5.333V9.143h5.033c1.546 0 2.716.358 3.51 1.075.794.717 1.191 1.708 1.191 2.972 0 .907-.2 1.652-.6 2.236-.4.584-.909 1.043-1.526 1.376l2.663 5.293h-3.245zM8.296 11.571v3.365h2.07c.523 0 .948-.136 1.274-.408.325-.272.488-.692.488-1.262 0-.556-.16-.978-.479-1.265-.32-.286-.747-.43-1.284-.43H8.297zM21.71 9.143c1.584 0 2.764.33 3.539.993.775.662 1.162 1.511 1.162 2.549 0 .691-.18 1.275-.543 1.751-.362.477-.947.797-1.756.962v.095c.779.1 1.4.432 1.862.992.462.561.693 1.259.693 2.094 0 1.05-.386 1.898-1.156 2.545-.771.648-1.885.971-3.34.971h-5.366V9.143h4.905zm.332 7.412h-2.274v3.112h2.172c.639 0 1.1-.132 1.386-.396.285-.263.428-.629.428-1.097a1.73 1.73 0 00-.396-1.141c-.264-.319-.703-.478-1.316-.478zm-.408-4.984h-1.866v2.96h1.687c.715 0 1.23-.117 1.545-.35.316-.235.473-.598.473-1.092 0-.261-.052-.508-.156-.74-.105-.232-.29-.42-.556-.563-.266-.143-.642-.215-1.127-.215z"
+                        fill="#FFF"
+                        fillRule="nonzero"
+                      />
                     </g>
                   </svg>
                 </a>
               </Link>
             </div>
-            <div className="hidden sm:ml-6 sm:flex">
+            <div className="hidden md:ml-6 xl:flex">
               <Link href={`/remote-jobs`} as={`/remote-jobs`} prefetch={false}>
                 <a
                   className={`${
@@ -200,9 +145,68 @@ const HeaderNew = () => {
               </Link>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+
+          <div className="flex-grow flex items-center justify-center px-2 ml-4 xl:ml-6 xl:justify-end">
+            <div className="max-w-lg w-full xl:max-w-xs">
+              <label htmlFor="searchq" className="sr-only">
+                Search
+              </label>
+              <div className="mt-1 flex">
+                <div className="relative flex items-stretch flex-grow focus-within:z-10">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <form onSubmit={handleSubmit} className="w-full">
+                    <input
+                      type="text"
+                      name="searchq"
+                      id="searchq"
+                      className="border focus:ring-blue-500 focus:border-blue-500 block w-full rounded-md shadow-sm py-2 pl-10 sm:text-sm border-gray-300"
+                      placeholder="Search for job titles"
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      value={searchQuery}
+                    />
+                  </form>
+                  {searchQuery && (
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                      <button onClick={emptyQuery}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          className="h-5 w-5 text-gray-400 hover:text-blue-600"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center">
             {/* <!-- Profile dropdown --> */}
-            <div className="ml-3 relative hidden sm:block z-20">
+            <div className="ml-3 relative hidden xl:block z-20">
               {user?.isLoggedIn ? (
                 <button
                   className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
@@ -295,7 +299,7 @@ const HeaderNew = () => {
                 </div>
               </Transition>
             </div>
-            <span className="inline-flex rounded-md shadow-sm ml-3">
+            <span className="hidden xl:inline-flex rounded-md shadow-sm ml-3">
               <Link
                 href={`/hire-remotely`}
                 as={`/hire-remotely`}
@@ -306,6 +310,47 @@ const HeaderNew = () => {
                 </a>
               </Link>
             </span>
+
+            <div className="flex items-center xl:hidden">
+              {/* <!-- Mobile menu button --> */}
+              <button
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                aria-label="Main menu"
+                aria-expanded="false"
+                onClick={toggleMobileMenu}
+              >
+                {/* <!-- Icon when menu is closed. --> */}
+                <svg
+                  className={`${isMobileMenuOpen ? "hidden" : "block"} h-6 w-6`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+                {/* <!-- Icon when menu is open. -->*/}
+                <svg
+                  className={`${isMobileMenuOpen ? "block" : "hidden"} h-6 w-6`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -315,7 +360,7 @@ const HeaderNew = () => {
 
     Menu open: "block", Menu closed: "hidden"
   --> */}
-      <div className={`${isMobileMenuOpen ? "block" : "hidden"} sm:hidden`}>
+      <div className={`${isMobileMenuOpen ? "block" : "hidden"} xl:hidden`}>
         <div className="pt-2 pb-4">
           <Link href={`/remote-jobs`} as={`/remote-jobs`} prefetch={false}>
             <a
