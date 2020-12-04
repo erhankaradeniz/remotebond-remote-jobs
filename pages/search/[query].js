@@ -35,13 +35,13 @@ const SearchJobPage = ({ result, q }) => {
   return (
     <>
       <NextSeo
-        title={`Remote software developer / programming jobs`}
-        description="The latest and most popular remote software developer / programming jobs around the web. Jobs included from top remote companies. Find your new software developer / programming career on Remotebond."
-        canonical={`https://remotebond.com/remote-dev-jobs`}
+        title={`Remote ${q} jobs`}
+        description={`The latest and most popular remote ${q} jobs around the web. Jobs included from top remote companies. Find your new ${q} career on Remotebond.`}
+        canonical={`https://remotebond.com/search/${q}`}
         openGraph={{
-          url: `https://remotebond.com/remote-dev-jobs`,
-          title: `Remote software developer / programming jobs`,
-          description: `The latest and most popular remote software developer / programming jobs around the web. Jobs included from top remote companies. Find your new software developer / programming career on Remotebond.`,
+          url: `https://remotebond.com/search/${q}`,
+          title: `Remote ${q} jobs`,
+          description: `The latest and most popular remote ${q} jobs around the web. Jobs included from top remote companies. Find your new ${q} career on Remotebond.`,
         }}
       />
       <BreadcrumbJsonLd
@@ -53,7 +53,7 @@ const SearchJobPage = ({ result, q }) => {
           },
           {
             position: 2,
-            name: "Remote Software Developer / Programming jobs",
+            name: `Remote ${q} jobs`,
           },
         ]}
       />
