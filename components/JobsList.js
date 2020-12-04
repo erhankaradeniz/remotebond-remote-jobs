@@ -16,27 +16,29 @@ const JobsList = ({
   return (
     <div className="w-full max-w-screen-xl mx-auto my-12">
       {title && (
-        <h2 className="text-xl flex justify-center font-black mb-4 text-gray-700 items-center">
+        <h2 className="text-xl flex justify-center font-black mb-4 capitalize text-gray-700 items-center">
           {`${title} Jobs`}
-          <a
-            href={`https://remotebond.com${slug}.rss`}
-            className="inline-block w-5 h-5 text-white bg-orange-400 rounded-md p-px ml-3 hover:text-white"
-            title={`Remote ${title} Jobs RSS Feed`}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          {slug && (
+            <a
+              href={`https://remotebond.com${slug}.rss`}
+              className="inline-block w-5 h-5 text-white bg-orange-400 rounded-md p-px ml-3 hover:text-white"
+              title={`Remote ${title} Jobs RSS Feed`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"
-              />
-            </svg>
-          </a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"
+                />
+              </svg>
+            </a>
+          )}
         </h2>
       )}
       <div className="bg-white shadow overflow-hidden sm:rounded-md mb-4">

@@ -10,6 +10,7 @@ const HeaderNew = () => {
   const { user, mutateUser } = useUser()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
 
   const router = useRouter()
   const currentPath = router.pathname
@@ -26,6 +27,18 @@ const HeaderNew = () => {
     toggleDropdown()
     await mutateUser(fetchJson("/api/logout"))
     router.push("/login")
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    searchQuery
+      .replace(/[\"\'~`!@#$%^&()_={}[\]:;,.<>+\/?-]+|\d+|^\s+$/g, "")
+      .replace(/\s+/gi, " ")
+    router.push(`/search/${searchQuery}`)
+  }
+
+  const emptyQuery = () => {
+    setSearchQuery("")
   }
 
   return (
@@ -59,10 +72,10 @@ const HeaderNew = () => {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 32 32"
-                    className="block xl:hidden h-8 w-auto mt-1"
+                    className="block xl:hidden h-8 w-auto mt-1 text-blue-600"
                   >
                     <g fill="none" fillRule="evenodd">
-                      <rect fill="#1C64F2" width="32" height="32" rx="4" />
+                      <rect fill="currentColor" width="32" height="32" rx="4" />
                       <path
                         d="M12.36 22.095l-2.351-4.756H8.297v4.756H5.333V9.143h5.033c1.546 0 2.716.358 3.51 1.075.794.717 1.191 1.708 1.191 2.972 0 .907-.2 1.652-.6 2.236-.4.584-.909 1.043-1.526 1.376l2.663 5.293h-3.245zM8.296 11.571v3.365h2.07c.523 0 .948-.136 1.274-.408.325-.272.488-.692.488-1.262 0-.556-.16-.978-.479-1.265-.32-.286-.747-.43-1.284-.43H8.297zM21.71 9.143c1.584 0 2.764.33 3.539.993.775.662 1.162 1.511 1.162 2.549 0 .691-.18 1.275-.543 1.751-.362.477-.947.797-1.756.962v.095c.779.1 1.4.432 1.862.992.462.561.693 1.259.693 2.094 0 1.05-.386 1.898-1.156 2.545-.771.648-1.885.971-3.34.971h-5.366V9.143h4.905zm.332 7.412h-2.274v3.112h2.172c.639 0 1.1-.132 1.386-.396.285-.263.428-.629.428-1.097a1.73 1.73 0 00-.396-1.141c-.264-.319-.703-.478-1.316-.478zm-.408-4.984h-1.866v2.96h1.687c.715 0 1.23-.117 1.545-.35.316-.235.473-.598.473-1.092 0-.261-.052-.508-.156-.74-.105-.232-.29-.42-.556-.563-.266-.143-.642-.215-1.127-.215z"
                         fill="#FFF"
@@ -155,13 +168,37 @@ const HeaderNew = () => {
                       />
                     </svg>
                   </div>
-                  <input
-                    type="text"
-                    name="searchq"
-                    id="searchq"
-                    className="border focus:ring-blue-500 focus:border-blue-500 block w-full rounded-md shadow-sm py-2 pl-10 sm:text-sm border-gray-300"
-                    placeholder="Search for job titles"
-                  />
+                  <form onSubmit={handleSubmit} className="w-full">
+                    <input
+                      type="text"
+                      name="searchq"
+                      id="searchq"
+                      className="border focus:ring-blue-500 focus:border-blue-500 block w-full rounded-md shadow-sm py-2 pl-10 sm:text-sm border-gray-300"
+                      placeholder="Search for job titles"
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      value={searchQuery}
+                    />
+                  </form>
+                  {searchQuery && (
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                      <button onClick={emptyQuery}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          className="h-5 w-5 text-gray-400 hover:text-blue-600"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
