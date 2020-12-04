@@ -31,10 +31,10 @@ const HeaderNew = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    searchQuery
+    let query = searchQuery
       .replace(/[\"\'~`!@#$%^&()_={}[\]:;,.<>+\/?-]+|\d+|^\s+$/g, "")
       .replace(/\s+/gi, " ")
-    router.push(`/search/${searchQuery}`)
+    router.push(`/search/${query.toLowerCase()}`)
   }
 
   const emptyQuery = () => {
