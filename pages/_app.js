@@ -1,13 +1,11 @@
 import React, { useEffect } from "react"
 import Head from "next/head"
-import { SWRConfig } from "swr"
 import NextNprogress from "nextjs-progressbar"
 import { DefaultSeo, NextSeo } from "next-seo"
 import { useRouter } from "next/router"
 
 import SEO from "../next-seo.config"
 
-import fetch from "../lib/fetch"
 import * as gtag from "../lib/gtag"
 
 import Layout from "../components/Layout"
@@ -75,19 +73,10 @@ const App = ({ Component, pageProps }) => {
           }}
         ></script>
       </Head>
-      <SWRConfig
-        value={{
-          fetcher: fetch,
-          onError: (err) => {
-            console.error(err)
-          },
-        }}
-      >
-        <Layout user={pageProps.user}>
-          <Component {...pageProps} />
-          <NextNprogress color="#1c64f2" options={{ showSpinner: false }} />
-        </Layout>
-      </SWRConfig>
+      <Layout>
+        <Component {...pageProps} />
+        <NextNprogress color="#1c64f2" options={{ showSpinner: false }} />
+      </Layout>
     </>
   )
 }
