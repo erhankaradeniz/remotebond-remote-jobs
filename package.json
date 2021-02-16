@@ -1,0 +1,45 @@
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@headlessui/react": "^0.2.0",
+    "@stripe/react-stripe-js": "^1.1.2",
+    "@stripe/stripe-js": "^1.9.0",
+    "cheerio": "^1.0.0-rc.3",
+    "cloudinary": "^1.23.0",
+    "faunadb": "^3.0.1",
+    "formidable-serverless": "^1.0.3",
+    "googleapis": "^59.0.0",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^10.0.2",
+    "next-iron-session": "^4.1.9",
+    "next-seo": "^4.17.0",
+    "nextjs-progressbar": "^0.0.6",
+    "nookies": "^2.4.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-hook-form": "^6.9.0",
+    "react-mailchimp-subscribe": "^2.1.0",
+    "react-quill": "^1.3.5",
+    "react-time-ago": "^6.2.0",
+    "request": "^2.88.2",
+    "rss-parser": "^3.9.0",
+    "stripe": "^8.107.0",
+    "swr": "^0.3.2",
+    "uid-generator": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.5",
+    "@fullhuman/postcss-purgecss": "^3.0.0",
+    "@tailwindcss/typography": "^0.2.0",
+    "@tailwindcss/ui": "^0.5.0",
+    "autoprefixer": "^10.0.2",
+    "postcss": "^8.1.7",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.1.1",
+    "tailwindcss": "^2.0.1"
+  }
+}

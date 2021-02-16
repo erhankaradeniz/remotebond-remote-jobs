@@ -1,0 +1,99 @@
+/* purgecss start ignore */
+@tailwind base;
+.jobDescription__container > br, .jobDescription__container ul > br, .jobDescription__container ul > li > br {
+  display: none;
+}
+.ql-editor {
+  min-height: 18em;
+}
+.ql-container.ql-snow { border: none !important;}
+.ql-toolbar.ql-snow {
+  border: none !important;
+  border-bottom: 1px solid #e6e6e6 !important;
+}
+svg#loader {
+  -webkit-transform-origin: 50% 65%;
+          transform-origin: 50% 65%;
+}
+
+svg#loader rect {
+  stroke-dasharray: 40;
+  -webkit-animation: dash 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) infinite;
+          animation: dash 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) infinite;
+}
+
+@-webkit-keyframes dash {
+  to {
+    stroke-dashoffset: 160;
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 160;
+  }
+}
+@-webkit-keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+/* purgecss end ignore */
+
+@tailwind components;
+@tailwind utilities;
+
+/* Colors
+AlmostBlack: #2A2A32
+DarkGray: #3C362A
+MediumGray: #5E5E66
+Green: #1FCC6D
+Orange: #FB6B2A
+Red: #F25A50
+Magenta: #E94C89
+Blue: #3C99F7
+Yellow: #FDDC2D
+LightGray: #C9CACE */
+
+body {
+  @apply text-rb-gray-8 font-sans;
+}
+#__next {
+  @apply flex flex-col min-h-screen;
+}
+
+.overflow-scrollbar-0::-webkit-scrollbar {
+    width: 0px;
+    height:0px;
+    background: transparent; /* Chrome/Safari/Webkit */
+}
+
+.overflow-scrollbar-0 {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+a {
+  @apply text-blue-600;
+  transition: color 125ms ease-in-out
+}
+a:hover {
+  @apply text-blue-500;
+}
+
+.jobDescription__container br + br { display: none; }
+.topic_questionContainer > p {
+  line-height: 1.5rem;
+  margin-bottom: 0.5em;
+}
+.break-inside {
+  break-inside: avoid;
+}
